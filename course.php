@@ -92,7 +92,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
     function cargar_plantilla_personalizada($template) {
         // Verifica si es una solicitud de página y si es la página específica donde deseas usar la plantilla
         if (is_page('cursos-sinapsis')) {
-            $plugin_template = dirname(__FILE__) .'\..\..\themes\mi_template\index.php';
+            $plugin_template = dirname(__FILE__) .'/../../themes/mi_template/index.php';
             return $plugin_template;
         }
         return $template;
