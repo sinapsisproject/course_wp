@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+p{
+  font-family: 'Lato', sans-serif !important;
+}
+a{
+  font-family: 'Lato', sans-serif !important;
+}
+h2{
+  font-family: 'Lato', sans-serif !important;
+}
+
+
+button{
+  background: #445AFF !important;
+  color: white !important;
+  border-width: 0px !important;
+}
+.button-programa-platform{
+  background: #445AFF !important;
+  color: white !important;
+  border-width: 0px !important;
+}
+
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 59px;
+    left: 0;
+    /* background-color: red; */
+    overflow-x: hidden;
+    transition: 0.5s;
+    border-right-color: #d9d1d1;
+    border-right-width: 1px;
+    border-right-style: solid;
+  }
+  
+  .sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+  /* Estilos para el botón de abrir el sidebar */
+  .openbtn {
+    /* font-size: 20px;
+    cursor: pointer;
+    background-color:black;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+
+    border-radius: 30px;
+    position: relative;
+    left: -35px;
+    z-index: 999; */
+
+  }
+  
+  .openbtn:hover {
+    background-color: #444;
+  }
+  
+  /* Estilos para el contenido */
+  .contenido {
+    padding: 16px;
+    transition: margin-left 0.5s; /* Agregar transición al desplazamiento del contenido */
+  }
+
+
+
+  .header-bar{
+    border-bottom-color: #d9d1d1;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    margin: 0px !important;
+  }
+  .header-bar img{
+    width: 123px;
+    padding: 10px;
+  }
+
+  .link-leccion-direction{
+    color : #445AFF !important;
+  }
+
+.button-sideba-modulo{
+    /* border-bottom-color: #d9d1d1;
+    border-bottom-width: 1px;
+    border-bottom-style: solid; */
+}
+
+  .button-sidebar{
+    border-bottom-color: #d9d1d1;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    display: flex;
+  }
+  .text-sidebar-modulo{
+    color: #272838;
+    font-size: 1em;
+    font-weight: 400;
+    padding-left: 20px;
+    padding-top: 30px;
+    margin-bottom: 0px !important;
+    padding-bottom: 2px;
+    font-family: var(--bs-body-font-family);
+    line-height: 1.5;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .text-sidebar{
+    color: #495255;
+    font-size: 1em;
+    font-weight: 400;
+    padding-left: 8px;
+    padding-right: 10px;
+    padding-top: 10px;
+    margin-bottom: 0px !important;
+    padding-bottom: 10px;
+    font-family: var(--bs-body-font-family);
+    line-height: 1.3;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .text-sidebar:hover{
+    color : #445AFF !important;
+  }
+
+  .icon-check{
+    position: relative;
+    top: 10px;
+    margin-left: 10px;
+  }
+
+  .box-title-course{
+    background: #445AFF;
+    cursor: pointer;
+  }
+
+
+  .box-title-course{
+    display: flex;
+  }
+  .icon-course-title{
+    width: 40px;
+    position: relative;
+    top: 18px;
+    left: 15px;
+    color: white;
+  }
+  .title-course{
+    line-height: 1.3;
+    padding: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+  }
+
+  .content-description{
+    line-height: 1.2;
+    text-align: justify;
+  }
+  .button-big-screen{
+    background: #445AFF !important;
+    border-color: #445AFF !important;
+    border-radius: 30px;
+    width: 176px;
+  }
+
+  .box-cuestionario-platform{
+  
+  }
+
+  .head-box-cuestionario-platform{
+    background: #445AFF;
+    color: white;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    padding: 10px;
+  }
+
+  .head-box-cuestionario-platform h3{
+    margin-left: 15px;
+  }
+
+  .body-box-cuestionario-platform{
+    padding-top: 20px;
+    border-style: groove;
+  }
+
+  .box-alternative-platform{
+    display: inline-flex;
+  }
+
+  .box-question-response{
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 30px;
+  }
+ 

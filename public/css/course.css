@@ -1,0 +1,113 @@
+.title-course-free{
+    color: #445AFF !important;
+    font-family: Lato;
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.3; /* 151.111% */
+    text-transform: uppercase;
+}
+.title-price{
+    color: #445AFF !important;
+    margin-left: 40px;
+}
+
+
+.blue-box-content-course{
+    background: #445AFF;
+    padding: 50px;
+    padding-top: 20px;
+    color: white;
+    border-radius: 16px;
+    height: 500px;
+}
+
+.blue-box-content-course h3{
+    color: white !important;
+}
+
+.button-download-content-complete{
+    background: white !important;
+    color: #445AFF !important;
+}
+
+.content-course-data{
+    border-radius: 16px;
+    position: relative;
+    margin-top: -290px;
+    background: white;
+}
+
+.box-item-accordeon{
+    margin: 25px;
+    display: inline-flex;
+}
+
+.text-title-header-accordeon{
+    color: #272838;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.button-show-accordeon-course{
+    font-size: 32px;
+    color: #445AFF;
+    padding-top: 16px;
+}
+
+.content-course-data-item{
+    border-radius: 16px; 
+    background: white;
+    margin: 30px;
+}
+.text-accordeon-body{
+    color: #272838;
+    font-family: Lato;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.link_descarga_programa-box{
+    border-radius: 10px;
+    padding: 12px;
+}
+
+
+.content-course-data-user-register{
+    border-radius: 16px;
+    position: relative;
+    background: white;
+}
+
+.text-title-header-accordeon-user-register{
+    color: #272838;
+    font-family: Lato;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.button-show-accordeon-course-user-register{
+    font-size: 23px;
+    color: #445AFF;
+    padding-top: 16px;
+}
+
+.box-course-for-user-register{
+    filter: blur(5px);
+}
+
+.box-button-register-pay{
+    position: absolute;
+    z-index: 999;
+    top: 50%;
+}
