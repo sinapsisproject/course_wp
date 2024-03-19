@@ -24,7 +24,7 @@
                 
                 <h5 class="card-title mb-3">{$curso->nombre}</h5>
                 <p class="card-text">{$curso->descripcion_corta}</p>
-                <button class="more-info-course btn btn-primary">Más información  <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button>
+                <a href="/curso/?curso={$curso->id}"><button style="width: 100%;" type="button" class="more-info-course btn btn-primary">Más información  <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button></a>
             </div>
         </div>
 
