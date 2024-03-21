@@ -1,3 +1,5 @@
+var timer = new Timer();
+
 jQuery(document).ready( function(){
 
     jQuery("#sidebar").css("width", "300px");
@@ -16,7 +18,6 @@ jQuery(document).ready( function(){
             jQuery("#contenido").css("margin-left", "0");
         }
 
-
     });
 
 })
@@ -28,10 +29,48 @@ function showClass(attr){
 }
 
 
-function showClassQuestions(attr){
+function showClassQuestions(attr, c , id_test){
+
+
     //jQuery('[id^="show_questions"]').css("display", "none");
     jQuery("#"+attr).fadeIn();
+
+
+    
+    timer.start({precision: 'seconds', startValues: {seconds: 90}, target: {seconds: 120}});
+    
+    jQuery('#startValuesAndTargetExample .values').html(timer.getTimeValues().toString());
+    
+    timer.addEventListener('secondsUpdated', function (e) {
+        jQuery('#startValuesAndTargetExample .values').html(timer.getTimeValues().toString());
+        // jQuery('#startValuesAndTargetExample .progress_bar').html(jQuery('#startValuesAndTargetExample .progress_bar').html() + '.');
+    });
+    
+    timer.addEventListener('targetAchieved', function (e) {
+       // jQuery('#startValuesAndTargetExample .progress_bar').html('COMPLETE!!');
+
+       
+       Swal.fire({
+        icon: "warning",
+        title: "Tiempo terminado",
+        text: "Se enviarán tus respuesta",
+        confirmButtonText: "Enviar",
+        didClose: () => {
+                response_form_test(c , id_test);
+        },
+        })
+
+    });
+   
 }
+
+
+function actualizarCronometro() {
+    document.getElementById("cronometro").innerHTML = timer.getTimeValues().toString();
+}
+
+
+
 
 
 function saveResponseQuestionForo(id_usuario, id_pregunta, nombre_usuario, n_item ){
@@ -161,3 +200,88 @@ function saveQuestionForo(id_foro , id_usuario, nombre_usuario, n_item){
     }
 
 }
+
+
+
+function response_form_test(c , id_test){
+
+    timer.stop();
+    jQuery("#button_send_response_cues_"+c).attr("disabled" , true);
+    jQuery("#loading_response_cuestionary_"+c).css("display" , "inline-block");
+
+    var respuesta = [];
+    
+    jQuery(".pregunta_"+c).each(function(index) {
+        var id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
+
+        respuesta.push({"id_respuesta" : id_respuesta});
+    });
+
+    data = {
+        "respuestas" : respuesta,
+        "id_test"    : id_test
+    }
+    
+    jQuery.ajax({
+        type : "post",
+        url : wp_ajax_sinapsis_platform.ajax_url_response_questionary,
+        data : data,
+        error: function(response){
+            console.log(response);
+        },
+        success: function(res) {
+            
+            jQuery("#loading_response_cuestionary_"+c).css("display" , "none");
+
+            if(res.status == true){
+
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Respuestas enviadas",
+                    confirmButtonText: "Corregir",
+                    didClose: () => {
+                        
+                        if(res.response.correccion){
+                            Object.values(res.response.correccion).forEach(element => {
+                                if(element.opcion == "correcta"){
+                                    jQuery("#label_alternative_"+element['id']).css('color' , '#18db18');
+                                }
+                                if(element.opcion == "incorrecta"){
+                                    jQuery("#label_alternative_"+element['id']).css('color' , '#ff3333');
+                                }
+                            })
+                        }
+
+
+                        Object.values(res.response.justificacion).forEach(element =>{
+                            jQuery("#box-justified-question_"+element['id']).html(element['justificacion']);
+                            jQuery("#justificacion-block_"+element['id']).fadeIn();
+                        });
+
+
+                    },
+                    });
+                
+
+            }else{
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    footer: 'Contacta a soporte'
+                  });
+            }
+           
+        },
+        beforeSend: function (qXHR, settings) {
+            //jQuery('#loading_response_foro_'+id_pregunta).fadeIn();
+        },
+        complete: function () {
+            //jQuery('#loading_response_foro_'+id_pregunta).fadeOut();
+        },
+    })
+
+
+
+}
+

@@ -41,6 +41,17 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         //     rand(0, 99)
         // );
 
+        
+        wp_enqueue_script(
+            'easytimer-sinapsis',
+            'https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js',
+            array('jquery'),
+            rand(0, 100),
+            false
+        );
+
+
+
         wp_enqueue_style( 
             'fontawesome-sinapsis',
             plugins_url( '/public/assets/fontawesome/css/all.min.css', __FILE__ ),
@@ -55,6 +66,9 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
             rand(0, 99),
             true
             );
+
+        
+        
 
         wp_enqueue_style( 
             'css-platform-sinapsis',
@@ -81,8 +95,9 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
             'courses-platform',
             'wp_ajax_sinapsis_platform',
             array(
-                'ajax_url_foro_response' => plugins_url( '/public/foro_response.php' , __FILE__ ),
-                'ajax_url_foro_question' => plugins_url( '/public/foro_question.php' , __FILE__ )
+                'ajax_url_foro_response'        => plugins_url( '/public/foro_response.php' , __FILE__ ),
+                'ajax_url_foro_question'        => plugins_url( '/public/foro_question.php' , __FILE__ ),
+                'ajax_url_response_questionary' => plugins_url( '/public/response_questionary.php' , __FILE__ )
             )
         );
 

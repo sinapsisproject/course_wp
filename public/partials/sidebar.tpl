@@ -1,4 +1,3 @@
-
 <div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
     <img src="{$logo}" alt="" >
@@ -6,8 +5,17 @@
   <div  class="col-4 mt-3">
     <a class="link-leccion-direction" href="">Lección anterior</a>
   </div>
-  <div  class="col-4 mt-3">
-  <a class="link-leccion-direction" href="">Lección siguiente</a>
+  <div  class="col-4">
+
+    <div class="row">
+      <div class="col-6 mt-3">
+        <a class="link-leccion-direction" href="">Lección siguiente</a>
+      </div> 
+      <div class="col-6 text-end" id="startValuesAndTargetExample">
+          <h1 style="margin: 0px;" class="values"></h1>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -198,6 +206,7 @@
       
     {/if}
 
+
     {if $content->tipo == 'cuestionario'}
 
     <div class="row justify-content-center">
@@ -205,6 +214,7 @@
       <div class="col-8">
 
       <div style="display: none" id="show_cuestionario_{$c++}">
+
         <div><h2>{$content->nombre}</h2></div>
 
         <div class="row">
@@ -221,7 +231,7 @@
                 <p>Iniciar {$content->nombre}</p>
               </div>
               <div class="col-2 text-end">
-                <button onclick="showClassQuestions('show_questions_{$c}')" type="button" style="position: relative; top: -7px;">Iniciar</button>
+                <button onclick="showClassQuestions('show_questions_{$c}' , {$c} , {$content->id})" type="button" style="position: relative; top: -7px;">Iniciar</button>
               </div>
             </div>
           </div>
@@ -231,22 +241,31 @@
 
               {$i = 1}
               {foreach $content->pregunta as $question}
-              <div class="col-12 mb-5">
+              <div class="col-12 mb-5 pregunta_{$c}">
                 
                 <strong class="mt-5"><p>Pregunta {$i}:</p></strong>
                 <p>{$question->pregunta}</p>
 
                 <strong class="mt-2"><p>Alternativas</p></strong>
-                {foreach $question->alternativas as $alternative}
+                
+                  {foreach $question->alternativas as $alternative}
 
-                  <div class="form-check mt-4">
-                    <input class="form-check-input" type="radio" name="response_cues_{$question->id}" id="response_cues_{$question->id}">
-                    <label class="form-check-label">
-                      {$alternative->alternativa}
-                    </label>
+                    <div class="form-check mt-4">
+                      <input class="form-check-input" type="radio" name="response_cues_{$question->id}" value="{$alternative->id}" id="response_cues_{$question->id}">
+                      <label id="label_alternative_{$alternative->id}" class="form-check-label">
+                        {$alternative->alternativa}
+                      </label>
+                    </div>
+
+                  {/foreach}
+
+                  <div id="justificacion-block_{$question->id}" class="col-12 mt-5" style="display: none;">
+                    <h4>Justificación</h4>
+                    <div class="box-justified-question shadow">
+                     <div id="box-justified-question_{$question->id}"></div>
+                    </div>
                   </div>
-
-                {/foreach}
+                
 
                 <p style="display: none;">{$i++}</p> 
               </div>
@@ -255,7 +274,12 @@
 
 
               <div class="box-button_send_response_cues col-12">
-                <button class="button_send_response_cues" type="button">Enviar</button>
+                <button id="button_send_response_cues_{$c}" onclick="response_form_test({$c} , {$content->id});" class="button_send_response_cues" type="button">
+                  <div id="loading_response_cuestionary_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  Enviar
+                </button>
               </div>
 
             </div>

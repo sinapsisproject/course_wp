@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.4.1, created on 2024-03-18 16:41:55
+/* Smarty version 4.4.1, created on 2024-03-21 20:13:20
   from 'C:\wamp64\www\sinapsis\wp-content\plugins\course_wp\public\partials\sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.4.1',
-  'unifunc' => 'content_65f86ed3be0912_79717745',
+  'unifunc' => 'content_65fc94e0c11624_39851041',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6dd8ea4b8e37beaad4825bebf3f5395a9a8389c7' => 
     array (
       0 => 'C:\\wamp64\\www\\sinapsis\\wp-content\\plugins\\course_wp\\public\\partials\\sidebar.tpl',
-      1 => 1710780103,
+      1 => 1711051959,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65f86ed3be0912_79717745 (Smarty_Internal_Template $_smarty_tpl) {
-?>
-<div class="row header-bar sticky-top" style="background: white;">
+function content_65fc94e0c11624_39851041 (Smarty_Internal_Template $_smarty_tpl) {
+?><div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
     <img src="<?php echo $_smarty_tpl->tpl_vars['logo']->value;?>
 " alt="" >
@@ -30,8 +29,17 @@ function content_65f86ed3be0912_79717745 (Smarty_Internal_Template $_smarty_tpl)
   <div  class="col-4 mt-3">
     <a class="link-leccion-direction" href="">Lección anterior</a>
   </div>
-  <div  class="col-4 mt-3">
-  <a class="link-leccion-direction" href="">Lección siguiente</a>
+  <div  class="col-4">
+
+    <div class="row">
+      <div class="col-6 mt-3">
+        <a class="link-leccion-direction" href="">Lección siguiente</a>
+      </div> 
+      <div class="col-6 text-end" id="startValuesAndTargetExample">
+          <h1 style="margin: 0px;" class="values"></h1>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -265,6 +273,7 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
       
     <?php }?>
 
+
     <?php if ($_smarty_tpl->tpl_vars['content']->value->tipo == 'cuestionario') {?>
 
     <div class="row justify-content-center">
@@ -273,6 +282,7 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
 
       <div style="display: none" id="show_cuestionario_<?php echo $_smarty_tpl->tpl_vars['c']->value++;?>
 ">
+
         <div><h2><?php echo $_smarty_tpl->tpl_vars['content']->value->nombre;?>
 </h2></div>
 
@@ -293,7 +303,9 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
               </div>
               <div class="col-2 text-end">
                 <button onclick="showClassQuestions('show_questions_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
-')" type="button" style="position: relative; top: -7px;">Iniciar</button>
+' , <?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+)" type="button" style="position: relative; top: -7px;">Iniciar</button>
               </div>
             </div>
           </div>
@@ -309,7 +321,8 @@ $_smarty_tpl->tpl_vars['question']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['question']->value) {
 $_smarty_tpl->tpl_vars['question']->do_else = false;
 ?>
-              <div class="col-12 mb-5">
+              <div class="col-12 mb-5 pregunta_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+">
                 
                 <strong class="mt-5"><p>Pregunta <?php echo $_smarty_tpl->tpl_vars['i']->value;?>
 :</p></strong>
@@ -317,26 +330,39 @@ $_smarty_tpl->tpl_vars['question']->do_else = false;
 </p>
 
                 <strong class="mt-2"><p>Alternativas</p></strong>
-                <?php
+                
+                  <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['question']->value->alternativas, 'alternative');
 $_smarty_tpl->tpl_vars['alternative']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['alternative']->value) {
 $_smarty_tpl->tpl_vars['alternative']->do_else = false;
 ?>
 
-                  <div class="form-check mt-4">
-                    <input class="form-check-input" type="radio" name="response_cues_<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
+                    <div class="form-check mt-4">
+                      <input class="form-check-input" type="radio" name="response_cues_<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
+" value="<?php echo $_smarty_tpl->tpl_vars['alternative']->value->id;?>
 " id="response_cues_<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
 ">
-                    <label class="form-check-label">
-                      <?php echo $_smarty_tpl->tpl_vars['alternative']->value->alternativa;?>
+                      <label id="label_alternative_<?php echo $_smarty_tpl->tpl_vars['alternative']->value->id;?>
+" class="form-check-label">
+                        <?php echo $_smarty_tpl->tpl_vars['alternative']->value->alternativa;?>
 
-                    </label>
-                  </div>
+                      </label>
+                    </div>
 
-                <?php
+                  <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+
+                  <div id="justificacion-block_<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
+" class="col-12 mt-5" style="display: none;">
+                    <h4>Justificación</h4>
+                    <div class="box-justified-question shadow">
+                     <div id="box-justified-question_<?php echo $_smarty_tpl->tpl_vars['question']->value->id;?>
+"></div>
+                    </div>
+                  </div>
+                
 
                 <p style="display: none;"><?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
 </p> 
@@ -348,7 +374,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
 
               <div class="box-button_send_response_cues col-12">
-                <button class="button_send_response_cues" type="button">Enviar</button>
+                <button id="button_send_response_cues_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" onclick="response_form_test(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+);" class="button_send_response_cues" type="button">
+                  <div id="loading_response_cuestionary_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  Enviar
+                </button>
               </div>
 
             </div>
