@@ -1,6 +1,10 @@
 var timer = new Timer();
 
+var count = -1;
+
 jQuery(document).ready( function(){
+
+    jQuery("#link_previus").css("display" , "none");
 
     jQuery("#sidebar").css("width", "300px");
     jQuery("#contenido").css("margin-left", "300px");
@@ -23,21 +27,42 @@ jQuery(document).ready( function(){
 })
 
 
-function showClass(attr){
-    jQuery('[id^="show_"]').css("display", "none");
-    jQuery("#"+attr).fadeIn();
+function showClass(c , attr){
+    count = c;
+    if(count != 0){
+        jQuery("#link_previus").css("display" , "block");
+        jQuery('[id^="show_"]').css("display", "none");
+        jQuery("#"+attr).fadeIn();
+
+        jQuery('[id^="link_"]').css("color" , "#495255");
+        jQuery('[id^="link_"]').css("font-weight" , "400");
+
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+
+    }else{
+        jQuery("#link_previus").css("display" , "none");
+        jQuery('[id^="show_"]').css("display", "none");
+        jQuery("#"+attr).fadeIn();
+
+
+        jQuery('[id^="link_"]').css("color" , "#495255");
+        jQuery('[id^="link_"]').css("font-weight" , "400");
+
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    }
 }
 
 
-function showClassQuestions(attr, c , id_test){
+function showClassQuestions(attr, c , id_test, minutes){
 
 
     //jQuery('[id^="show_questions"]').css("display", "none");
     jQuery("#"+attr).fadeIn();
 
-
     
-    timer.start({precision: 'seconds', startValues: {seconds: 90}, target: {seconds: 120}});
+    timer.start({precision: 'seconds', startValues: {minutes: 0}, target: {minutes: minutes}});
     
     jQuery('#startValuesAndTargetExample .values').html(timer.getTimeValues().toString());
     
@@ -281,7 +306,79 @@ function response_form_test(c , id_test){
         },
     })
 
+}
 
 
+function progressItemRegister(c, id_item , nombre_item, id_usuario){
+
+    count = c;
+    jQuery('[id^="show_"]').css("display", "none");
+    jQuery('[id^="show_"][id$="_'+c+'"]').fadeIn();
+
+    jQuery('[id^="link_"]').css("color" , "#495255");
+    jQuery('[id^="link_"]').css("font-weight" , "400");
+
+    jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+    jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    
+
+    console.log(id_item);
+    console.log(nombre_item);
+    console.log(id_usuario);
+
+}
+
+
+
+
+function link_next(){
+   
+    
+    count++;
+    jQuery("#link_previus").css("display" , "block");
+    jQuery('[id^="show_"]').css("display", "none");
+    jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
+
+
+    jQuery('[id^="link_"]').css("color" , "#495255");
+    jQuery('[id^="link_"]').css("font-weight" , "400");
+
+    jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+    jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    
+    
+}
+
+function link_previus(){
+    
+    
+    count--;
+    if(count == 0){
+        jQuery("#link_previus").css("display" , "none");
+
+        jQuery('[id^="show_"]').css("display", "none");
+        jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
+       
+
+        jQuery('[id^="link_"]').css("color" , "#495255");
+        jQuery('[id^="link_"]').css("font-weight" , "400");
+
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    }else{
+        
+        jQuery('[id^="show_"]').css("display", "none");
+        jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
+       
+
+        jQuery('[id^="link_"]').css("color" , "#495255");
+        jQuery('[id^="link_"]').css("font-weight" , "400");
+
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+        
+        
+    }
+    
 }
 

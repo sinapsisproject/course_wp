@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.4.1, created on 2024-03-21 20:13:20
+/* Smarty version 4.4.1, created on 2024-03-23 04:56:25
   from 'C:\wamp64\www\sinapsis\wp-content\plugins\course_wp\public\partials\sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.4.1',
-  'unifunc' => 'content_65fc94e0c11624_39851041',
+  'unifunc' => 'content_65fe60f9b8aeb1_13836970',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6dd8ea4b8e37beaad4825bebf3f5395a9a8389c7' => 
     array (
       0 => 'C:\\wamp64\\www\\sinapsis\\wp-content\\plugins\\course_wp\\public\\partials\\sidebar.tpl',
-      1 => 1711051959,
+      1 => 1711169733,
       2 => 'file',
     ),
   ),
@@ -20,20 +20,21 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65fc94e0c11624_39851041 (Smarty_Internal_Template $_smarty_tpl) {
-?><div class="row header-bar sticky-top" style="background: white;">
+function content_65fe60f9b8aeb1_13836970 (Smarty_Internal_Template $_smarty_tpl) {
+?>
+<div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
     <img src="<?php echo $_smarty_tpl->tpl_vars['logo']->value;?>
 " alt="" >
   </div>
   <div  class="col-4 mt-3">
-    <a class="link-leccion-direction" href="">Lección anterior</a>
+    <a id="link_previus" onclick="link_previus()" class="link-leccion-direction" >Lección anterior</a>
   </div>
   <div  class="col-4">
 
     <div class="row">
       <div class="col-6 mt-3">
-        <a class="link-leccion-direction" href="">Lección siguiente</a>
+        <a id="link_next" onclick="link_next()" class="link-leccion-direction" >Lección siguiente</a>
       </div> 
       <div class="col-6 text-end" id="startValuesAndTargetExample">
           <h1 style="margin: 0px;" class="values"></h1>
@@ -55,58 +56,72 @@ function content_65fc94e0c11624_39851041 (Smarty_Internal_Template $_smarty_tpl)
   </div>
 
 
-  <div class="row">
+  <div class="row sidebar-row">
   <?php $_smarty_tpl->_assignInScope('i', 0);?>
+  <?php $_smarty_tpl->_assignInScope('count_item', 0);?>
   <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['sidebar_menu']->value, 'button');
 $_smarty_tpl->tpl_vars['button']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['button']->value) {
 $_smarty_tpl->tpl_vars['button']->do_else = false;
 ?>
-  
+
     <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'modulo') {?>
       <div class="col-12 button-sideba-modulo">
         <p class="text-sidebar-modulo"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
 </p>
       </div>
     <?php } else { ?>
+
+      <?php $_smarty_tpl->_assignInScope('count_item', $_smarty_tpl->tpl_vars['count_item']->value+1);?>
+
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'video') {?>
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
-        <div><p onclick="showClass('show_video_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
-')" class="text-sidebar"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
+        <div><p id="link_video_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+ , 'show_video_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
+')" ><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
 </p></div>
       </div>
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'apunte') {?>
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_apunte_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
-')" class="text-sidebar"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
+        <div><p id="link_apunte_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+ , 'show_apunte_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
+')" ><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
 </p></div>
       </div>
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'texto') {?>
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_texto_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
-')" class="text-sidebar"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
+        <div><p id="link_texto_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+ , 'show_texto_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
+')"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
 </p></div>
       </div>
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'cuestionario') {?>
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_cuestionario_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
-')" class="text-sidebar"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
+        <div><p id="link_cuestionario_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+ , 'show_cuestionario_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
+')"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
 </p></div>
       </div>
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'foro') {?>
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_foro_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
-')" class="text-sidebar"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
+        <div><p id="link_foro_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+, 'show_foro_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
+')"><?php echo $_smarty_tpl->tpl_vars['button']->value->nombre;?>
 </p></div>
       </div>
       <?php }?>
@@ -205,6 +220,19 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
           </div>
         </div>
 
+        <?php if ($_smarty_tpl->tpl_vars['c']->value != $_smarty_tpl->tpl_vars['count_item']->value) {?>
+        <div class="col-12 mt-4 text-end">
+          <button onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+ , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_usuario']->value;?>
+)"  type="button">
+          Siguiente
+          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        <?php }?> 
+        
       </div>
         
     </div>
@@ -239,6 +267,19 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
             </div>
         </div>
 
+        <?php if ($_smarty_tpl->tpl_vars['c']->value != $_smarty_tpl->tpl_vars['count_item']->value) {?>
+        <div class="col-12 mt-4 text-end">
+          <button onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+ , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_usuario']->value;?>
+)"  type="button">
+          Siguiente
+          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        <?php }?>
+
       </div>
 
     </div>
@@ -264,6 +305,19 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
           <?php echo $_smarty_tpl->tpl_vars['content']->value->texto;?>
 
         </div>
+
+        <?php if ($_smarty_tpl->tpl_vars['c']->value != $_smarty_tpl->tpl_vars['count_item']->value) {?>
+        <div class="col-12 mt-4 text-end">
+          <button onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+ , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_usuario']->value;?>
+)"  type="button">
+          Siguiente
+          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        <?php }?>
 
       </div>
 
@@ -305,6 +359,7 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
                 <button onclick="showClassQuestions('show_questions_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
 ' , <?php echo $_smarty_tpl->tpl_vars['c']->value;?>
  , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->tiempo;?>
 )" type="button" style="position: relative; top: -7px;">Iniciar</button>
               </div>
             </div>
@@ -389,12 +444,8 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             </div>
           </div>
 
-
-          
-
-
         </div>
-
+        
       </div>
 
       </div>
@@ -507,10 +558,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
           <?php
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-        
-
-        
-
       </div>
 
       </div>

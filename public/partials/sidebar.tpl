@@ -1,15 +1,16 @@
+
 <div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
     <img src="{$logo}" alt="" >
   </div>
   <div  class="col-4 mt-3">
-    <a class="link-leccion-direction" href="">Lección anterior</a>
+    <a id="link_previus" onclick="link_previus()" class="link-leccion-direction" >Lección anterior</a>
   </div>
   <div  class="col-4">
 
     <div class="row">
       <div class="col-6 mt-3">
-        <a class="link-leccion-direction" href="">Lección siguiente</a>
+        <a id="link_next" onclick="link_next()" class="link-leccion-direction" >Lección siguiente</a>
       </div> 
       <div class="col-6 text-end" id="startValuesAndTargetExample">
           <h1 style="margin: 0px;" class="values"></h1>
@@ -30,43 +31,47 @@
   </div>
 
 
-  <div class="row">
+  <div class="row sidebar-row">
   {$i = 0}
+  {$count_item = 0}
   {foreach $sidebar_menu as $button}
-  
+
     {if $button->tipo == 'modulo'}
       <div class="col-12 button-sideba-modulo">
         <p class="text-sidebar-modulo">{$button->nombre}</p>
       </div>
     {else}
+
+      {$count_item = $count_item + 1}
+
       {if $button->tipo == 'video'}
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
-        <div><p onclick="showClass('show_video_{$i++}')" class="text-sidebar">{$button->nombre}</p></div>
+        <div><p id="link_video_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_video_{$i++}')" >{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'apunte'}
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_apunte_{$i++}')" class="text-sidebar">{$button->nombre}</p></div>
+        <div><p id="link_apunte_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_apunte_{$i++}')" >{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'texto'}
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_texto_{$i++}')" class="text-sidebar">{$button->nombre}</p></div>
+        <div><p id="link_texto_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_texto_{$i++}')">{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'cuestionario'}
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_cuestionario_{$i++}')" class="text-sidebar">{$button->nombre}</p></div>
+        <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_cuestionario_{$i++}')">{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'foro'}
       <div class="col-12 button-sidebar">
         <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        <div><p onclick="showClass('show_foro_{$i++}')" class="text-sidebar">{$button->nombre}</p></div>
+        <div><p id="link_foro_{$i}" class="text-sidebar" onclick="showClass({$i}, 'show_foro_{$i++}')">{$button->nombre}</p></div>
       </div>
       {/if}
     {/if}
@@ -147,6 +152,15 @@
           </div>
         </div>
 
+        {if $c != $count_item }
+        <div class="col-12 mt-4 text-end">
+          <button onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_usuario})"  type="button">
+          Siguiente
+          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        {/if} 
+        
       </div>
         
     </div>
@@ -175,6 +189,15 @@
             </div>
         </div>
 
+        {if $c != $count_item }
+        <div class="col-12 mt-4 text-end">
+          <button onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_usuario})"  type="button">
+          Siguiente
+          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        {/if}
+
       </div>
 
     </div>
@@ -197,6 +220,15 @@
         <div class="content-bibliografia">
           {$content->texto}
         </div>
+
+        {if $c != $count_item }
+        <div class="col-12 mt-4 text-end">
+          <button onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_usuario})"  type="button">
+          Siguiente
+          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        {/if}
 
       </div>
 
@@ -231,7 +263,7 @@
                 <p>Iniciar {$content->nombre}</p>
               </div>
               <div class="col-2 text-end">
-                <button onclick="showClassQuestions('show_questions_{$c}' , {$c} , {$content->id})" type="button" style="position: relative; top: -7px;">Iniciar</button>
+                <button onclick="showClassQuestions('show_questions_{$c}' , {$c} , {$content->id} , {$content->tiempo})" type="button" style="position: relative; top: -7px;">Iniciar</button>
               </div>
             </div>
           </div>
@@ -285,12 +317,8 @@
             </div>
           </div>
 
-
-          
-
-
         </div>
-
+        
       </div>
 
       </div>
@@ -367,10 +395,6 @@
               </div>
             </div>
           {/foreach}
-        
-
-        
-
       </div>
 
       </div>

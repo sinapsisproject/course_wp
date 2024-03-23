@@ -22,6 +22,10 @@ button{
   border-width: 0px !important;
 }
 
+.sidebar-row{
+  margin-bottom: 100px;
+}
+
 
 .sidebar {
     height: 100%;
