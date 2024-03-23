@@ -29,7 +29,7 @@ jQuery(document).ready( function(){
 
 function showClass(c , attr){
     count = c;
-    if(count != 0){
+    if(count > 0){
         jQuery("#link_previus").css("display" , "block");
         jQuery('[id^="show_"]').css("display", "none");
         jQuery("#"+attr).fadeIn();
@@ -335,17 +335,32 @@ function link_next(){
    
     
     count++;
-    jQuery("#link_previus").css("display" , "block");
-    jQuery('[id^="show_"]').css("display", "none");
-    jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
 
+    console.log(count);
 
-    jQuery('[id^="link_"]').css("color" , "#495255");
-    jQuery('[id^="link_"]').css("font-weight" , "400");
-
-    jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
-    jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    if(count == 0){
+        jQuery("#link_previus").css("display" , "none");
+        jQuery('[id^="show_"]').css("display", "none");
+        jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
     
+    
+        jQuery('[id^="link_"]').css("color" , "#495255");
+        jQuery('[id^="link_"]').css("font-weight" , "400");
+    
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    }else{
+        jQuery("#link_previus").css("display" , "block");
+        jQuery('[id^="show_"]').css("display", "none");
+        jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
+    
+    
+        jQuery('[id^="link_"]').css("color" , "#495255");
+        jQuery('[id^="link_"]').css("font-weight" , "400");
+    
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+        jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    }
     
 }
 

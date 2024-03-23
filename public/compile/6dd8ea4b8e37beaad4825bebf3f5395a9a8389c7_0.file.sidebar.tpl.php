@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.4.1, created on 2024-03-23 04:56:25
+/* Smarty version 4.4.1, created on 2024-03-23 06:07:22
   from 'C:\wamp64\www\sinapsis\wp-content\plugins\course_wp\public\partials\sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.4.1',
-  'unifunc' => 'content_65fe60f9b8aeb1_13836970',
+  'unifunc' => 'content_65fe719a47d528_24618279',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6dd8ea4b8e37beaad4825bebf3f5395a9a8389c7' => 
     array (
       0 => 'C:\\wamp64\\www\\sinapsis\\wp-content\\plugins\\course_wp\\public\\partials\\sidebar.tpl',
-      1 => 1711169733,
+      1 => 1711174035,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65fe60f9b8aeb1_13836970 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65fe719a47d528_24618279 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
@@ -50,7 +50,7 @@ function content_65fe60f9b8aeb1_13836970 (Smarty_Internal_Template $_smarty_tpl)
   <div class="row">
     <div class="col-12 box-title-course">
       <div class="icon-course-title"><i class="fa-solid fa-file"></i></div>
-      <div><h3 onclick="showClass('show_main')" class="title-course"><?php echo $_smarty_tpl->tpl_vars['curso']->value->nombre;?>
+      <div><h3 onclick="showClass(-1 , 'show_main')" class="title-course"><?php echo $_smarty_tpl->tpl_vars['curso']->value->nombre;?>
 </h3></div>
     </div>
   </div>

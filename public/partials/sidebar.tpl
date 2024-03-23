@@ -26,7 +26,7 @@
   <div class="row">
     <div class="col-12 box-title-course">
       <div class="icon-course-title"><i class="fa-solid fa-file"></i></div>
-      <div><h3 onclick="showClass('show_main')" class="title-course">{$curso->nombre}</h3></div>
+      <div><h3 onclick="showClass(-1 , 'show_main')" class="title-course">{$curso->nombre}</h3></div>
     </div>
   </div>
 
