@@ -97,7 +97,9 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
             array(
                 'ajax_url_foro_response'        => plugins_url( '/public/foro_response.php' , __FILE__ ),
                 'ajax_url_foro_question'        => plugins_url( '/public/foro_question.php' , __FILE__ ),
-                'ajax_url_response_questionary' => plugins_url( '/public/response_questionary.php' , __FILE__ )
+                'ajax_url_response_questionary' => plugins_url( '/public/response_questionary.php' , __FILE__ ),
+                'ajax_url_progress'             => plugins_url( '/public/progress.php' , __FILE__ ),
+                'ajax_url_progress_delete'      => plugins_url( '/public/progress_delete.php' , __FILE__ )
             )
         );
 
@@ -134,6 +136,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id/'.$id_curso , 'GET' , $token, null);
         $sidebar_menu = RfCoreCurl::curl('/api/course/get_sidebar_by_id_course/'.$id_curso , 'GET' , $token, null);
 
+        $smarty->assign('id_curso', $id_curso);
         $smarty->assign('curso', $curso);
         $smarty->assign('sidebar_menu', $sidebar_menu);
         $smarty->assign('logo', $logo);

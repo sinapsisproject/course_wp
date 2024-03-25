@@ -46,31 +46,49 @@
 
       {if $button->tipo == 'video'}
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        {if $button->done == true}
+          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        {else}
+          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        {/if}
         <div><p id="link_video_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_video_{$i++}')" >{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'apunte'}
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        {if $button->done == true}
+          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        {else}
+          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        {/if}
         <div><p id="link_apunte_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_apunte_{$i++}')" >{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'texto'}
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        {if $button->done == true}
+          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        {else}
+          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        {/if}
         <div><p id="link_texto_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_texto_{$i++}')">{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'cuestionario'}
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        {if $button->done == true}
+          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        {else}
+          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        {/if}
         <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_cuestionario_{$i++}')">{$button->nombre}</p></div>
       </div>
       {/if}
       {if $button->tipo == 'foro'}
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        
+        <div id="box_icon_not_check_{$i}" class="icon-check"><i class="fa-solid fa-comment"></i></div>
+       
         <div><p id="link_foro_{$i}" class="text-sidebar" onclick="showClass({$i}, 'show_foro_{$i++}')">{$button->nombre}</p></div>
       </div>
       {/if}
@@ -152,14 +170,37 @@
           </div>
         </div>
 
-        {if $c != $count_item }
-        <div class="col-12 mt-4 text-end">
-          <button onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_usuario})"  type="button">
-          Siguiente
-          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-        {/if} 
+        {if $content->done == true }
+        {$displaydelete = 'block'}
+        {$displayregister = 'none'}
+        {else}
+        {$displaydelete = 'none'}
+        {$displayregister = 'block'}
+        {/if}
+
+          <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
+            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Quitar como realizado
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        
+
+          <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
+            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Marcar como realizado (Siguiente)
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+       
         
       </div>
         
@@ -189,14 +230,35 @@
             </div>
         </div>
 
-        {if $c != $count_item }
-        <div class="col-12 mt-4 text-end">
-          <button onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_usuario})"  type="button">
-          Siguiente
-          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
+        {if $content->done == true }
+        {$displaydelete = 'block'}
+        {$displayregister = 'none'}
+        {else}
+        {$displaydelete = 'none'}
+        {$displayregister = 'block'}
         {/if}
+
+          <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
+            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Quitar como realizado
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        
+
+          <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
+            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Marcar como realizado (Siguiente)
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
 
       </div>
 
@@ -221,14 +283,35 @@
           {$content->texto}
         </div>
 
-        {if $c != $count_item }
-        <div class="col-12 mt-4 text-end">
-          <button onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_usuario})"  type="button">
-          Siguiente
-          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
+        {if $content->done == true }
+        {$displaydelete = 'block'}
+        {$displayregister = 'none'}
+        {else}
+        {$displaydelete = 'none'}
+        {$displayregister = 'block'}
         {/if}
+
+          <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
+            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Quitar como realizado
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        
+
+          <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
+            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Marcar como realizado (Siguiente)
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
 
       </div>
 

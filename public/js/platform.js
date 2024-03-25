@@ -309,22 +309,89 @@ function response_form_test(c , id_test){
 }
 
 
-function progressItemRegister(c, id_item , nombre_item, id_usuario){
+function progressItemRegister(c, id_item, nombre_item, id_curso){
 
-    count = c;
-    jQuery('[id^="show_"]').css("display", "none");
-    jQuery('[id^="show_"][id$="_'+c+'"]').fadeIn();
+    jQuery("#next_item_button_"+c).attr("disabled" , "true");
 
-    jQuery('[id^="link_"]').css("color" , "#495255");
-    jQuery('[id^="link_"]').css("font-weight" , "400");
-
-    jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
-    jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+    data = {
+        "id_curso" : id_curso,
+        "id_item"  : id_item,
+        "nombre_item" : nombre_item
+       }
     
+        jQuery.ajax({
+            type : "post",
+            url : wp_ajax_sinapsis_platform.ajax_url_progress,
+            data : data,
+            error: function(response){
+                console.log(response);
+            },
+            success: function(response) {
+                
+                if(response.status == true){
 
-    console.log(id_item);
-    console.log(nombre_item);
-    console.log(id_usuario);
+                    jQuery("#box_icon_not_check_"+(c-1)).replaceWith('<div id="box_icon_check_'+(c-1)+'" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>');
+
+                    jQuery("#box_delete_select_item_"+(c)).css("display", "block");
+                    jQuery("#box_register_select_item_"+(c)).css("display" , "none");
+
+                    count = c;
+                    jQuery('[id^="show_"]').css("display", "none");
+                    jQuery('[id^="show_"][id$="_'+c+'"]').fadeIn();
+
+                    jQuery('[id^="link_"]').css("color" , "#495255");
+                    jQuery('[id^="link_"]').css("font-weight" , "400");
+
+                    jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
+                    jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
+
+                }
+               
+            },
+            beforeSend: function (qXHR, settings) {
+                jQuery('#loading_next_item_'+c).fadeIn();
+            },
+            complete: function () {
+                jQuery('#loading_next_item_'+c).fadeOut();
+            },
+    })
+
+}
+
+
+function progressItemDelete(c, id_item, nombre_item, id_curso){
+    jQuery("#delete_item_button_"+c).attr("disabled" , "true");
+
+    data = {
+        "id_curso" : id_curso,
+        "id_item"  : id_item,
+        "nombre_item" : nombre_item
+       }
+
+       jQuery.ajax({
+        type : "post",
+        url : wp_ajax_sinapsis_platform.ajax_url_progress_delete,
+        data : data,
+        error: function(response){
+            console.log(response);
+        },
+        success: function(response) {
+            
+            if(response.status == true){
+                jQuery("#box_icon_check_"+(c-1)).replaceWith('<div id="box_icon_not_check_'+(c-1)+'" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>');
+                jQuery("#box_delete_select_item_"+(c)).css("display", "none");
+                jQuery("#box_register_select_item_"+(c)).css("display" , "block");
+            }
+        
+           
+        },
+        beforeSend: function (qXHR, settings) {
+            jQuery('#loading_delete_item_'+c).fadeIn();
+        },
+        complete: function () {
+            jQuery('#loading_delete_item_'+c).fadeOut();
+        },
+})
 
 }
 

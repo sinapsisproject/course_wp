@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.4.1, created on 2024-03-23 06:07:22
+/* Smarty version 4.4.1, created on 2024-03-25 22:16:30
   from 'C:\wamp64\www\sinapsis\wp-content\plugins\course_wp\public\partials\sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.4.1',
-  'unifunc' => 'content_65fe719a47d528_24618279',
+  'unifunc' => 'content_6601f7be85f534_63865185',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6dd8ea4b8e37beaad4825bebf3f5395a9a8389c7' => 
     array (
       0 => 'C:\\wamp64\\www\\sinapsis\\wp-content\\plugins\\course_wp\\public\\partials\\sidebar.tpl',
-      1 => 1711174035,
+      1 => 1711404983,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65fe719a47d528_24618279 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6601f7be85f534_63865185 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
@@ -77,7 +77,13 @@ $_smarty_tpl->tpl_vars['button']->do_else = false;
 
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'video') {?>
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        <?php if ($_smarty_tpl->tpl_vars['button']->value->done == true) {?>
+          <div id="box_icon_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        <?php } else { ?>
+          <div id="box_icon_not_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <?php }?>
         <div><p id="link_video_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
 " class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
  , 'show_video_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
@@ -87,7 +93,13 @@ $_smarty_tpl->tpl_vars['button']->do_else = false;
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'apunte') {?>
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <?php if ($_smarty_tpl->tpl_vars['button']->value->done == true) {?>
+          <div id="box_icon_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        <?php } else { ?>
+          <div id="box_icon_not_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <?php }?>
         <div><p id="link_apunte_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
 " class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
  , 'show_apunte_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
@@ -97,7 +109,13 @@ $_smarty_tpl->tpl_vars['button']->do_else = false;
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'texto') {?>
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <?php if ($_smarty_tpl->tpl_vars['button']->value->done == true) {?>
+          <div id="box_icon_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        <?php } else { ?>
+          <div id="box_icon_not_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <?php }?>
         <div><p id="link_texto_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
 " class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
  , 'show_texto_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
@@ -107,7 +125,13 @@ $_smarty_tpl->tpl_vars['button']->do_else = false;
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'cuestionario') {?>
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <?php if ($_smarty_tpl->tpl_vars['button']->value->done == true) {?>
+          <div id="box_icon_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        <?php } else { ?>
+          <div id="box_icon_not_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <?php }?>
         <div><p id="link_cuestionario_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
 " class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
  , 'show_cuestionario_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
@@ -117,7 +141,10 @@ $_smarty_tpl->tpl_vars['button']->do_else = false;
       <?php }?>
       <?php if ($_smarty_tpl->tpl_vars['button']->value->tipo == 'foro') {?>
       <div class="col-12 button-sidebar">
-        <div class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        
+        <div id="box_icon_not_check_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
+" class="icon-check"><i class="fa-solid fa-comment"></i></div>
+       
         <div><p id="link_foro_<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
 " class="text-sidebar" onclick="showClass(<?php echo $_smarty_tpl->tpl_vars['i']->value;?>
 , 'show_foro_<?php echo $_smarty_tpl->tpl_vars['i']->value++;?>
@@ -220,18 +247,53 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
           </div>
         </div>
 
-        <?php if ($_smarty_tpl->tpl_vars['c']->value != $_smarty_tpl->tpl_vars['count_item']->value) {?>
-        <div class="col-12 mt-4 text-end">
-          <button onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+        <?php if ($_smarty_tpl->tpl_vars['content']->value->done == true) {?>
+        <?php $_smarty_tpl->_assignInScope('displaydelete', 'block');?>
+        <?php $_smarty_tpl->_assignInScope('displayregister', 'none');?>
+        <?php } else { ?>
+        <?php $_smarty_tpl->_assignInScope('displaydelete', 'none');?>
+        <?php $_smarty_tpl->_assignInScope('displayregister', 'block');?>
+        <?php }?>
+
+          <div id="box_delete_select_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" class="col-12 mt-4 text-end" style="display : <?php echo $_smarty_tpl->tpl_vars['displaydelete']->value;?>
+">
+            <button id="delete_item_button_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" onclick="progressItemDelete(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
  , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
  , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
-' , <?php echo $_smarty_tpl->tpl_vars['id_usuario']->value;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_curso']->value;?>
 )"  type="button">
-          Siguiente
-          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-        <?php }?> 
+            <div id="loading_delete_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Quitar como realizado
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        
+
+          <div id="box_register_select_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" class="col-12 mt-4 text-end" style="display : <?php echo $_smarty_tpl->tpl_vars['displayregister']->value;?>
+">
+            <button id="next_item_button_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+ , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_curso']->value;?>
+)"  type="button">
+            <div id="loading_next_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Marcar como realizado (Siguiente)
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+       
         
       </div>
         
@@ -267,18 +329,51 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
             </div>
         </div>
 
-        <?php if ($_smarty_tpl->tpl_vars['c']->value != $_smarty_tpl->tpl_vars['count_item']->value) {?>
-        <div class="col-12 mt-4 text-end">
-          <button onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+        <?php if ($_smarty_tpl->tpl_vars['content']->value->done == true) {?>
+        <?php $_smarty_tpl->_assignInScope('displaydelete', 'block');?>
+        <?php $_smarty_tpl->_assignInScope('displayregister', 'none');?>
+        <?php } else { ?>
+        <?php $_smarty_tpl->_assignInScope('displaydelete', 'none');?>
+        <?php $_smarty_tpl->_assignInScope('displayregister', 'block');?>
+        <?php }?>
+
+          <div id="box_delete_select_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" class="col-12 mt-4 text-end" style="display : <?php echo $_smarty_tpl->tpl_vars['displaydelete']->value;?>
+">
+            <button id="delete_item_button_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" onclick="progressItemDelete(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
  , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
  , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
-' , <?php echo $_smarty_tpl->tpl_vars['id_usuario']->value;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_curso']->value;?>
 )"  type="button">
-          Siguiente
-          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-        <?php }?>
+            <div id="loading_delete_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Quitar como realizado
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        
+
+          <div id="box_register_select_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" class="col-12 mt-4 text-end" style="display : <?php echo $_smarty_tpl->tpl_vars['displayregister']->value;?>
+">
+            <button id="next_item_button_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+ , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_curso']->value;?>
+)"  type="button">
+            <div id="loading_next_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Marcar como realizado (Siguiente)
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
 
       </div>
 
@@ -306,18 +401,51 @@ $_smarty_tpl->tpl_vars['content']->do_else = false;
 
         </div>
 
-        <?php if ($_smarty_tpl->tpl_vars['c']->value != $_smarty_tpl->tpl_vars['count_item']->value) {?>
-        <div class="col-12 mt-4 text-end">
-          <button onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+        <?php if ($_smarty_tpl->tpl_vars['content']->value->done == true) {?>
+        <?php $_smarty_tpl->_assignInScope('displaydelete', 'block');?>
+        <?php $_smarty_tpl->_assignInScope('displayregister', 'none');?>
+        <?php } else { ?>
+        <?php $_smarty_tpl->_assignInScope('displaydelete', 'none');?>
+        <?php $_smarty_tpl->_assignInScope('displayregister', 'block');?>
+        <?php }?>
+
+          <div id="box_delete_select_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" class="col-12 mt-4 text-end" style="display : <?php echo $_smarty_tpl->tpl_vars['displaydelete']->value;?>
+">
+            <button id="delete_item_button_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" onclick="progressItemDelete(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
  , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
  , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
-' , <?php echo $_smarty_tpl->tpl_vars['id_usuario']->value;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_curso']->value;?>
 )"  type="button">
-          Siguiente
-          <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
-        <?php }?>
+            <div id="loading_delete_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Quitar como realizado
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+        
+
+          <div id="box_register_select_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" class="col-12 mt-4 text-end" style="display : <?php echo $_smarty_tpl->tpl_vars['displayregister']->value;?>
+">
+            <button id="next_item_button_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" onclick="progressItemRegister(<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+ , <?php echo $_smarty_tpl->tpl_vars['content']->value->id;?>
+ , '<?php echo $_smarty_tpl->tpl_vars['content']->value->tipo;?>
+' , <?php echo $_smarty_tpl->tpl_vars['id_curso']->value;?>
+)"  type="button">
+            <div id="loading_next_item_<?php echo $_smarty_tpl->tpl_vars['c']->value;?>
+" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            Marcar como realizado (Siguiente)
+            <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
 
       </div>
 
