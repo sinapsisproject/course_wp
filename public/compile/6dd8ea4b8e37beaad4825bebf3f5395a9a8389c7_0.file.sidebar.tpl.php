@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.4.1, created on 2024-03-25 22:16:30
+/* Smarty version 4.4.1, created on 2024-03-29 23:42:10
   from 'C:\wamp64\www\sinapsis\wp-content\plugins\course_wp\public\partials\sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.4.1',
-  'unifunc' => 'content_6601f7be85f534_63865185',
+  'unifunc' => 'content_660751d24b3274_30376974',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6dd8ea4b8e37beaad4825bebf3f5395a9a8389c7' => 
     array (
       0 => 'C:\\wamp64\\www\\sinapsis\\wp-content\\plugins\\course_wp\\public\\partials\\sidebar.tpl',
-      1 => 1711404983,
+      1 => 1711656862,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6601f7be85f534_63865185 (Smarty_Internal_Template $_smarty_tpl) {
+function content_660751d24b3274_30376974 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
@@ -162,12 +162,9 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 </div>
 
 
-
 <div class="contenido" id="contenido">
 
   <button class="openbtn" id="openbtn">☰ <i class="bi bi-check-circle-fill"></i></button>
-  
- 
 
   <div class="row justify-content-center">
     <div class="col-12"></div>
@@ -640,7 +637,7 @@ $_smarty_tpl->tpl_vars['pregunta']->do_else = false;
               <div class="col-12 mb-4">
                 <p style="margin: 0px;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> <?php echo $_smarty_tpl->tpl_vars['pregunta']->value->nombre_usuario;?>
 </p>
-                <p class="h5"><?php echo $_smarty_tpl->tpl_vars['pregunta']->value->entrada;?>
+                <p class="h5" style="padding: 22px"><?php echo $_smarty_tpl->tpl_vars['pregunta']->value->entrada;?>
 </p>
               </div>
 

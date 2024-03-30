@@ -3,7 +3,7 @@
         <h1 class="title-course-free">{$curso->nombre}</h1>
     </div>
     <div class="col-12 d-inline-flex">
-        <button type="button" class="btn">Me quiero inscribir <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button>
-        <h3 class="title-price">$ {$curso->precio}</h3>
+        <?php echo do_shortcode('[shortcodecreatetransactionbutton text_button="Me quiero inscribir"]'); ?>
+        <h3 class="title-price">$ {$curso->precio|number_format:0:',':'.'}</h3>
     </div>
 </div>

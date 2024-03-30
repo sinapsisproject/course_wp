@@ -100,12 +100,9 @@
 </div>
 
 
-
 <div class="contenido" id="contenido">
 
   <button class="openbtn" id="openbtn">☰ <i class="bi bi-check-circle-fill"></i></button>
-  
- 
 
   <div class="row justify-content-center">
     <div class="col-12"></div>
@@ -451,7 +448,7 @@
           <div class="box-question-response col-12 border">
               <div class="col-12 mb-4">
                 <p style="margin: 0px;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> {$pregunta->nombre_usuario}</p>
-                <p class="h5">{$pregunta->entrada}</p>
+                <p class="h5" style="padding: 22px">{$pregunta->entrada}</p>
               </div>
 
               {foreach $pregunta->respuestas_foros as $respuesta}
