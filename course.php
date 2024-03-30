@@ -186,6 +186,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id_free_data/'.$id_curso , 'GET' , null , null);
 
         $smarty->assign('curso', $curso);
+        $smarty->assign('id_curso', $id_curso);
 
 
         if($atts["output"] == "descripcion"){
