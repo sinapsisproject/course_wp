@@ -67,8 +67,15 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
             true
             );
 
-        
-        
+        if(basename(get_permalink()) == "cursos-sinapsis"){
+            wp_enqueue_script(
+            'validate-user-course',
+            plugins_url( '/public/js/validate_user.js', __FILE__ ), 
+            array('jquery'),
+            rand(0, 99),
+            true
+            );
+        }
 
         wp_enqueue_style( 
             'css-platform-sinapsis',
@@ -99,7 +106,8 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
                 'ajax_url_foro_question'        => plugins_url( '/public/foro_question.php' , __FILE__ ),
                 'ajax_url_response_questionary' => plugins_url( '/public/response_questionary.php' , __FILE__ ),
                 'ajax_url_progress'             => plugins_url( '/public/progress.php' , __FILE__ ),
-                'ajax_url_progress_delete'      => plugins_url( '/public/progress_delete.php' , __FILE__ )
+                'ajax_url_progress_delete'      => plugins_url( '/public/progress_delete.php' , __FILE__ ),
+                'ajax_url_validate_course_user' => plugins_url( '/public/validate_course_user.php' , __FILE__ )
             )
         );
 
@@ -131,10 +139,10 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $id    = get_option('idusersinapsisplatform');
         $nombre_usuario = get_option('namesinapsisplatform');
 
-        $logo =  plugins_url( '/public/assets/img/SC.png', __FILE__ );
-
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id/'.$id_curso , 'GET' , $token, null);
         $sidebar_menu = RfCoreCurl::curl('/api/course/get_sidebar_by_id_course/'.$id_curso , 'GET' , $token, null);
+
+        $logo =  plugins_url( '/public/assets/img/SC.png', __FILE__ );
 
         $smarty->assign('id_curso', $id_curso);
         $smarty->assign('curso', $curso);
@@ -142,6 +150,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $smarty->assign('logo', $logo);
         $smarty->assign('id_usuario', $id);
         $smarty->assign('nombre_usuario', $nombre_usuario);
+
 
         return $smarty->fetch('sidebar.tpl');
 
@@ -229,6 +238,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
 
         $smarty->assign('content', $content);
         $smarty->assign('curso', $curso);
+    
 
         return $smarty->fetch('content_course.tpl');
     }
@@ -244,11 +254,15 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $smarty->setTemplateDir(dirname(__FILE__) . '/public/partials/course/');
         $smarty->setCompileDir(dirname(__FILE__) .'/public/compile/');
 
+
+        $token = get_option('tokensinapsisplatform');
+        $validate_user = RfCoreCurl::curl('/api/users/validate_course_user/'.$id_curso , 'GET' , $token, NULL);
         $content = RfCoreCurl::curl('/api/course/get_content_course/'.$id_curso , 'GET' , null , null);
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id_free_data/'.$id_curso , 'GET' , null , null);
 
         $smarty->assign('content', $content);
         $smarty->assign('curso', $curso);
+        $smarty->assign('perfil_user', $validate_user->status);
 
         return $smarty->fetch('plataforma.tpl');
     }
