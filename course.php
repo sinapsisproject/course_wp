@@ -125,7 +125,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
     add_filter('template_include', 'cargar_plantilla_personalizada');
 
 
-
+//SHORTCODE CURSO PLATAFORMA
     function shortcode_coursePlatform($atts){
 
         $id_curso = $_GET["curso"];
@@ -139,6 +139,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $id    = get_option('idusersinapsisplatform');
         $nombre_usuario = get_option('namesinapsisplatform');
 
+        $validate_user = RfCoreCurl::curl('/api/users/validate_course_user/'.$id_curso , 'GET' , $token, NULL);
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id/'.$id_curso , 'GET' , $token, null);
         $sidebar_menu = RfCoreCurl::curl('/api/course/get_sidebar_by_id_course/'.$id_curso , 'GET' , $token, null);
 
@@ -150,6 +151,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $smarty->assign('logo', $logo);
         $smarty->assign('id_usuario', $id);
         $smarty->assign('nombre_usuario', $nombre_usuario);
+        $smarty->assign('validate_user', $validate_user->status);
 
 
         return $smarty->fetch('sidebar.tpl');

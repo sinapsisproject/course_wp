@@ -13,10 +13,8 @@ jQuery(document).ready( function(){
             console.log(response);
         },
         success: function(response) {
-            
-            console.log(response);
            if(response.status == false){
-                //window.location.replace("/");
+                window.location.replace("/");
            }
         },
         beforeSend: function (qXHR, settings) {

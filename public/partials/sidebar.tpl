@@ -1,4 +1,4 @@
-
+{if $validate_user == true}
 <div class="row header-bar sticky-top" style="background: white;">
   <div class="col-4">
     <img src="{$logo}" alt="" >
@@ -486,7 +486,6 @@
 
   {/foreach}
 
-  
-
-  
 </div>
+
+{/if}
