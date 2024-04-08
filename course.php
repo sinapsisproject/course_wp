@@ -51,13 +51,14 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         );
 
 
-
         wp_enqueue_style( 
             'fontawesome-sinapsis',
             plugins_url( '/public/assets/fontawesome/css/all.min.css', __FILE__ ),
             array(),
             rand(0, 99)
         );
+
+
 
         wp_enqueue_script(
             'courses-platform',
@@ -68,6 +69,22 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
             );
 
         if(basename(get_permalink()) == "cursos-sinapsis"){
+
+            wp_enqueue_style( 
+            'quill-sinapsis',
+            plugins_url( '/public/assets/css/quill.snow.css', __FILE__ ),
+            array(),
+            rand(0, 99)
+            );
+
+            wp_enqueue_script(
+            'quill-course',
+            plugins_url( '/public/assets/js/quill.js', __FILE__ ), 
+            array('jquery'),
+            rand(0, 99),
+            true
+            );
+
             wp_enqueue_script(
             'validate-user-course',
             plugins_url( '/public/js/validate_user.js', __FILE__ ), 

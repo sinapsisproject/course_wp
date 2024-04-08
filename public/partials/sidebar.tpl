@@ -424,19 +424,26 @@
           <h3>Debate</h3>
         </div>
 
-        <div class="col-12 mt-5">
+        <div class="col-12 mt-5 box-ql-editor">
           <p>Acá puedes crear una nueva pregunta para el {$content->nombre}</p>
-          <div class="input-group">
-            <textarea id="new_question_foro_{$c}" class="form-control"></textarea>
-            <button id="buttonSaveQuestion" onclick="saveQuestionForo({$content->id} , {$id_usuario} , '{$nombre_usuario}' , {$c})" rows="3" type="button">
           
-            <div id="loading_question_foro_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            
-            Enviar
+          <div id="new_question_foro_{$c}"></div>
+
+          <div class="row">
+            <div class="col-12 text-end mt-2">
+
+            <button id="buttonSaveQuestion" onclick="saveQuestionForo({$content->id} , {$id_usuario} , '{$nombre_usuario}' , {$c})" rows="3" type="button">
+              <div id="loading_question_foro_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              Enviar
             </button>
+
+            </div>
           </div>
+          
+
+
         </div>
 
 
@@ -446,15 +453,24 @@
         
           {foreach $content->preguntas_foros as $pregunta}
           <div class="box-question-response col-12 border">
-              <div class="col-12 mb-4">
-                <p style="margin: 0px;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> {$pregunta->nombre_usuario}</p>
-                <p class="h5" style="padding: 22px">{$pregunta->entrada}</p>
+            <div class="row">
+              <div class="col-12 mb-1">
+                <p style="font-size: 12px; padding-bottom: 10px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-regular fa-calendar-days"></i> {$pregunta->createdAt|date_format:"%d-%m-%Y"}</p>
+                <p style="margin: 0px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> {$pregunta->nombre_usuario}</p>
               </div>
+              <div class="col-12 mb-4">
+                <p class="h5" style="padding: 10px">{$pregunta->entrada}</p>
+              </div>
+            </div>
 
               {foreach $pregunta->respuestas_foros as $respuesta}
-                <div class="col-12">
-                  <p style="margin-left: 30px; font-size: 12px; margin-bottom: 0px;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> {$respuesta->nombre_usuario}</p>
-                  <p style="margin-left: 30px;">- {$respuesta->entrada}</p>
+                <hr>
+                <div class="col-12 mb-4">
+                  <p style="margin-left: 30px; font-size: 15px; margin-bottom: 0px; color: #445AFF;">
+                    <i style="margin-right: 7px;" class="fa-solid fa-user"></i>
+                    {$respuesta->nombre_usuario} / {$respuesta->createdAt|date_format:"%d-%m-%Y"} 
+                  </p>
+                  <p style="margin-left: 30px; margin-top: 10px;">- {$respuesta->entrada}</p>
                 </div>
               {/foreach}
 

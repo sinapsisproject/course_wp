@@ -2,6 +2,8 @@ var timer = new Timer();
 
 var count = -1;
 
+var quills = [];
+
 jQuery(document).ready( function(){
 
     jQuery("#link_previus").css("display" , "none");
@@ -28,6 +30,16 @@ jQuery(document).ready( function(){
 
 
 function showClass(c , attr){
+
+    console.log(c);
+
+    if(attr.includes("show_foro") && quills[c] == undefined){
+        quills[c] = new Quill('#new_question_foro_'+(c+1), {
+            theme: 'snow'
+        });
+    }
+    
+
     count = c;
     if(count > 0){
         jQuery("#link_previus").css("display" , "block");
@@ -129,9 +141,11 @@ function saveResponseQuestionForo(id_usuario, id_pregunta, nombre_usuario, n_ite
             },
             success: function(response) {
                 
+                console.log(response);
+
                 if(response.status == true){
                     jQuery("#buttonSaveResponse").prop("disabled", false);
-                    jQuery("#new_response_foro_"+id_pregunta).replaceWith('<div class="col-12"><p style="margin-left: 30px; font-size: 12px; margin-bottom: 0px;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i>'+response.nombre_usuario+'</p><p style="margin-left: 30px;">- '+response.entrada+'</p></div><div id="new_response_foro_'+response.id_pregunta+'"></div>');
+                    jQuery("#new_response_foro_"+id_pregunta).replaceWith('<hr><div class="col-12 mb-4"><p style="margin-left: 30px; font-size: 15px; margin-bottom: 0px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i>'+response.nombre_usuario+" / "+response.fecha+'</p><p style="margin-left: 30px; margin-top: 10px;">- '+response.entrada+'</p></div><div id="new_response_foro_'+response.id_pregunta+'"></div>');
                 }
 
                 jQuery("#response_question_foro_"+id_pregunta).val("");
@@ -154,8 +168,10 @@ function saveQuestionForo(id_foro , id_usuario, nombre_usuario, n_item){
 
     jQuery("#buttonSaveQuestion").prop("disabled", true);
 
-    var entrada = jQuery("#new_question_foro_"+n_item).val();
-
+    let i = n_item - 1;
+ 
+    var trimEntrada = quills[i].getText().trim();
+    var entrada = quills[i].root.innerHTML;
 
     var data = {
         "entrada" : entrada,
@@ -164,7 +180,7 @@ function saveQuestionForo(id_foro , id_usuario, nombre_usuario, n_item){
         "id_foro"   : id_foro
     }
 
-    if(entrada == ""){
+    if(trimEntrada == ""){
         Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -190,9 +206,13 @@ function saveQuestionForo(id_foro , id_usuario, nombre_usuario, n_item){
     
                     var html = '';
                     html += '<div class="box-question-response col-12 border">';
+                    html += '<div class="row">';
+                    html += '<div class="col-12 mb-1">';
+                    html += '<p style="font-size: 12px; padding-bottom: 10px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-regular fa-calendar-days"></i> '+response.fecha+'</p>';
+                    html += '<p style="margin: 0px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> '+response.nombre_usuario+'</p>';
+                    html += '</div>';
                     html += '<div class="col-12 mb-4">';
-                    html += '<p style="margin: 0px;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i>'+response.nombre_usuario+'</p>';
-                    html += '<p class="h5">'+response.entrada+'</p>';
+                    html += '<p class="h5" style="padding: 10px">'+response.entrada+'</p>';
                     html += '</div>';
                     html += '</div>';
                     html += '<div id="new_question_'+n_item+'"></div>';
@@ -200,7 +220,7 @@ function saveQuestionForo(id_foro , id_usuario, nombre_usuario, n_item){
                     jQuery("#new_question_"+n_item).replaceWith(html);
 
 
-                    jQuery("#new_question_foro_"+n_item).val("");
+                    jQuery(".new_question_foro_"+n_item).val("");
                     jQuery("#buttonSaveQuestion").prop("disabled", false);
 
 

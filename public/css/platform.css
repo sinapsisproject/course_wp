@@ -219,7 +219,7 @@ button{
 
   .box-question-response{
     border-radius: 10px;
-    padding: 10px;
+    padding: 25px;
     margin-top: 30px;
   }
 
@@ -230,4 +230,17 @@ button{
     border-radius: 10px;
     background: #deffde;
   }
+
+  .box-ql-editor .ql-editor{
+    min-height: 100px !important;
+    max-width: 100% !important;
+  }
+  .ql-toolbar button{
+      background: white !important;
+  }
+
+  .box-question-response p {
+    margin: 0px;
+  }
+
  
