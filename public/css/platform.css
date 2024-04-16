@@ -96,6 +96,7 @@ button{
     border-bottom-width: 1px;
     border-bottom-style: solid;
     margin: 0px !important;
+    z-index: 10 !important;
   }
   .header-bar img{
     width: 123px;
@@ -226,9 +227,9 @@ button{
 
   .box-justified-question{
     padding: 20px;
-    border-style: groove;
     border-radius: 10px;
-    background: #deffde;
+    background: #445AFF;
+    color: white;
   }
 
   .box-ql-editor .ql-editor{
@@ -242,5 +243,46 @@ button{
   .box-question-response p {
     margin: 0px;
   }
+
+  .toast-test{
+    max-width: 220px !important;
+  }
+
+  .user_profile{
+    font-size: 30px;
+    padding: 14px;
+    color: #445AFF;
+    cursor: pointer;
+  }
+
+  .user_profile:hover{
+    color: #5769f9;
+  }
+
+  .modal-backdrop{
+    z-index: 20;
+  }
+
+  #logout_button{
+    background: #FFFFFF; 
+    color: #445AFF; 
+    border-width: 0px;
+    position: relative;
+    top: -31px;
+    cursor: pointer;
+  }
+
+  .border-success{
+    border-color: #28ad28 !important;
+  }
+  .text-success{
+    color: #28ad28 !important;
+  }
+  .link_recuperativa{
+    color: #445AFF;
+    cursor: pointer;
+  }
+  
+
 
  

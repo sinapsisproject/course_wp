@@ -12,11 +12,71 @@
       <div class="col-6 mt-3">
         <a id="link_next" onclick="link_next()" class="link-leccion-direction" >Lección siguiente</a>
       </div> 
-      <div class="col-6 text-end" id="startValuesAndTargetExample">
-          <h1 style="margin: 0px;" class="values"></h1>
+      <div class="col-6 text-end">
+        <i class="user_profile fa-solid fa-circle-user" data-bs-toggle="modal" data-bs-target="#modalProfile"></i>
       </div>
     </div>
 
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modalProfile">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+
+          <div class="col-6">
+            <div class="row">
+              <div class="col-12">
+                <h5 class="modal-title">{$nombre_usuario}</h5>
+              </div>
+              <div class="col-12">
+                <p>{$email_usuario}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="row">
+                <div class="col-12 text-end">
+                  <a id="logout_button">
+                  <div id="loading_logout" style="width: 1rem; height: 1rem; margin-right: 6px; display: none;" class="spinner-border" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <!-- <i class="fa-solid fa-power-off"></i> Cerrar sesión -->
+                  </a>
+                </div>
+            </div>
+          </div>
+
+        
+        
+      </div>
+      <div class="modal-body">
+        
+        <div id="loading_info_profile" class="row justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="col-12 text-center">
+              Cargando...
+            </div>
+        </div>
+        <div id="show_data_profile" class="row">
+
+          
+
+        </div>
+
+        
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -75,14 +135,29 @@
       </div>
       {/if}
       {if $button->tipo == 'cuestionario'}
-      <div class="col-12 button-sidebar">
-        {if $button->done == true}
-          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+        {if $button->clase == 'recuperativa'}
+
+        <div class="col-12 button-sidebar">
+          {if $button->done == true}
+            <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+          {else}
+            <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+          {/if}
+          <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass('recuperativa' , 'show_cuestionario_recuperativa')">{$button->nombre}</p></div>
+        </div>
+
+
         {else}
-          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+        <div class="col-12 button-sidebar">
+          {if $button->done == true}
+            <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+          {else}
+            <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+          {/if}
+          <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_cuestionario_{$i++}')">{$button->nombre}</p></div>
+        </div>
         {/if}
-        <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_cuestionario_{$i++}')">{$button->nombre}</p></div>
-      </div>
+      
       {/if}
       {if $button->tipo == 'foro'}
       <div class="col-12 button-sidebar">
@@ -325,30 +400,61 @@
       <div class="col-12"></div>
       <div class="col-8">
 
-      <div style="display: none" id="show_cuestionario_{$c++}">
-
+      {if $content->clase == 'recuperativa'}
+        <div style="display: none" id="show_cuestionario_recuperativa">
+        {$c = $c +1}
+      {else}
+        <div style="display: none" id="show_cuestionario_{$c++}">
+      {/if}
+      
         <div><h2>{$content->nombre}</h2></div>
 
         <div class="row">
           <p>{$content->descripcion}</p>
         </div>
 
-        <div class="row box-cuestionario-platform">
-          <div class="col-12 head-box-cuestionario-platform">
-              <h3>Contenido de la lección</h3>
-          </div>
-          <div class="col-12 mt-4 body-box-cuestionario-platform">
-            <div class="row">
-              <div class="col-10">
-                <p>Iniciar {$content->nombre}</p>
-              </div>
-              <div class="col-2 text-end">
-                <button onclick="showClassQuestions('show_questions_{$c}' , {$c} , {$content->id} , {$content->tiempo})" type="button" style="position: relative; top: -7px;">Iniciar</button>
+        <div class="box-cuestionario-platform">
+
+          <div class="row" id="row_cuestionario_{$content->id}">
+            <div class="col-12 head-box-cuestionario-platform">
+                <h3>Contenido de la lección</h3>
+            </div>
+
+            {if $content->done == false}
+            <div class="col-12 mt-4 body-box-cuestionario-platform">
+              <div class="row">
+                <div class="col-10">
+                  <p>Iniciar {$content->nombre}</p>
+                </div>
+                <div class="col-2 text-end">
+                  <button id="button_init_question_{$c}" onclick="showClassQuestions('view_questions_{$c}' , {$c} , {$content->id} , {$content->tiempo}, {$id_curso}, '{$content->clase}')" type="button" style="position: relative; top: -7px;">Iniciar</button>
+                </div>
               </div>
             </div>
+            {else}
+
+            <div class="col-12 mt-4 body-box-cuestionario-platform">
+              <div class="row">
+                <div class="col-10">
+                  <p>Ver preguntas y justificaciones</p>
+                </div>
+                <div class="col-2 text-end">
+                  <button onclick="showClassResponsesAssessment({$content->id})" type="button" style="position: relative; top: -7px;">
+                  <div id="loading_responses_assessment_{$content->id}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  Ver
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/if}
+
+
           </div>
 
-          <div style="display: none;" id="show_questions_{$c}" class="col-12">
+          <div style="display: none;" id="view_questions_{$c}" class="col-12">
             <div class="row mt-5">
 
               {$i = 1}
@@ -386,7 +492,7 @@
 
 
               <div class="box-button_send_response_cues col-12">
-                <button id="button_send_response_cues_{$c}" onclick="response_form_test({$c} , {$content->id});" class="button_send_response_cues" type="button">
+                <button id="button_send_response_cues_{$c}" onclick="response_form_test({$c} , {$content->id} , {$id_curso});" class="button_send_response_cues" type="button">
                   <div id="loading_response_cuestionary_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
                   </div>
@@ -395,15 +501,35 @@
               </div>
 
             </div>
+
           </div>
 
         </div>
+
+        <div class="row" id="assessment_{$content->id}"></div>
         
       </div>
 
       </div>
+      
       <div class="class-12"></div>
     </div>
+
+
+    <div class="toast-container position-fixed bottom-0 end-0 p-2">
+      <div id="liveToast_{$content->id}" class="toast toast-test" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div id="close_toast_{$content->id}" class="toast-header" style="display: none;">
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-center">
+          <div id="startValuesAndTargetExample">
+            <h1 class="values"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
     {/if}
 

@@ -14,9 +14,13 @@ require(dirname(__FILE__) .'/../../../../wp-load.php');
         foreach ($respuestas as $respuesta) {
 
             array_push($listado, (int)$respuesta["id_respuesta"]);
-
-            $body = ["id_usuario" => (int)$id , "id_alternativa" => (int)$respuesta["id_respuesta"]];
-
+            
+            if($respuesta["id_respuesta"] != ''){
+                $body = ["id_usuario" => (int)$id , "id_alternativa" => (int)$respuesta["id_respuesta"]];
+            }else{
+                $body = ["id_usuario" => (int)$id , "id_alternativa" => null];
+            }
+            
             $response = RfCoreCurl::curl('/api/response_questionary' , 'POST' , $token, $body);
 
             if($response->status == false){
