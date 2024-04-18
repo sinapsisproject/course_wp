@@ -65,13 +65,7 @@
         </div>
         <div id="show_data_profile" class="row">
 
-          
-
         </div>
-
-        
-
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -81,103 +75,104 @@
 </div>
 
 
+<div id="openbtn" class="box-openbtn"><i class="openbtn fa-solid fa-circle-chevron-left"></i></div>
+
 <div class="sidebar" id="sidebar">
 
-  <div class="row">
-    <div class="col-12 box-title-course">
-      <div class="icon-course-title"><i class="fa-solid fa-file"></i></div>
-      <div><h3 onclick="showClass(-1 , 'show_main')" class="title-course">{$curso->nombre}</h3></div>
+    <div class="row sidebar-title">
+      <div class="col-12 box-title-course">
+        <h3 onclick="showClass(-1 , 'show_main')" class="title-course">{$curso->nombre}</h3>
+      </div>
     </div>
-  </div>
 
-
-  <div class="row sidebar-row">
-  {$i = 0}
-  {$count_item = 0}
-  {foreach $sidebar_menu as $button}
-
-    {if $button->tipo == 'modulo'}
-      <div class="col-12 button-sideba-modulo">
-        <p class="text-sidebar-modulo">{$button->nombre}</p>
-      </div>
-    {else}
-
-      {$count_item = $count_item + 1}
-
-      {if $button->tipo == 'video'}
-      <div class="col-12 button-sidebar">
-        {if $button->done == true}
-          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
-        {else}
-          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        {/if}
-        <div><p id="link_video_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_video_{$i++}')" >{$button->nombre}</p></div>
-      </div>
-      {/if}
-      {if $button->tipo == 'apunte'}
-      <div class="col-12 button-sidebar">
-        {if $button->done == true}
-          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
-        {else}
-          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        {/if}
-        <div><p id="link_apunte_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_apunte_{$i++}')" >{$button->nombre}</p></div>
-      </div>
-      {/if}
-      {if $button->tipo == 'texto'}
-      <div class="col-12 button-sidebar">
-        {if $button->done == true}
-          <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
-        {else}
-          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-        {/if}
-        <div><p id="link_texto_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_texto_{$i++}')">{$button->nombre}</p></div>
-      </div>
-      {/if}
-      {if $button->tipo == 'cuestionario'}
-        {if $button->clase == 'recuperativa'}
-
-        <div class="col-12 button-sidebar">
-          {if $button->done == true}
-            <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
-          {else}
-            <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-          {/if}
-          <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass('recuperativa' , 'show_cuestionario_recuperativa')">{$button->nombre}</p></div>
-        </div>
-
-
-        {else}
-        <div class="col-12 button-sidebar">
-          {if $button->done == true}
-            <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
-          {else}
-            <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
-          {/if}
-          <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_cuestionario_{$i++}')">{$button->nombre}</p></div>
-        </div>
-        {/if}
-      
-      {/if}
-      {if $button->tipo == 'foro'}
-      <div class="col-12 button-sidebar">
-        
-        <div id="box_icon_not_check_{$i}" class="icon-check"><i class="fa-solid fa-comment"></i></div>
-       
-        <div><p id="link_foro_{$i}" class="text-sidebar" onclick="showClass({$i}, 'show_foro_{$i++}')">{$button->nombre}</p></div>
-      </div>
-      {/if}
-    {/if}
     
-  {/foreach}
-  </div>
+    
+    
 
+
+    <div class="row sidebar-row">
+    {$i = 0}
+    {$count_item = 0}
+    {foreach $sidebar_menu as $button}
+
+      {if $button->tipo == 'modulo'}
+        <div class="col-12 button-sideba-modulo">
+          <p class="text-sidebar-modulo">{$button->nombre}</p>
+        </div>
+      {else}
+
+        {$count_item = $count_item + 1}
+
+        {if $button->tipo == 'video'}
+        <div class="col-12 button-sidebar">
+          {if $button->done == true}
+            <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+          {else}
+            <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+          {/if}
+          <div><p id="link_video_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_video_{$i++}')" >{$button->nombre}</p></div>
+        </div>
+        {/if}
+        {if $button->tipo == 'apunte'}
+        <div class="col-12 button-sidebar">
+          {if $button->done == true}
+            <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+          {else}
+            <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+          {/if}
+          <div><p id="link_apunte_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_apunte_{$i++}')" >{$button->nombre}</p></div>
+        </div>
+        {/if}
+        {if $button->tipo == 'texto'}
+        <div class="col-12 button-sidebar">
+          {if $button->done == true}
+            <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+          {else}
+            <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+          {/if}
+          <div><p id="link_texto_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_texto_{$i++}')">{$button->nombre}</p></div>
+        </div>
+        {/if}
+        {if $button->tipo == 'cuestionario'}
+          {if $button->clase == 'recuperativa'}
+
+          <div class="col-12 button-sidebar">
+            {if $button->done == true}
+              <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+            {else}
+              <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+            {/if}
+            <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass('recuperativa' , 'show_cuestionario_recuperativa')">{$button->nombre}</p></div>
+          </div>
+
+
+          {else}
+          <div class="col-12 button-sidebar">
+            {if $button->done == true}
+              <div id="box_icon_check_{$i}" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>
+            {else}
+              <div id="box_icon_not_check_{$i}" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>
+            {/if}
+            <div><p id="link_cuestionario_{$i}" class="text-sidebar" onclick="showClass({$i} , 'show_cuestionario_{$i++}')">{$button->nombre}</p></div>
+          </div>
+          {/if}
+        
+        {/if}
+        {if $button->tipo == 'foro'}
+        <div class="col-12 button-sidebar">
+          
+          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="fa-solid fa-comment"></i></div>
+        
+          <div><p id="link_foro_{$i}" class="text-sidebar" onclick="showClass({$i}, 'show_foro_{$i++}')">{$button->nombre}</p></div>
+        </div>
+        {/if}
+      {/if}
+      
+    {/foreach}
+  </div>
 </div>
 
-
 <div class="contenido" id="contenido">
-
-  <button class="openbtn" id="openbtn">☰ <i class="bi bi-check-circle-fill"></i></button>
 
   <div class="row justify-content-center">
     <div class="col-12"></div>

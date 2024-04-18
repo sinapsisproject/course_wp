@@ -9,20 +9,20 @@ var in_test = false;
 jQuery(document).ready( function(){
 
     jQuery("#link_previus").css("display" , "none");
-
-    jQuery("#sidebar").css("width", "300px");
-    jQuery("#contenido").css("margin-left", "300px");
-
     
     jQuery("#openbtn").click(function(){
 
-        var width = jQuery("#sidebar").width();
+        var position = jQuery("#sidebar").offset();
 
-        if(width == 0){
-            jQuery("#sidebar").css("width", "300px");
+        if(position.left == -300){
+            jQuery("#openbtn").html('<i class="openbtn fa-solid fa-circle-chevron-left"></i>');
+            jQuery("#openbtn").css("transform", "translateX(0px)");
+            jQuery("#sidebar").css("transform", "translateX(0px)");
             jQuery("#contenido").css("margin-left", "300px");
         }else{
-            jQuery("#sidebar").css("width", "0");
+            jQuery("#openbtn").html('<i class="openbtn fa-solid fa-circle-chevron-right"></i>');
+            jQuery("#openbtn").css("transform", "translateX(-295px)");
+            jQuery("#sidebar").css("transform", "translateX(-300px)");
             jQuery("#contenido").css("margin-left", "0");
         }
 

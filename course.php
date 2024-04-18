@@ -143,7 +143,9 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         }
         return $template;
     }
+
     add_filter('template_include', 'cargar_plantilla_personalizada');
+    
 
 
 //SHORTCODE CURSO PLATAFORMA
