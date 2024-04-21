@@ -1,16 +1,28 @@
 {if $validate_user == true}
 <div class="row header-bar sticky-top" style="background: white;">
-  <div class="col-4">
+  <div class="col-2 border-end">
     <img src="{$logo}" alt="" >
   </div>
-  <div  class="col-4 mt-3">
-    <a id="link_previus" onclick="link_previus()" class="link-leccion-direction" >Lección anterior</a>
+  <div class="col-4 border-end">
+    <div id="progress_box" class="row">
+      <div class="col-12">
+        <p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">{$progress->porcentaje}% COMPLETADO {$progress->items}/{$progress->total_items} pasos</p>
+      </div>
+      <div class="col-12">
+        <div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar" style="width: {$progress->porcentaje}%"></div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div  class="col-4">
+  <div  class="col-3 pt-3 border-end">
+    <p id="button_previus" onclick="link_previus()" class="link-leccion-direction" ><i style="margin-right: 10px;" class="fa-solid fa-chevron-left"></i> Lección anterior</p>
+  </div>
+  <div  class="col-3 border-end">
 
     <div class="row">
       <div class="col-6 mt-3">
-        <a id="link_next" onclick="link_next()" class="link-leccion-direction" >Lección siguiente</a>
+        <p id="button_next" onclick="link_next()" class="link-leccion-direction" >Lección siguiente <i style="margin-left: 10px;" class="fa-solid fa-chevron-right"></i></p>
       </div> 
       <div class="col-6 text-end">
         <i class="user_profile fa-solid fa-circle-user" data-bs-toggle="modal" data-bs-target="#modalProfile"></i>
@@ -246,7 +258,7 @@
         {/if}
 
           <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
-            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
             <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -258,7 +270,7 @@
         
 
           <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
-            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
             <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -306,7 +318,7 @@
         {/if}
 
           <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
-            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
             <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -318,7 +330,7 @@
         
 
           <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
-            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
             <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -359,7 +371,7 @@
         {/if}
 
           <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
-            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
             <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
@@ -371,7 +383,7 @@
         
 
           <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
-            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso})"  type="button">
+            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
             <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>

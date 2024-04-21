@@ -168,11 +168,20 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id/'.$id_curso , 'GET' , $token, null);
         $sidebar_menu = RfCoreCurl::curl('/api/course/get_sidebar_by_id_course/'.$id_curso , 'GET' , $token, null);
 
+        $body_progress = [
+            "id_curso" => $id_curso,
+            "total_progress" => $sidebar_menu->total_progress
+        ];
+
+        $progress = RfCoreCurl::curl('/api/progress/progress_data/' , 'POST' , $token, $body_progress);
+
         $logo =  plugins_url( '/public/assets/img/SC.png', __FILE__ );
+
 
         $smarty->assign('id_curso', $id_curso);
         $smarty->assign('curso', $curso);
-        $smarty->assign('sidebar_menu', $sidebar_menu);
+        $smarty->assign('progress', $progress);
+        $smarty->assign('sidebar_menu', $sidebar_menu->response);
         $smarty->assign('logo', $logo);
         $smarty->assign('id_usuario', $id);
         $smarty->assign('nombre_usuario', $nombre_usuario);

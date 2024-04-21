@@ -8,7 +8,7 @@ var in_test = false;
 
 jQuery(document).ready( function(){
 
-    jQuery("#link_previus").css("display" , "none");
+    jQuery("#button_previus").css("display" , "none");
     
     jQuery("#openbtn").click(function(){
 
@@ -234,7 +234,7 @@ function showClass(c , attr){
     
         count = c;
         if(count > 0){
-            jQuery("#link_previus").css("display" , "block");
+            jQuery("#button_previus").css("display" , "block");
             jQuery('[id^="show_"]').css("display", "none");
             jQuery("#"+attr).fadeIn();
     
@@ -245,7 +245,7 @@ function showClass(c , attr){
             jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
     
         }else{
-            jQuery("#link_previus").css("display" , "none");
+            jQuery("#button_previus").css("display" , "none");
             jQuery('[id^="show_"]').css("display", "none");
             jQuery("#"+attr).fadeIn();
     
@@ -673,14 +673,15 @@ function showClassResponsesAssessment(id_test){
 }
 
 
-function progressItemRegister(c, id_item, nombre_item, id_curso){
+function progressItemRegister(c, id_item, nombre_item, id_curso, total_progress){
 
     jQuery("#next_item_button_"+c).attr("disabled" , "true");
 
     data = {
         "id_curso" : id_curso,
         "id_item"  : id_item,
-        "nombre_item" : nombre_item
+        "nombre_item" : nombre_item,
+        "total_progress" : total_progress
        }
     
         jQuery.ajax({
@@ -709,6 +710,16 @@ function progressItemRegister(c, id_item, nombre_item, id_curso){
                     jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
                     jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
 
+                    let progress_html = '<div class="col-12">'+
+                                        '<p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">'+response.progress.porcentaje+'% COMPLETADO '+response.progress.items+'/'+response.progress.total_items+' pasos</p>'+
+                                        '</div>'+
+                                        '<div class="col-12">'+
+                                        '<div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">'+
+                                        '<div class="progress-bar" style="width: '+response.progress.porcentaje+'%"></div>'+
+                                        '</div>'+
+                                        '</div>';
+
+                    jQuery('#progress_box').html(progress_html);
                 }
                
             },
@@ -723,13 +734,14 @@ function progressItemRegister(c, id_item, nombre_item, id_curso){
 }
 
 
-function progressItemDelete(c, id_item, nombre_item, id_curso){
+function progressItemDelete(c, id_item, nombre_item, id_curso, total_progress){
     jQuery("#delete_item_button_"+c).attr("disabled" , "true");
 
     data = {
         "id_curso" : id_curso,
         "id_item"  : id_item,
-        "nombre_item" : nombre_item
+        "nombre_item" : nombre_item,
+        "total_progress" : total_progress
        }
 
        jQuery.ajax({
@@ -745,6 +757,18 @@ function progressItemDelete(c, id_item, nombre_item, id_curso){
                 jQuery("#box_icon_check_"+(c-1)).replaceWith('<div id="box_icon_not_check_'+(c-1)+'" class="icon-check"><i class="icon-leccion-check fa-regular fa-circle"></i></div>');
                 jQuery("#box_delete_select_item_"+(c)).css("display", "none");
                 jQuery("#box_register_select_item_"+(c)).css("display" , "block");
+
+                let progress_html = '<div class="col-12">'+
+                '<p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">'+response.progress.porcentaje+'% COMPLETADO '+response.progress.items+'/'+response.progress.total_items+' pasos</p>'+
+                '</div>'+
+                '<div class="col-12">'+
+                '<div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">'+
+                '<div class="progress-bar" style="width: '+response.progress.porcentaje+'%"></div>'+
+                '</div>'+
+                '</div>';
+
+                jQuery('#progress_box').html(progress_html);
+
             }
         
            
@@ -770,7 +794,7 @@ function link_next(){
     console.log(count);
 
     if(count == 0){
-        jQuery("#link_previus").css("display" , "none");
+        jQuery("#button_previus").css("display" , "none");
         jQuery('[id^="show_"]').css("display", "none");
         jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
     
@@ -781,7 +805,7 @@ function link_next(){
         jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
         jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
     }else{
-        jQuery("#link_previus").css("display" , "block");
+        jQuery("#button_previus").css("display" , "block");
         jQuery('[id^="show_"]').css("display", "none");
         jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();
     
@@ -800,7 +824,7 @@ function link_previus(){
     
     count--;
     if(count == 0){
-        jQuery("#link_previus").css("display" , "none");
+        jQuery("#button_previus").css("display" , "none");
 
         jQuery('[id^="show_"]').css("display", "none");
         jQuery('[id^="show_"][id$="_'+count+'"]').fadeIn();

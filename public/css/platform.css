@@ -78,7 +78,7 @@ button{
   
   /* Estilos para el botón de abrir el sidebar */
   .openbtn {
-    color: #1444f2;
+    color: #445AFF;
     font-size: 32px;
     translate: -17px;
     background: white;
@@ -89,7 +89,7 @@ button{
     z-index: 9;
     transition: 0.5s;
     position: fixed;
-    top: 90px;
+    top: 86px;
     left: 300px;
   }
   
@@ -119,6 +119,10 @@ button{
   .link-leccion-direction{
     color : #445AFF !important;
     cursor: pointer;
+    font-weight: bold;
+  }
+  .fa-circle-check{
+    color: #445AFF;
   }
 
 .button-sideba-modulo{
