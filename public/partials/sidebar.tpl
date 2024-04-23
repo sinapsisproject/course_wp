@@ -4,16 +4,29 @@
     <img src="{$logo}" alt="" >
   </div>
   <div class="col-4 border-end">
-    <div id="progress_box" class="row">
-      <div class="col-12">
-        <p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">{$progress->porcentaje}% COMPLETADO {$progress->items}/{$progress->total_items} pasos</p>
+
+  <div class="row">
+    <div class="col-1" id="loading_progress_bar" style="display: none;">
+      <div style="width: 1rem; height: 1rem; margin-right: 6px; position: relative; top: 14px; color: #445AFF;" class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
       </div>
-      <div class="col-12">
-        <div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar" style="width: {$progress->porcentaje}%"></div>
+    </div>
+
+    <div class="col-11">
+      <div id="progress_box" class="row">
+        <div class="col-12" style="display: inline-flex;">
+          <p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">{$progress->porcentaje}% COMPLETADO {$progress->items}/{$progress->total_items} pasos</p>
+        </div>
+        <div class="col-12">
+          <div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" style="width: {$progress->porcentaje}%"></div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
+
+
   </div>
   <div  class="col-3 pt-3 border-end">
     <p id="button_previus" onclick="link_previus()" class="link-leccion-direction" ><i style="margin-right: 10px;" class="fa-solid fa-chevron-left"></i> Lección anterior</p>
@@ -243,6 +256,21 @@
 
         <div><p class="content-description">{$content->descripcion}</p></div>
 
+        <div class="breadcrumbs">
+          <div class="row">
+            <div class="col-10 align-self-center">
+              <p>{$curso->nombre} > {$content->nombre}</p>
+            </div>
+            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+                {if $content->done == true}
+                  <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
+                {else}
+                <div class="etiqueta_estado_progreso text-center"><p>EN PROGRESO</p></div>
+                {/if}
+            </div>
+          </div>
+        </div>
+
         <div class="col-12">
           <div class="ratio ratio-16x9">
             <iframe allowfullscreen src="{$content->link_video}" title="{$content->nombre}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -258,11 +286,12 @@
         {/if}
 
           <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
-            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
-            <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+            <button style="height: 50px;" id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
+            <div id="loading_delete_item_{$c}" style="margin-right: 10px; width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
-            Quitar como realizado
+            <i style="margin-right: 10px;" class="fa-regular fa-circle"></i>
+            Lección pendiente
             <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -270,11 +299,12 @@
         
 
           <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
-            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
-            <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+            <button style="height: 50px;" id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
+            <div id="loading_next_item_{$c}" style="margin-right: 10px; width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
-            Marcar como realizado (Siguiente)
+            <i style="margin-right: 10px; color: white;" class="fa-regular fa-circle-check"></i>
+            Lección realizada
             <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -300,8 +330,22 @@
 
         <div><p class="content-description">{$content->descripcion}</p></div>
 
-        
-        <a class="btn btn-primary button-big-screen mb-2 mt-3" target="_blank" href="{$content->link_apunte}" role="button">Pantalla completa</a>
+        <div class="breadcrumbs">
+          <div class="row">
+            <div class="col-10 align-self-center">
+              <p>{$curso->nombre} > {$content->nombre}</p>
+            </div>
+            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+                {if $content->done == true}
+                  <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
+                {else}
+                <div class="etiqueta_estado_progreso text-center"><p>EN PROGRESO</p></div>
+                {/if}
+            </div>
+          </div>
+        </div>
+
+        <a class="button-big-screen mb-2 mt-3" target="_blank" type="button" href="{$content->link_apunte}" role="button">Ver en pantalla completa</a>
 
         <div class="col-12">
             <div class="ratio ratio-16x9">
@@ -318,11 +362,12 @@
         {/if}
 
           <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
-            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
-            <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+            <button style="height: 50px;" id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
+            <div id="loading_delete_item_{$c}" style="margin-right: 10px; width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
-            Quitar como realizado
+            <i style="margin-right: 10px;" class="fa-regular fa-circle"></i>
+            Lección pendiente
             <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -330,11 +375,12 @@
         
 
           <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
-            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
-            <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+            <button style="height: 50px;" id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
+            <div id="loading_next_item_{$c}" style="margin-right: 10px; width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
-            Marcar como realizado (Siguiente)
+            <i style="margin-right: 10px; color: white;" class="fa-regular fa-circle-check"></i>
+            Lección realizada
             <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -358,6 +404,23 @@
       <div style="display: none" id="show_texto_{$c++}">
         <div><h2>{$content->nombre}</h2></div>
 
+        <div class="breadcrumbs">
+          <div class="row">
+            <div class="col-10 align-self-center">
+              <p>{$curso->nombre} > {$content->nombre}</p>
+            </div>
+            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+                {if $content->done == true}
+                  <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
+                {else}
+                <div class="etiqueta_estado_progreso text-center"><p>EN PROGRESO</p></div>
+                {/if}
+            </div>
+          </div>
+        </div>
+
+
+
         <div class="content-bibliografia">
           {$content->texto}
         </div>
@@ -371,11 +434,12 @@
         {/if}
 
           <div id="box_delete_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displaydelete}">
-            <button id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
-            <div id="loading_delete_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+            <button style="height: 50px;" id="delete_item_button_{$c}" onclick="progressItemDelete({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
+            <div id="loading_delete_item_{$c}" style="margin-right: 10px; width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
-            Quitar como realizado
+            <i style="margin-right: 10px;" class="fa-regular fa-circle"></i>
+            Lección pendiente
             <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -383,11 +447,12 @@
         
 
           <div id="box_register_select_item_{$c}" class="col-12 mt-4 text-end" style="display : {$displayregister}">
-            <button id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
-            <div id="loading_next_item_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+            <button style="height: 50px;" id="next_item_button_{$c}" onclick="progressItemRegister({$c} , {$content->id} , '{$content->tipo}' , {$id_curso}, {$progress->total_items})"  type="button">
+            <div id="loading_next_item_{$c}" style="margin-right: 10px; width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
-            Marcar como realizado (Siguiente)
+            <i style="margin-right: 10px; color: white;" class="fa-regular fa-circle-check"></i>
+            Lección realizada
             <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
             </button>
           </div>
@@ -420,21 +485,36 @@
           <p>{$content->descripcion}</p>
         </div>
 
+        <div class="breadcrumbs">
+          <div class="row">
+            <div class="col-10 align-self-center">
+              <p>{$curso->nombre} > {$content->nombre}</p>
+            </div>
+            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+                {if $content->done == true}
+                  <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
+                {else}
+                <div class="etiqueta_estado_progreso text-center"><p>EN PROGRESO</p></div>
+                {/if}
+            </div>
+          </div>
+        </div>
+
         <div class="box-cuestionario-platform">
 
           <div class="row" id="row_cuestionario_{$content->id}">
-            <div class="col-12 head-box-cuestionario-platform">
+            <!-- <div class="col-12 head-box-cuestionario-platform">
                 <h3>Contenido de la lección</h3>
-            </div>
+            </div> -->
 
             {if $content->done == false}
-            <div class="col-12 mt-4 body-box-cuestionario-platform">
+            <div class="col-12 body-box-cuestionario-platform">
               <div class="row">
-                <div class="col-10">
+                <!-- <div class="col-10">
                   <p>Iniciar {$content->nombre}</p>
-                </div>
-                <div class="col-2 text-end">
-                  <button id="button_init_question_{$c}" onclick="showClassQuestions('view_questions_{$c}' , {$c} , {$content->id} , {$content->tiempo}, {$id_curso}, '{$content->clase}')" type="button" style="position: relative; top: -7px;">Iniciar</button>
+                </div> -->
+                <div class="col-2 text-start">
+                  <button id="button_init_question_{$c}" onclick="showClassQuestions('view_questions_{$c}' , {$c} , {$content->id} , {$content->tiempo}, {$id_curso}, '{$content->clase}' , {$progress->total_items})" type="button" style="position: relative; top: -7px;">Comenzar <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button>
                 </div>
               </div>
             </div>
@@ -442,15 +522,12 @@
 
             <div class="col-12 mt-4 body-box-cuestionario-platform">
               <div class="row">
-                <div class="col-10">
-                  <p>Ver preguntas y justificaciones</p>
-                </div>
-                <div class="col-2 text-end">
-                  <button onclick="showClassResponsesAssessment({$content->id})" type="button" style="position: relative; top: -7px;">
+                <div class="col-12 text-start">
+                  <button id="button_display_content_test_{$content->id}" onclick="showClassResponsesAssessment({$content->id})" type="button" style="position: relative; top: -7px;">
                   <div id="loading_responses_assessment_{$content->id}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
                   </div>
-                  Ver
+                  Ver resultados <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i>
                   </button>
                 </div>
               </div>
@@ -461,25 +538,29 @@
 
           </div>
 
+
           <div style="display: none;" id="view_questions_{$c}" class="col-12">
             <div class="row mt-5">
 
               {$i = 1}
               {foreach $content->pregunta as $question}
               <div class="col-12 mb-5 pregunta_{$c}">
-                
-                <strong class="mt-5"><p>Pregunta {$i}:</p></strong>
+
+                <div class="mt-5" style="display: inline-flex;">
+                  <h3>Pregunta {$i}:</h3> <p style="position: relative;top: 14px;left: 12px;font-size: 20px;"> ({$question->puntaje} pts.)</p>
+                </div>
+
                 <p>{$question->pregunta}</p>
 
                 <strong class="mt-2"><p>Alternativas</p></strong>
                 
                   {foreach $question->alternativas as $alternative}
 
-                    <div class="form-check mt-4">
-                      <input class="form-check-input" type="radio" name="response_cues_{$question->id}" value="{$alternative->id}" id="response_cues_{$question->id}">
-                      <label id="label_alternative_{$alternative->id}" class="form-check-label">
-                        {$alternative->alternativa}
-                      </label>
+                    <div class="form-check mt-4 box_response_cues_{$question->id}" id="label_alternative_{$alternative->id}">
+                        <input class="form-check-input" type="radio" name="response_cues_{$question->id}" value="{$alternative->id}" id="response_cues_{$question->id}">
+                        <label class="form-check-label">
+                          {$alternative->alternativa}
+                        </label> 
                     </div>
 
                   {/foreach}
@@ -499,7 +580,7 @@
 
 
               <div class="box-button_send_response_cues col-12">
-                <button id="button_send_response_cues_{$c}" onclick="response_form_test({$c} , {$content->id} , {$id_curso});" class="button_send_response_cues" type="button">
+                <button id="button_send_response_cues_{$c}" onclick="response_form_test({$c} , {$content->id} , {$id_curso}, {$progress->total_items});" class="button_send_response_cues" type="button">
                   <div id="loading_response_cuestionary_{$c}" style="width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
                     <span class="visually-hidden">Loading...</span>
                   </div>
@@ -513,7 +594,7 @@
 
         </div>
 
-        <div class="row" id="assessment_{$content->id}"></div>
+        <div class="col-12" id="assessment_{$content->id}"></div>
         
       </div>
 

@@ -207,13 +207,13 @@ button{
   .button-big-screen{
     background: #445AFF !important;
     border-color: #445AFF !important;
-    border-radius: 30px;
     width: 176px;
+    color: white !important;
   }
 
-  .box-cuestionario-platform{
-  
-  }
+.content-bibliografia a{
+  color: #445AFF !important;
+}
 
   .head-box-cuestionario-platform{
     background: #445AFF;
@@ -229,7 +229,6 @@ button{
 
   .body-box-cuestionario-platform{
     padding-top: 20px;
-    border-style: groove;
   }
 
   .box-alternative-platform{
@@ -299,6 +298,56 @@ button{
   .link_recuperativa{
     color: #445AFF;
     cursor: pointer;
+  }
+  
+  .breadcrumbs{
+    background: #dce0ff;
+    color: #2942ff;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .breadcrumbs p {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .etiqueta_estado_completado{
+    background: #2942ff;
+    padding: 2px;
+    border-radius: 30px;
+  }
+  .etiqueta_estado_completado p{
+    font-size: 12px;
+    color: white;
+    margin: 0px;
+  }
+  .etiqueta_estado_progreso{
+    background: grey;
+    padding: 2px;
+    border-radius: 30px;
+  }
+  .etiqueta_estado_progreso p{
+    font-size: 12px;
+    color: white;
+    margin: 0px;
+  }
+
+  .form-check{
+    border-style: solid;
+    border-radius: 5px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 10px;
+    padding-left: 33px;
+    border-color: #cdcdcd;
+  }
+  .form-check-label{
+    position: relative;
+    top: -3px;
   }
   
 

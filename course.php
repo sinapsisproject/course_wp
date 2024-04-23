@@ -128,7 +128,8 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
                 'ajax_url_progress_delete'      => plugins_url( '/public/progress_delete.php' , __FILE__ ),
                 'ajax_url_validate_course_user' => plugins_url( '/public/validate_course_user.php' , __FILE__ ),
                 'ajax_url_assessment'           => plugins_url( '/public/assessment.php' , __FILE__ ),
-                'ajax_url_profile_data'         => plugins_url( '/public/profile_data.php', __FILE__)
+                'ajax_url_profile_data'         => plugins_url( '/public/profile_data.php', __FILE__),
+                'ajax_url_progress_bar'         => plugins_url( '/public/progress_bar.php', __FILE__)
             )
         );
 

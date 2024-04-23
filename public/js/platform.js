@@ -8,6 +8,21 @@ var in_test = false;
 
 jQuery(document).ready( function(){
 
+    //CAMBIAR ESTILO DE BORDE AL SELECCIONAR UN RADIO BUTTON
+    jQuery("input[type='radio']").change(function() {
+        if (jQuery(this).is(":checked")) {
+            var valorSeleccionado = jQuery(this).val();
+            var radioId = jQuery(this).attr("id");
+            if(jQuery("#label_alternative_"+valorSeleccionado).find("#"+radioId).length){
+                jQuery(".box_"+radioId).css("border-color", "#cdcdcd");
+                jQuery("#label_alternative_"+valorSeleccionado).css("border-color" , "blue");
+            }
+        }
+    });
+
+
+
+
     jQuery("#button_previus").css("display" , "none");
     
     jQuery("#openbtn").click(function(){
@@ -262,7 +277,7 @@ function showClass(c , attr){
 }
 
 
-function showClassQuestions(attr, c , id_test, minutes, id_curso, clase){
+function showClassQuestions(attr, c , id_test, minutes, id_curso, clase , total_progress){
 
 
     jQuery("#button_init_question_"+c).prop("disabled", true);
@@ -297,13 +312,15 @@ function showClassQuestions(attr, c , id_test, minutes, id_curso, clase){
         in_test = false;
         toastBootstrap.hide();
 
+        
+
         Swal.fire({
             icon: "warning",
             title: "Tiempo terminado",
             text: "Se enviarán tus respuesta",
             confirmButtonText: "Enviar",
             didClose: () => {
-                    response_form_test(c , id_test, id_curso);
+                    response_form_test(c , id_test, id_curso, total_progress);
             },
             })
 
@@ -459,7 +476,7 @@ function saveQuestionForo(id_foro , id_usuario, nombre_usuario, n_item){
 
 
 
-function response_form_test(c , id_test, id_curso){
+function response_form_test(c , id_test, id_curso, total_progress){
 
     timer.stop();
     in_test = false;
@@ -493,8 +510,11 @@ function response_form_test(c , id_test, id_curso){
             console.log(response);
         },
         success: function(res) {
+
+            console.log(res);
             
             jQuery("#loading_response_cuestionary_"+c).css("display" , "none");
+            jQuery("#button_send_response_cues_"+c).css("display" , "none");
 
             if(res.status == true){
 
@@ -518,7 +538,6 @@ function response_form_test(c , id_test, id_curso){
                     success: function(response) {
                         
                         if(response.status == true){
-
                             jQuery('.toast-container').css("display" , "none");
 
                             Swal.fire({
@@ -526,7 +545,7 @@ function response_form_test(c , id_test, id_curso){
                                 title: "Respuestas enviadas",
                                 confirmButtonText: "Corregir",
                                 didClose: () => {
-                                    
+                                    progress_line(id_curso, total_progress);
                                     assessment(id_test);
                                     
 
@@ -534,10 +553,10 @@ function response_form_test(c , id_test, id_curso){
                                         Object.values(res.response.correccion).forEach(element => {
                                             if(element != null){
                                                 if(element.opcion == "correcta"){
-                                                    jQuery("#label_alternative_"+element['id']).css('color' , '#18db18');
+                                                    jQuery("#label_alternative_"+element['id']).css('border-color' , '#18db18');
                                                 }
                                                 if(element.opcion == "incorrecta"){
-                                                    jQuery("#label_alternative_"+element['id']).css('color' , '#ff3333');
+                                                    jQuery("#label_alternative_"+element['id']).css('border-color' , '#ff3333');
                                                 }
                                             }
                                         })
@@ -594,7 +613,9 @@ function assessment(id_test){
             
             if(response.status == true){
 
-                let estado = response.response.estado == 'aprobado' ? '<p style="font-size: 24px;color: #5cdd5c;"><i class="fa-solid fa-circle-check"></i> Aprobado</p>' : '<p style="font-size: 24px;color: #f06666;"><i class="fa-solid fa-circle-xmark"></i> No aprobado</p>';
+
+
+                let estado = response.response.estado == 'aprobado' ? '<p style="font-size: 24px;color: #5cdd5c;"><i style="color: #5cdd5c;" class="fa-solid fa-circle-check"></i> Aprobado</p>' : '<p style="font-size: 24px;color: #f06666;"><i class="fa-solid fa-circle-xmark"></i> No aprobado</p>';
 
                 let html =  '<div class="box_assessment col-12 mb-4 mt-5" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
                             '<p>Respondiste correctamente '+response.response.correctas+' de '+response.response.preguntas+' preguntas.</p>'+
@@ -626,37 +647,73 @@ function showClassResponsesAssessment(id_test){
         },
         success: function(response) {
             
+            jQuery("#button_display_content_test_"+id_test).css("display" , "none");
+
             if(response.status == true){
 
-                let estado = response.response.estado == 'aprobado' ? '<p style="font-size: 24px;color: #5cdd5c;"><i class="fa-solid fa-circle-check"></i> Aprobado</p>' : '<p style="font-size: 24px;color: #f06666;"><i class="fa-solid fa-circle-xmark"></i> No aprobado</p>';
+                let estado = response.response.estado == 'aprobado' ? '<p style="font-size: 24px;color: #5cdd5c;"><i style="color: #5cdd5c;" class="fa-solid fa-circle-check"></i> Aprobado</p>' : '<p style="font-size: 24px;color: #f06666;"><i class="fa-solid fa-circle-xmark"></i> No aprobado</p>';
 
-                let html_1 =  '<div class="box_assessment col-12 mb-4 mt-5" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
+                let html_1 =  '<div class="box_assessment col-12 mb-4 mt-2" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
                             '<p>Respondiste correctamente '+response.response.correctas+' de '+response.response.preguntas+' preguntas.</p>'+
                             '<p>Obtuviste '+response.response.puntaje+' puntos.</p>'+
                             '<h3 style="color : white;">'+estado+'</h3>'+
                             '</div>';
 
-
-                console.log(response.response.response[0].pregunta);
-
                 let html_2 = '';
+                
                 let c = 0;
+
+                // console.log(response.response.response[0].pregunta.alternativas);
+
+
                 response.response.response[0].pregunta.forEach(element => {
                     
                     html_2 +=   '<div class="row mt-5">'+
                                 '<div class="col-12 mb-1">'+
-                                '<h4><strong class="mt-5"><p>Pregunta '+(++c)+':</p></strong></h4>'+
+                                '<div style="display: inline-flex;"><h4><strong class="mt-5"><p>Pregunta '+(++c)+':</p></strong></h4><label style="position: relative;top: 14px;left: 10px;font-size: 19px;">('+element.puntaje+ 'pts.)</label></div>'+
                                 '<p>'+element.pregunta+'</p>'+
                                 '</div>'+
-                                '</div>'+
-                                '<div class="col-12 mb-3">'+
+                                '</div>';
+
+                    element.alternativas.forEach(resp => {
+
+                        if(resp.opcion == "correcta"){
+                            html_2 +=   '<div class="col-12">'+
+                                        '<div class="form-check mt-4" style="border-color: rgb(24, 219, 24);">'+
+                                        '<input class="form-check-input" type="radio" name="" value="">'+
+                                        '<label class="form-check-label">'+
+                                        resp.alternativa+
+                                        '</label>'+
+                                        '</div></div>';
+                        }else if(resp.opcion == "incorrecta" && resp.respuesta_cuestionarios.length > 0){
+                            html_2 +=   '<div class="col-12">'+
+                                        '<div class="form-check mt-4" style="border-color: #f06666;">'+
+                                        '<input class="form-check-input" type="radio" name="" value="">'+
+                                        '<label class="form-check-label">'+
+                                        resp.alternativa+
+                                        '</label>'+
+                                        '</div></div>';
+                        }else{
+                            html_2 +=   '<div class="col-12">'+
+                                        '<div class="form-check mt-4">'+
+                                        '<input class="form-check-input" type="radio" name="" value="">'+
+                                        '<label class="form-check-label">'+
+                                        resp.alternativa+
+                                        '</label>'+
+                                        '</div></div>';
+                        }
+
+                        
+                    });
+
+
+                     html_2 +=  '<div class="col-12 mb-3 mt-4">'+
                                 '<h4>Justificación</h4>'+
                                 '<div class="box-justified-question shadow">'+
                                 '<p>'+element.justificacion+'</p>'+
                                 '</div>'+
                                 '</div>'
                     });
-
 
 
                 jQuery('#assessment_'+id_test).html(html_1 + html_2);
@@ -676,12 +733,12 @@ function showClassResponsesAssessment(id_test){
 function progressItemRegister(c, id_item, nombre_item, id_curso, total_progress){
 
     jQuery("#next_item_button_"+c).attr("disabled" , "true");
+    jQuery("#delete_item_button_"+c).removeAttr("disabled");
 
     data = {
         "id_curso" : id_curso,
         "id_item"  : id_item,
-        "nombre_item" : nombre_item,
-        "total_progress" : total_progress
+        "nombre_item" : nombre_item
        }
     
         jQuery.ajax({
@@ -710,16 +767,11 @@ function progressItemRegister(c, id_item, nombre_item, id_curso, total_progress)
                     jQuery('[id^="link_"][id$="_'+count+'"]').css("color" , "#445AFF");
                     jQuery('[id^="link_"][id$="_'+count+'"]').css("font-weight" , "bold");
 
-                    let progress_html = '<div class="col-12">'+
-                                        '<p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">'+response.progress.porcentaje+'% COMPLETADO '+response.progress.items+'/'+response.progress.total_items+' pasos</p>'+
-                                        '</div>'+
-                                        '<div class="col-12">'+
-                                        '<div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">'+
-                                        '<div class="progress-bar" style="width: '+response.progress.porcentaje+'%"></div>'+
-                                        '</div>'+
-                                        '</div>';
+                    progress_line(id_curso , total_progress);
 
-                    jQuery('#progress_box').html(progress_html);
+                    let progress_breadcrumbs_html = '<div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>';
+
+                    jQuery('#progress_breadcrumbs_'+c).html(progress_breadcrumbs_html);
                 }
                
             },
@@ -736,12 +788,12 @@ function progressItemRegister(c, id_item, nombre_item, id_curso, total_progress)
 
 function progressItemDelete(c, id_item, nombre_item, id_curso, total_progress){
     jQuery("#delete_item_button_"+c).attr("disabled" , "true");
+    jQuery("#next_item_button_"+c).removeAttr("disabled");
 
     data = {
         "id_curso" : id_curso,
         "id_item"  : id_item,
-        "nombre_item" : nombre_item,
-        "total_progress" : total_progress
+        "nombre_item" : nombre_item
        }
 
        jQuery.ajax({
@@ -758,17 +810,11 @@ function progressItemDelete(c, id_item, nombre_item, id_curso, total_progress){
                 jQuery("#box_delete_select_item_"+(c)).css("display", "none");
                 jQuery("#box_register_select_item_"+(c)).css("display" , "block");
 
-                let progress_html = '<div class="col-12">'+
-                '<p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">'+response.progress.porcentaje+'% COMPLETADO '+response.progress.items+'/'+response.progress.total_items+' pasos</p>'+
-                '</div>'+
-                '<div class="col-12">'+
-                '<div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">'+
-                '<div class="progress-bar" style="width: '+response.progress.porcentaje+'%"></div>'+
-                '</div>'+
-                '</div>';
+                progress_line(id_curso , total_progress);
 
-                jQuery('#progress_box').html(progress_html);
+                let progress_breadcrumbs_html = '<div class="etiqueta_estado_progreso text-center"><p>EN PROGRESO</p></div>';
 
+                jQuery('#progress_breadcrumbs_'+c).html(progress_breadcrumbs_html);
             }
         
            
@@ -850,6 +896,61 @@ function link_previus(){
         
     }
     
+}
+
+
+
+function progress_line(id_curso , total_progress){
+
+    console.log(id_curso);
+    console.log(total_progress);
+
+    data = {
+        "id_curso" : parseInt(id_curso),
+        "total_progress" : parseInt(total_progress)
+    }
+
+    jQuery.ajax({
+        type : "post",
+        url : wp_ajax_sinapsis_platform.ajax_url_progress_bar,
+        data : data,
+        error: function(response){
+            console.log(response);
+        },
+        success: function(response) {
+
+           if(response.response.status == true){
+
+            let progress_html = '<div class="col-12">'+
+            '<p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">'+response.response.porcentaje+'% COMPLETADO '+response.response.items+'/'+response.response.total_items+' pasos</p>'+
+            '</div>'+
+            '<div class="col-12">'+
+            '<div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">'+
+            '<div class="progress-bar" style="width: '+response.response.porcentaje+'%"></div>'+
+            '</div>'+
+            '</div>';
+
+            jQuery('#progress_box').html(progress_html);
+
+           }
+           
+        },
+        beforeSend: function (qXHR, settings) {
+            jQuery('#loading_progress_bar').fadeIn();
+        },
+        complete: function () {
+            jQuery('#loading_progress_bar').fadeOut();
+        },
+})
+
+
+
+
+
+    
+
+
+
 }
 
 
