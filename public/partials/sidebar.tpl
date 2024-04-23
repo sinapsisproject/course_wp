@@ -540,13 +540,13 @@
 
 
           <div style="display: none;" id="view_questions_{$c}" class="col-12">
-            <div class="row mt-5">
+            <div class="row">
 
               {$i = 1}
               {foreach $content->pregunta as $question}
               <div class="col-12 mb-5 pregunta_{$c}">
 
-                <div class="mt-5" style="display: inline-flex;">
+                <div class="mt-2" style="display: inline-flex;">
                   <h3>Pregunta {$i}:</h3> <p style="position: relative;top: 14px;left: 12px;font-size: 20px;"> ({$question->puntaje} pts.)</p>
                 </div>
 
@@ -631,12 +631,26 @@
         <div><h2>{$content->nombre}</h2></div>
 
         <div class="col-12 mb-5">
-          <p>{$content->descripcion}</p>
+          <p>Este foro está restringido a los alumnos del curso: <strong>{$curso->nombre}</strong>.</p>
         </div>
 
-        <div class="col-12 head-box-cuestionario-platform">
-          <h3>Debate</h3>
+        <div class="col-12 shadow question-default-foro-box">
+          <div class="row">
+            <div class="col-2">
+              <div class="row justify-content-md-center">
+                <div class="icono-sinapsis-box">
+                  <img src="{$icono}" alt="">
+                </div>
+              </div>
+            </div>
+            <div class="col-10">
+              {$content->descripcion}
+            </div>
+          </div>
         </div>
+
+
+
 
         <div class="col-12 mt-5 box-ql-editor">
           <p>Acá puedes crear una nueva pregunta para el {$content->nombre}</p>
@@ -655,9 +669,6 @@
 
             </div>
           </div>
-          
-
-
         </div>
 
 
@@ -669,9 +680,19 @@
           <div class="box-question-response col-12 border">
             <div class="row">
               <div class="col-12 mb-1">
-                <p style="font-size: 12px; padding-bottom: 10px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-regular fa-calendar-days"></i> {$pregunta->createdAt|date_format:"%d-%m-%Y"}</p>
-                <p style="margin: 0px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> {$pregunta->nombre_usuario}</p>
+
+                <div class="row">
+                  <div class="col-12 col-sm-3 col-md-2 col-xl-1 text-end">
+                    <i style="font-size: 45px; color: #445AFF;" class="fa-solid fa-circle-user"></i>
+                  </div>
+                  <div class="col-12 col-sm-9 col-md-10 col-xl-11 pt-1">
+                    <p style="font-weight: bold; color: #445AFF; font-size: 18px; ">{$pregunta->nombre_usuario}</p>
+                    <p style="font-size: 11px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-regular fa-calendar-days"></i> {$pregunta->createdAt|date_format:"%d-%m-%Y"}</p>
+                  </div>
+                </div>
+
               </div>
+
               <div class="col-12 mb-4">
                 <p class="h5" style="padding: 10px">{$pregunta->entrada}</p>
               </div>
@@ -680,12 +701,24 @@
               {foreach $pregunta->respuestas_foros as $respuesta}
                 <hr>
                 <div class="col-12 mb-4">
-                  <p style="margin-left: 30px; font-size: 15px; margin-bottom: 0px; color: #445AFF;">
-                    <i style="margin-right: 7px;" class="fa-solid fa-user"></i>
-                    {$respuesta->nombre_usuario} / {$respuesta->createdAt|date_format:"%d-%m-%Y"} 
-                  </p>
-                  <p style="margin-left: 30px; margin-top: 10px;">- {$respuesta->entrada}</p>
+
+                  <div class="row">
+                    <div class="col-12 col-sm-3 col-md-2 col-xl-1 text-end">
+                      <i style="font-size: 40px; color: #445AFF;" class="fa-solid fa-circle-user"></i>
+                    </div>
+                    <div class="col-12 col-sm-9 col-md-10 col-xl-11">
+                      <p style="font-size: 17px; color: #445AFF; font-weight: bold;">
+                        {$respuesta->nombre_usuario} 
+                      </p>
+                      <p style="font-size: 10px; color: #445AFF;">
+                        {$respuesta->createdAt|date_format:"%d-%m-%Y"}
+                      </p>
+                      <p style="margin-top: 10px;">{$respuesta->entrada}</p>
+                    </div>
+                  </div>
+                  
                 </div>
+
               {/foreach}
 
               <div id="new_response_foro_{$pregunta->id}"></div>

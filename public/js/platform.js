@@ -279,8 +279,7 @@ function showClass(c , attr){
 
 function showClassQuestions(attr, c , id_test, minutes, id_curso, clase , total_progress){
 
-
-    jQuery("#button_init_question_"+c).prop("disabled", true);
+    jQuery("#button_init_question_"+c).css("display", "none");
 
     in_test = true;
 
@@ -368,12 +367,32 @@ function saveResponseQuestionForo(id_usuario, id_pregunta, nombre_usuario, n_ite
                 console.log(response);
             },
             success: function(response) {
-                
-                console.log(response);
 
                 if(response.status == true){
                     jQuery("#buttonSaveResponse").prop("disabled", false);
-                    jQuery("#new_response_foro_"+id_pregunta).replaceWith('<hr><div class="col-12 mb-4"><p style="margin-left: 30px; font-size: 15px; margin-bottom: 0px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i>'+response.nombre_usuario+" / "+response.fecha+'</p><p style="margin-left: 30px; margin-top: 10px;">- '+response.entrada+'</p></div><div id="new_response_foro_'+response.id_pregunta+'"></div>');
+
+                    let html = '<hr>'+
+                    '<div class="col-12 mb-4">'+
+    
+                      '<div class="row">'+
+                        '<div class="col-12 col-sm-3 col-md-2 col-xl-1 text-end">'+
+                          '<i style="font-size: 40px; color: #445AFF;" class="fa-solid fa-circle-user"></i>'+
+                        '</div>'+
+                        '<div class="col-12 col-sm-9 col-md-10 col-xl-11">'+
+                          '<p style="font-size: 17px; color: #445AFF; font-weight: bold;">'+
+                            response.nombre_usuario+
+                          '</p>'+
+                          '<p style="font-size: 10px; color: #445AFF;">'+
+                            response.fecha+
+                          '</p>'+
+                          '<p style="margin-top: 10px;">'+response.entrada+'</p>'+
+                        '</div>'+
+                      '</div>'+
+                      
+                    '</div>'+
+                    '<div id="new_response_foro_'+response.id_pregunta+'"></div>';
+
+                    jQuery("#new_response_foro_"+id_pregunta).replaceWith(html);
                 }
 
                 jQuery("#response_question_foro_"+id_pregunta).val("");
@@ -431,19 +450,30 @@ function saveQuestionForo(id_foro , id_usuario, nombre_usuario, n_item){
                 if(response.status == true){
     
                     jQuery("#buttonSaveQuestion").prop("disabled", false);
-    
-                    var html = '';
-                    html += '<div class="box-question-response col-12 border">';
-                    html += '<div class="row">';
-                    html += '<div class="col-12 mb-1">';
-                    html += '<p style="font-size: 12px; padding-bottom: 10px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-regular fa-calendar-days"></i> '+response.fecha+'</p>';
-                    html += '<p style="margin: 0px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-solid fa-user"></i> '+response.nombre_usuario+'</p>';
-                    html += '</div>';
-                    html += '<div class="col-12 mb-4">';
-                    html += '<p class="h5" style="padding: 10px">'+response.entrada+'</p>';
-                    html += '</div>';
-                    html += '</div>';
-                    html += '<div id="new_question_'+n_item+'"></div>';
+
+                    let html = '<div id="new_question_'+n_item+'"></div>'+
+                                '<div class="box-question-response col-12 border">'+
+                                '<div class="row">'+
+                                    '<div class="col-12 mb-1">'+
+                    
+                                    '<div class="row">'+
+                                        '<div class="col-12 col-sm-3 col-md-2 col-xl-1 text-end">'+
+                                        '<i style="font-size: 45px; color: #445AFF;" class="fa-solid fa-circle-user"></i>'+
+                                        '</div>'+
+                                        '<div class="col-12 col-sm-9 col-md-10 col-xl-11 pt-1">'+
+                                        '<p style="font-weight: bold; color: #445AFF; font-size: 18px; ">'+response.nombre_usuario+'</p>'+
+                                        '<p style="font-size: 11px; color: #445AFF;"><i style="margin-right: 7px;" class="fa-regular fa-calendar-days"></i> '+response.fecha+'</p>'+
+                                        '</div>'+
+                                    '</div>'+
+                    
+                                    '</div>'+
+                    
+                                    '<div class="col-12 mb-4">'+
+                                    '<p class="h5" style="padding: 10px">'+response.entrada+'</p>'+
+                                    '</div>'+
+                                '</div>'+
+                                '</div>';
+
     
                     jQuery("#new_question_"+n_item).replaceWith(html);
 

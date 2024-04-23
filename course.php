@@ -177,6 +177,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $progress = RfCoreCurl::curl('/api/progress/progress_data/' , 'POST' , $token, $body_progress);
 
         $logo =  plugins_url( '/public/assets/img/SC.png', __FILE__ );
+        $icono = plugins_url( '/public/assets/img/logo-sinapsis-sin-fondo.png', __FILE__ );
 
 
         $smarty->assign('id_curso', $id_curso);
@@ -184,6 +185,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $smarty->assign('progress', $progress);
         $smarty->assign('sidebar_menu', $sidebar_menu->response);
         $smarty->assign('logo', $logo);
+        $smarty->assign('icono', $icono);
         $smarty->assign('id_usuario', $id);
         $smarty->assign('nombre_usuario', $nombre_usuario);
         $smarty->assign('email_usuario', $email_usuario);
