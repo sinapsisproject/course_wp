@@ -10,6 +10,7 @@
 .title-price{
     color: #445AFF !important;
     margin-left: 40px;
+    font-size: bold !important;
 }
 
 
@@ -34,7 +35,7 @@
 .content-course-data{
     border-radius: 16px;
     position: relative;
-    margin-top: -290px;
+    margin-top: -355px;
     background: white;
 }
 

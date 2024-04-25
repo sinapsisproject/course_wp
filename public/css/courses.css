@@ -18,3 +18,18 @@
     width: 100%;
 }
 
+.search-box {
+    position: relative;
+}
+.search-box input[type="text"] {
+    padding-right: 30px; /* Ajusta el espacio para el icono de búsqueda */
+}
+.search-box .search-icon {
+    position: absolute;
+    right: 80px; /* Posiciona el icono a la derecha del input */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa; /* Color del icono */
+    pointer-events: none; /* Evita que el icono interfiera con la interacción del input */
+}
+
