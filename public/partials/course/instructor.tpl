@@ -18,7 +18,9 @@
     </div>
 
     <div class="row justify-content-center">
-        <button type="button" class="btn mt-4">Más sobre {$curso->instructor->nombre} <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button>
+        <div class="col-12 text-center">
+            <a href="/instructor/?id={$curso->instructor->id}"><button type="button" class="btn mt-4">Más sobre {$curso->instructor->nombre} <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button></a>
+        </div>
     </div>
 
     </div>
