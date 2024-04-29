@@ -33,3 +33,10 @@
     pointer-events: none; /* Evita que el icono interfiera con la interacción del input */
 }
 
+.card-title{
+    text-align: justify;
+}
+.card-text{
+    text-align: justify;
+}
+

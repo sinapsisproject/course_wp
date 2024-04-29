@@ -21,7 +21,7 @@
 
     {foreach $cursos as $curso}
 
-        <div class="col col-md-6 col-xl-4">
+        <div class="col col-md-6 col-xl-4 mb-4">
 
         <div class="card">
             <div class="box-img-courses">
