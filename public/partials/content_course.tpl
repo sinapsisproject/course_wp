@@ -13,12 +13,12 @@
                 <div class="accordion " id="accordion_{$c}">
                 
                         <div class="col-12 ">
-                            <div class="row pb-2">
+                            <div class="row">
 
                                 <div class="accordion-header col-10">
                                     <p class="text-title-header-accordeon">{$data->nombre}</p>
                                 </div>
-                                <div class="col-2 text-center">
+                                <div class="col-2 text-center align-self-center">
                                     <i data-bs-toggle="collapse" data-bs-target="#collapseOne_{$c}" aria-expanded="true" aria-controls="collapseOne" class="fa-solid fa-plus button-show-accordeon-course"></i>
                                 </div>
 
