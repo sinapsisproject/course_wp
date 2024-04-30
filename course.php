@@ -255,7 +255,10 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         }
         if($atts["output"] == "instructor"){
             $output = $smarty->fetch('instructor.tpl');
-        } 
+        }
+        if($atts["output"] == "duracion"){
+            $output = $smarty->fetch('duracion.tpl');
+        }
 
         return $output;
 
