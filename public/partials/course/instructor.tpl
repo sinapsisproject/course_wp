@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
 
-    <div class="col-7">
+    <div class="col-12 col-md-7">
 
     <div class="card mb-3">
         <div class="row g-0">

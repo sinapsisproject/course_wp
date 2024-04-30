@@ -1,1 +1,1 @@
-<p>{$curso->descripcion}</p>
+<p class="descripcion-box-course">{$curso->descripcion}</p>
