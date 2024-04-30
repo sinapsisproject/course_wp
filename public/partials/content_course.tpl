@@ -1,11 +1,11 @@
 <div class="row justify-content-center mt-5">
-    <div class="blue-box-content-course col-12 col-md-10">
+    <div class="blue-box-content-course col-12 col-md-9">
         <h3>Contenido del curso</h3>
         <p>Revisa lo que aprenderas durante el curso y las distintas unidades de contenidos:</p>
         <!-- <a href="{$curso->link_programa}" style="border-width: 0px;" target="_blank" class="button-download-content-complete mt-3" type="button">Descarga el contenido completo <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></a> -->
     </div>
 
-    <div class="content-course-data col-11 col-md-9 mb-3 pb-3 shadow">
+    <div class="content-course-data col-11 col-md-8 mb-3 pb-3 shadow">
         {$c=0}
         {foreach $content as $data}
         <p style="display : none;">{$c++}</p>
