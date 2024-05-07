@@ -21,7 +21,7 @@
 
     {foreach $cursos as $curso}
 
-        <div class="col col-md-6 col-xl-4 mb-4">
+        <div class="col-12 col-md-6 col-xl-4 mb-4">
 
         <div class="card">
             <div class="box-img-courses">
@@ -31,10 +31,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <p><i class="fa-solid fa-users"></i> + {$curso->estudiantes} Estudiantes</p>
+                        <p class="text-course-data"><i class="fa-solid fa-users"></i> + {$curso->estudiantes} Estudiantes</p>
                     </div>
                     <div class="col-6">
-                        <p><i class="fa-regular fa-clock"></i> {$curso->duracion}</p>
+                        <p class="text-course-data"><i class="fa-regular fa-clock"></i> {$curso->duracion}</p>
                     </div>
                 </div>
                 
