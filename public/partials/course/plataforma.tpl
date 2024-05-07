@@ -54,15 +54,19 @@
     {/if}
         <div class="col-12 text-center mb-5">
             {foreach $content as $data}
-                <a style="margin: 30px"  href="/cursos-sinapsis/?curso={$curso->id}">{$data->nombre}</a>
+                <a style="margin: 30px"  href="/cursos-sinapsis/?curso={$curso->id}">{$data->nombre}</a><br>
             {/foreach}
         </div>
 
         <div class="content-course-data-user-register col-9 mb-3 pb-3 shadow">
 
-            <div class="col-12 text-center mt-4">
-                <a href="/cursos-sinapsis/?curso={$curso->id}"><button type="button">Materiales</button></a>
-                <a href="/cursos-sinapsis/?curso={$curso->id}"><button type="button">Evaluación</button></a>
+            <div class="row mt-4">
+                <div class="col-12 mb-2 col-md-6 text-center text-md-end">
+                    <a href="/cursos-sinapsis/?curso={$curso->id}"><button type="button">Materiales</button></a>
+                </div>
+                <div class="col-12 col-md-6 text-center text-md-start">
+                    <a href="/cursos-sinapsis/?curso={$curso->id}"><button type="button">Evaluación</button></a>
+                </div>
             </div>
 
 
