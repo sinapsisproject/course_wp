@@ -20,12 +20,16 @@ jQuery(document).ready( function(){
         }
     });
 
-
+    if(jQuery(window).width() <= 991){
+        jQuery("#sidebar").css("transform", "translateX(-300px)");
+        jQuery("#openbtn").html('<i class="openbtn fa-solid fa-circle-chevron-right"></i>');
+        jQuery("#openbtn").css("transform", "translateX(-295px)");
+    }
 
 
     jQuery("#button_previus").css("display" , "none");
     
-    jQuery("#openbtn").click(function(){
+    jQuery("#openbtn , #btnOpenMobile").click(function(){
 
         var position = jQuery("#sidebar").offset();
 
@@ -33,12 +37,26 @@ jQuery(document).ready( function(){
             jQuery("#openbtn").html('<i class="openbtn fa-solid fa-circle-chevron-left"></i>');
             jQuery("#openbtn").css("transform", "translateX(0px)");
             jQuery("#sidebar").css("transform", "translateX(0px)");
-            jQuery("#contenido").css("margin-left", "300px");
+            jQuery("#btnOpenMobile").css("color", "#445AFF");
+            
+
+            if(jQuery(window).width() <= 991){
+                jQuery("#contenido").css("transform", "translateX(0px)");
+            }else{
+                jQuery("#contenido").css("margin-left", "300px");
+            }
+
         }else{
             jQuery("#openbtn").html('<i class="openbtn fa-solid fa-circle-chevron-right"></i>');
             jQuery("#openbtn").css("transform", "translateX(-295px)");
             jQuery("#sidebar").css("transform", "translateX(-300px)");
-            jQuery("#contenido").css("margin-left", "0");
+            jQuery("#btnOpenMobile").css("color", "black");
+
+            if( jQuery(window).width() <= 991){
+                jQuery("#contenido").css("transform", "translateX(0px)");
+            }else{
+                jQuery("#contenido").css("margin-left", "0");
+            }
         }
 
     });

@@ -1,0 +1,28 @@
+@media (max-width: 991px) {
+   
+    .sidebar{
+        background: white;
+    }
+    .contenido{
+        margin-left: 0px;
+    }
+    .box-openbtn{
+        top: 130px;
+    }
+
+    .text-progress-bar{
+        display: block !important;
+        text-align: center;
+    }
+    .text-progress-bar p{
+        top: 20px !important;
+    }
+    .link-leccion-direction{
+        font-size: 12px;
+        text-align: center;
+    }
+    
+
+
+}
+

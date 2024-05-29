@@ -1,48 +1,67 @@
 {if $validate_user == true}
 <div class="row header-bar sticky-top" style="background: white;">
-  <div class="col-2 border-end">
+
+
+  <div class="col-2 border-end d-none d-md-block">
     <img src="{$logo}" alt="" >
   </div>
-  <div class="col-4 border-end">
-
-  <div class="row">
-    <div class="col-1" id="loading_progress_bar" style="display: none;">
-      <div style="width: 1rem; height: 1rem; margin-right: 6px; position: relative; top: 14px; color: #445AFF;" class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-
-    <div class="col-11">
-      <div id="progress_box" class="row">
-        <div class="col-12" style="display: inline-flex;">
-          <p style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">{$progress->porcentaje}% COMPLETADO {$progress->items}/{$progress->total_items} pasos</p>
-        </div>
-        <div class="col-12">
-          <div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar" style="width: {$progress->porcentaje}%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
-  </div>
-  <div  class="col-3 pt-3 border-end">
-    <p id="button_previus" onclick="link_previus()" class="link-leccion-direction" ><i style="margin-right: 10px;" class="fa-solid fa-chevron-left"></i> Lección anterior</p>
-  </div>
-  <div  class="col-3 border-end">
+  <div class="col-12 col-md-4 border-end">
 
     <div class="row">
-      <div class="col-6 mt-3">
+
+      <div class="col-1" id="loading_progress_bar" style="display: none;">
+        <div style="width: 1rem; height: 1rem; margin-right: 6px; position: relative; top: 14px; color: #445AFF;" class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-11">
+        <div id="progress_box" class="row">
+
+          <div id="btnOpenMobile" class="col-3 d-blok d-md-none text-start" style="padding: 15px;">
+            <i class="fa-solid fa-bars" style="font-size: 25px;"></i>
+          </div>
+          <div class="col-6 col-md-12 text-progress-bar" style="display: inline-flex;">
+            <p class="d-none d-md-block" style="position: relative; top: 11px; color: #445AFF; font-weight: bold;">{$progress->porcentaje}% COMPLETADO {$progress->items}/{$progress->total_items} pasos</p>
+            <p class="d-block d-md-none" style="position: relative; top: 11px; color: #445AFF; font-weight: bold; font-size: 12px;">{$progress->porcentaje}% COMPLETADO</p>
+          </div>
+          <div class="col-3 d-block d-md-none text-end" style="padding: 15px;">
+            <i class="fa-solid fa-circle-user" style="font-size: 25px;"></i>
+          </div>
+          
+          <div class="col-12">
+            <div style="height: 8px;" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              <div class="progress-bar" style="width: {$progress->porcentaje}%"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  
+  </div>
+
+
+  <div  class="col-6 col-md-3 pt-3 border-end">
+    <p id="button_previus" onclick="link_previus()" class="link-leccion-direction" ><i style="margin-right: 10px;" class="fa-solid fa-chevron-left"></i> Lección anterior</p>
+  </div>
+
+  <div  class="col-6 col-md-3 border-end">
+
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3">
         <p id="button_next" onclick="link_next()" class="link-leccion-direction" >Lección siguiente <i style="margin-left: 10px;" class="fa-solid fa-chevron-right"></i></p>
       </div> 
-      <div class="col-6 text-end">
+      <div class="col-12 col-md-6 text-end d-none d-md-block">
         <i class="user_profile fa-solid fa-circle-user" data-bs-toggle="modal" data-bs-target="#modalProfile"></i>
       </div>
     </div>
 
   </div>
+
 </div>
 
 <div class="modal fade" tabindex="-1" id="modalProfile">
@@ -100,7 +119,7 @@
 </div>
 
 
-<div id="openbtn" class="box-openbtn"><i class="openbtn fa-solid fa-circle-chevron-left"></i></div>
+<div id="openbtn" class="box-openbtn d-none d-md-block"><i class="openbtn fa-solid fa-circle-chevron-left"></i></div>
 
 <div class="sidebar" id="sidebar">
 
@@ -201,7 +220,7 @@
 
   <div class="row justify-content-center">
     <div class="col-12"></div>
-    <div class="col-8">
+    <div class="col-12 col-md-8">
       <div style="display: block;" id="show_main">
 
       <div><h2>{$curso->nombre}</h2></div>
@@ -248,7 +267,7 @@
 
     <div class="row justify-content-center">
     <div class="col-12"></div>
-    <div class="col-8">
+    <div class="col-12 col-md-8">
 
       <div style="display: none" id="show_video_{$c++}">
     
@@ -258,10 +277,10 @@
 
         <div class="breadcrumbs">
           <div class="row">
-            <div class="col-10 align-self-center">
+            <div class="col-8 col-md-10 align-self-center">
               <p>{$curso->nombre} > {$content->nombre}</p>
             </div>
-            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+            <div class="col-4 col-md-2 align-self-center" id="progress_breadcrumbs_{$c}">
                 {if $content->done == true}
                   <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
                 {else}
@@ -324,7 +343,7 @@
 
     <div class="row justify-content-center">
     <div class="col-12"></div>
-    <div class="col-8">
+    <div class="col-12 col-md-8">
       <div style="display: none" id="show_apunte_{$c++}">
         <div><h2>{$content->nombre}</h2></div>
 
@@ -332,10 +351,10 @@
 
         <div class="breadcrumbs">
           <div class="row">
-            <div class="col-10 align-self-center">
+            <div class="col-8 col-md-10 align-self-center">
               <p>{$curso->nombre} > {$content->nombre}</p>
             </div>
-            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+            <div class="col-4 col-md-2 align-self-center" id="progress_breadcrumbs_{$c}">
                 {if $content->done == true}
                   <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
                 {else}
@@ -399,17 +418,17 @@
 
       <div class="row justify-content-center">
       <div class="col-12"></div>
-      <div class="col-8">
+      <div class="col-12 col-md-8">
 
       <div style="display: none" id="show_texto_{$c++}">
         <div><h2>{$content->nombre}</h2></div>
 
         <div class="breadcrumbs">
           <div class="row">
-            <div class="col-10 align-self-center">
+            <div class="col-8 col-md-10 align-self-center">
               <p>{$curso->nombre} > {$content->nombre}</p>
             </div>
-            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+            <div class="col-4 col-md-2 align-self-center" id="progress_breadcrumbs_{$c}">
                 {if $content->done == true}
                   <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
                 {else}
@@ -470,7 +489,7 @@
 
     <div class="row justify-content-center">
       <div class="col-12"></div>
-      <div class="col-8">
+      <div class="col-12 col-md-8">
 
       {if $content->clase == 'recuperativa'}
         <div style="display: none" id="show_cuestionario_recuperativa">
@@ -487,10 +506,10 @@
 
         <div class="breadcrumbs">
           <div class="row">
-            <div class="col-10 align-self-center">
+            <div class="col-8 col-md-10 align-self-center">
               <p>{$curso->nombre} > {$content->nombre}</p>
             </div>
-            <div class="col-2 align-self-center" id="progress_breadcrumbs_{$c}">
+            <div class="col-4 col-md-2 align-self-center" id="progress_breadcrumbs_{$c}">
                 {if $content->done == true}
                   <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
                 {else}
@@ -625,7 +644,7 @@
 
     <div class="row justify-content-center">
       <div class="col-12"></div>
-      <div class="col-8">
+      <div class="col-12 col-md-8">
 
       <div style="display: none" id="show_foro_{$c++}">
         <div><h2>{$content->nombre}</h2></div>

@@ -99,6 +99,13 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
                 array(),
                 rand(0, 99)
             );
+
+            wp_enqueue_style( 
+                'css-platform-mobile-sinapsis',
+                plugins_url( '/public/css/platform_mobile.css', __FILE__ ),
+                array(),
+                rand(0, 99)
+            );
         }
 
         
@@ -276,7 +283,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $smarty->setTemplateDir(dirname(__FILE__) . '/public/partials/');
         $smarty->setCompileDir(dirname(__FILE__) .'/public/compile/');
 
-        $content = RfCoreCurl::curl('/api/course/get_content_course/'.$id_curso , 'GET' , null , null);
+        $content = RfCoreCurl::curl('/api/course/get_modules_and_objectives_by_id_module/'.$id_curso , 'GET' , null , null);
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id_free_data/'.$id_curso , 'GET' , null , null);
 
         $smarty->assign('content', $content);

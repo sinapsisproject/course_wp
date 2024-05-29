@@ -7,7 +7,7 @@
 
     <div class="content-course-data col-11 col-md-8 mb-3 pb-3 shadow">
         {$c=0}
-        {foreach $content as $data}
+        {foreach $content->modulos as $data}
         <p style="display : none;">{$c++}</p>
         <div class="content-course-data-item shadow">
                 <div class="accordion " id="accordion_{$c}">
@@ -28,8 +28,8 @@
                         
                         <div id="collapseOne_{$c}" class="accordion-collapse collapse col-12" data-bs-parent="#accordion_{$c}">
                             <div class="accordion-body">
-                                {foreach $data->contenido as $contenido}
-                                <p class="text-accordeon-body"><i style="margin-right: 10px; color: #445AFF;" class="fa-solid fa-circle-arrow-right"></i> {$contenido->nombre}</p>
+                                {foreach $data->objetivos as $objetivo}
+                                <p class="text-accordeon-body"><i style="margin-right: 10px; color: #445AFF;" class="fa-solid fa-circle-arrow-right"></i> {$objetivo->texto}</p>
                                 {/foreach}
                             </div>
                         </div>
