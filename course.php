@@ -166,11 +166,12 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $smarty->setTemplateDir(dirname(__FILE__) . '/public/partials/');
         $smarty->setCompileDir(dirname(__FILE__) .'/public/compile/');
 
-        $token = get_option('tokensinapsisplatform');
-        $id    = get_option('idusersinapsisplatform');
-        $nombre_usuario = get_option('namesinapsisplatform');
-        $email_usuario = get_option('emailsinapsisplatform');
-        
+        $user_id = get_current_user_id();
+
+        $token              = get_user_meta($user_id, 'tokensinapsisplatform', true);
+        $id                 = get_user_meta($user_id, 'idusersinapsisplatform', true);
+        $nombre_usuario     = get_user_meta($user_id, 'namesinapsisplatform', true);
+        $email_usuario      = get_user_meta($user_id, 'emailsinapsisplatform', true);
 
         $validate_user = RfCoreCurl::curl('/api/users/validate_course_user/'.$id_curso , 'GET' , $token, NULL);
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id/'.$id_curso , 'GET' , $token, null);
@@ -304,8 +305,10 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
         $smarty->setTemplateDir(dirname(__FILE__) . '/public/partials/course/');
         $smarty->setCompileDir(dirname(__FILE__) .'/public/compile/');
 
+        $user_id = get_current_user_id();
 
-        $token = get_option('tokensinapsisplatform');
+        //$token = get_option('tokensinapsisplatform');
+        $token = get_user_meta($user_id, 'tokensinapsisplatform', true);
         $validate_user = RfCoreCurl::curl('/api/users/validate_course_user/'.$id_curso , 'GET' , $token, NULL);
         $content = RfCoreCurl::curl('/api/course/get_content_course/'.$id_curso , 'GET' , null , null);
         $curso = RfCoreCurl::curl('/api/course/get_course_by_id_free_data/'.$id_curso , 'GET' , null , null);

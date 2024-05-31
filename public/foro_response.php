@@ -15,7 +15,8 @@ require(dirname(__FILE__) .'/../../../../wp-load.php');
         ));
     }else{
 
-        $token = get_option('tokensinapsisplatform');
+        $user_id = get_current_user_id();
+        $token = get_user_meta($user_id, 'tokensinapsisplatform', true);
 
         $body = [
             "entrada" => $entrada,

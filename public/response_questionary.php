@@ -6,8 +6,10 @@ require(dirname(__FILE__) .'/../../../../wp-load.php');
     $id_test    = (int)$_POST["id_test"];
     $listado = [];
 
-    $token = get_option('tokensinapsisplatform');
-    $id    = get_option('idusersinapsisplatform');
+    $user_id = get_current_user_id();
+    $token   = get_user_meta($user_id, 'tokensinapsisplatform', true);
+    $id      = get_user_meta($user_id, 'idusersinapsisplatform', true);
+
 
     if($respuestas != null){
         

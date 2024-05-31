@@ -12,7 +12,8 @@ require(dirname(__FILE__) .'/../../../../wp-load.php');
         "nombre_item" => $nombre_item,
     ];
 
-    $token = get_option('tokensinapsisplatform');
+    $user_id = get_current_user_id();
+    $token = get_user_meta($user_id, 'tokensinapsisplatform', true);
 
     $response = RfCoreCurl::curl('/api/progress' , 'DELETE' , $token, $body);
 

@@ -10,7 +10,8 @@ $body = [
     "total_progress" => $total_progress
 ];
 
-$token = get_option('tokensinapsisplatform');
+$user_id = get_current_user_id();
+$token = get_user_meta($user_id, 'tokensinapsisplatform', true);
 
 $response = RfCoreCurl::curl('/api/progress/progress_data' , 'POST' , $token, $body);
 
