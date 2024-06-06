@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
 
-    <div class="col-12 col-md-6">
+    <div class="col-10 col-md-6">
 
     <div class="card mb-3">
         <div class="row g-0">
@@ -19,7 +19,7 @@
 
     <div class="row justify-content-center">
         <div class="col-12 text-center">
-            <a href="/instructor/?id={$curso->instructor->id}"><button type="button" class="btn mt-4">Más sobre {$curso->instructor->nombre} <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button></a>
+            <a href="/instructor/?id={$curso->instructor->id}"><button type="button" class="btn mt-4" style="font-size: 14px;">Más sobre {$curso->instructor->nombre} <i style="margin-left: 10px;" class="fa-solid fa-arrow-right"></i></button></a>
         </div>
     </div>
 
