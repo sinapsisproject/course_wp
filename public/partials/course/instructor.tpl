@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
 
-    <div class="col-12 col-md-7">
+    <div class="col-12 col-md-6">
 
     <div class="card mb-3">
         <div class="row g-0">
@@ -11,7 +11,7 @@
             <div class="card-body">
                 <h5 class="card-title mb-3">{$curso->instructor->nombre}</h5>
                 <strong><p class="card-text mb-3">{$curso->instructor->especialidad}</p></strong>
-                <p class="card-text">{$curso->instructor->descripcion}</p>
+                <p style="font-size: 15px;" class="card-text">{$curso->instructor->descripcion_corta}</p>
             </div>
             </div>
         </div>
