@@ -1,3 +1,6 @@
+
+{if $curso->estado == 'activo'}
+
 {if $validate_user == true}
 <div class="row header-bar sticky-top" style="background: white;">
 
@@ -769,5 +772,19 @@
   {/foreach}
 
 </div>
+
+{/if}
+{else}
+
+
+  <div class="box-pronto col-12 mt-5 text-center">
+    <img src="{$logo}" alt="" >
+    <br><br><br>
+    <h2>Pronto estará disponible el contenido del curso</h2>
+    <h3>Estamos trabajando para asegurarnos de que el material proporcionado sea de la más alta calidad y utilidad para tu formación profesional.</h3>
+    <br><br>
+    <a href="/cursos"> <button type="button">Ir a cursos</button></a>
+  </div>
+
 
 {/if}
