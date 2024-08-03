@@ -991,13 +991,137 @@ function progress_line(id_curso , total_progress){
         },
 })
 
+}
+
+
+function procesar_respuestas_formulario(c , id_formulario , id_curso, total_progress){
+
+    var data = {};
+    var all_data = [];
+    var p = 0;
+    var i = 0;
+
+    jQuery(".formulario_textarea_"+id_formulario).each(function(index) {
+        p=p+1;
+        var respuesta   = jQuery(this).find("textarea").val();
+        var id_pregunta = jQuery(this).find("textarea").attr("id_pregunta");
+
+        if(respuesta == ""){
+            jQuery("#error_textarea_"+id_pregunta).html("<p style='color: red;'>Debes contestar esta pegrunta.</p>")
+        }else{
+            i=i+1;
+            jQuery("#error_textarea_"+id_pregunta).html('');
+            data = {
+                "id_pregunta"   : parseInt(id_pregunta),
+                "respuesta"     : respuesta,
+            }
+
+            all_data.push(data);
+        }
+    });
+
+
+    jQuery(".formulario_input_text_"+id_formulario).find("input[type='text']").map(function(){
+
+        p=p+1;
+       
+        var respuesta   = jQuery(this).val();
+        var id_pregunta = jQuery(this).attr("id_pregunta");
+
+        var palabras = respuesta.trim().split(/\s+/);
+
+        if(respuesta == ""){
+            jQuery("#error_input_"+id_pregunta).html("<p style='color: red;'>Debes contestar esta pegrunta.</p>")
+        }else if(palabras.length > 3){
+            jQuery("#error_input_"+id_pregunta).html("<p style='color: red;'>Solo puedes usar 3 palabras para responder.</p>")
+        }
+        else{
+            i=i+1;
+            jQuery("#error_input_"+id_pregunta).html('');
+            data = {
+                "id_pregunta"   : parseInt(id_pregunta),
+                "respuesta"     : respuesta,
+            }
+
+            all_data.push(data);
+        }
+
+    });
+
+
+    if(p == i){
+
+        var data = {
+            "valores" : all_data
+        }
+
+
+        jQuery.ajax({
+            type : "post",
+            url : wp_ajax_sinapsis_platform.ajax_save_data_formulario,
+            data : data,
+            error: function(response){
+                console.log(response);
+            },
+            success: function(response) {
+
+                if(response.status == true){
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Respuestas enviadas",
+                        confirmButtonText: "ok",
+                        didClose: () => {
+                            
+                            link_next();
+                            jQuery("#box_icon_not_check_"+(c-1)).replaceWith('<div id="box_icon_check_'+(c-1)+'" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>');
+                            
+                            let progress_breadcrumbs_html = '<div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>';
+                            jQuery('#progress_breadcrumbs_'+c).html(progress_breadcrumbs_html);
+
+
+
+                            let data_progres = {
+                                "id_curso" : id_curso,
+                                "id_item"  : id_formulario,
+                                "nombre_item" : "formulario"
+                               }
+            
+                               jQuery.ajax({
+                                type : "post",
+                                url : wp_ajax_sinapsis_platform.ajax_url_progress,
+                                data : data_progres,
+                                error: function(response){
+                                    console.log(response);
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                    progress_line(id_curso, total_progress);
+                                }
+                               })
 
 
 
 
-    
 
 
+                        },
+                    });
+
+                }
+               
+            },
+            beforeSend: function (qXHR, settings) {
+                jQuery('#loading_formulario_button_'+id_formulario).fadeIn();
+            },
+            complete: function () {
+                jQuery('#loading_formulario_button_'+id_formulario).fadeOut();
+            },
+        })
+
+
+
+    }
 
 }
 
