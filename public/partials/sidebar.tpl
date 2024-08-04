@@ -581,13 +581,16 @@
 
           <div style="display: none;" id="view_questions_{$c}" class="col-12">
             <div class="row">
-
               {$i = 1}
               {foreach $content->pregunta as $question}
               <div class="col-12 mb-5 pregunta_{$c}">
 
                 <div class="mt-2" style="display: inline-flex;">
+                {if $content->clase != 'formativo'}
                   <h3>Pregunta {$i}:</h3> <p style="position: relative;top: 14px;left: 12px;font-size: 20px;"> ({$question->puntaje} pts.)</p>
+                {else}
+                  <h3>Pregunta {$i}</h3>
+                {/if}
                 </div>
 
                 <p>{$question->pregunta}</p>
@@ -919,7 +922,6 @@
 
         </div>  
 
-      </div>
       </div>
     </div>
 

@@ -661,15 +661,22 @@ function assessment(id_test){
             
             if(response.status == true){
 
-
-
+                let clase = response.response.response[0].clase;
+                let html = '';
                 let estado = response.response.estado == 'aprobado' ? '<p style="font-size: 24px;color: #5cdd5c;"><i style="color: #5cdd5c;" class="fa-solid fa-circle-check"></i> Aprobado</p>' : '<p style="font-size: 24px;color: #f06666;"><i class="fa-solid fa-circle-xmark"></i> No aprobado</p>';
 
-                let html =  '<div class="box_assessment col-12 mb-4 mt-5" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
+                if(clase != 'formativo'){
+                    html =  '<div class="box_assessment col-12 mb-4 mt-5" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
                             '<p>Respondiste correctamente '+response.response.correctas+' de '+response.response.preguntas+' preguntas.</p>'+
                             '<p>Obtuviste '+response.response.puntaje+' puntos.</p>'+
                             '<h3 style="color : white;">'+estado+'</h3>'+
                             '</div>';
+                }else{
+                    html =  '<div class="box_assessment col-12 mb-4 mt-5" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
+                            '<p style="margin: 0px;">Respondiste correctamente '+response.response.correctas+' de '+response.response.preguntas+' preguntas.</p>'+
+                            '</div>';
+                }
+                
 
                 jQuery('#assessment_'+id_test).html(html);
             }
@@ -699,29 +706,48 @@ function showClassResponsesAssessment(id_test){
 
             if(response.status == true){
 
+                let clase = response.response.response[0].clase;
+                console.log(clase);
+
                 let estado = response.response.estado == 'aprobado' ? '<p style="font-size: 24px;color: #5cdd5c;"><i style="color: #5cdd5c;" class="fa-solid fa-circle-check"></i> Aprobado</p>' : '<p style="font-size: 24px;color: #f06666;"><i class="fa-solid fa-circle-xmark"></i> No aprobado</p>';
 
-                let html_1 =  '<div class="box_assessment col-12 mb-4 mt-2" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
+                let html_1 = '';
+                if(clase != 'formativo'){
+                    html_1 =  '<div class="box_assessment col-12 mb-4 mt-2" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
                             '<p>Respondiste correctamente '+response.response.correctas+' de '+response.response.preguntas+' preguntas.</p>'+
                             '<p>Obtuviste '+response.response.puntaje+' puntos.</p>'+
                             '<h3 style="color : white;">'+estado+'</h3>'+
                             '</div>';
+                }else{
+                    html_1 =  '<div class="box_assessment col-12 mb-4 mt-2" style="background: #445AFF;  color: white; border-radius: 10px; padding: 24px; border-radius: 10px; font-size: 20px;">'+
+                            '<p style="margin: 0px;">Respondiste correctamente '+response.response.correctas+' de '+response.response.preguntas+' preguntas.</p>'+
+                            '</div>';
+                }
 
                 let html_2 = '';
                 
                 let c = 0;
 
-                // console.log(response.response.response[0].pregunta.alternativas);
-
+                
 
                 response.response.response[0].pregunta.forEach(element => {
                     
-                    html_2 +=   '<div class="row mt-5">'+
-                                '<div class="col-12 mb-1">'+
-                                '<div style="display: inline-flex;"><h4><strong class="mt-5"><p>Pregunta '+(++c)+':</p></strong></h4><label style="position: relative;top: 14px;left: 10px;font-size: 19px;">('+element.puntaje+ 'pts.)</label></div>'+
-                                '<p>'+element.pregunta+'</p>'+
-                                '</div>'+
-                                '</div>';
+                    if(clase != 'formativo'){
+                        html_2 +=   '<div class="row mt-5">'+
+                        '<div class="col-12 mb-1">'+
+                        '<div style="display: inline-flex;"><h4><strong class="mt-5"><p>Pregunta '+(++c)+':</p></strong></h4><label style="position: relative;top: 14px;left: 10px;font-size: 19px;">('+element.puntaje+ 'pts.)</label></div>'+
+                        '<p>'+element.pregunta+'</p>'+
+                        '</div>'+
+                        '</div>';
+                    }else{
+                        html_2 +=   '<div class="row mt-5">'+
+                        '<div class="col-12 mb-1">'+
+                        '<div style="display: inline-flex;"><h4><strong class="mt-5"><p>Pregunta '+(++c)+'</p></strong></h4></div>'+
+                        '<p>'+element.pregunta+'</p>'+
+                        '</div>'+
+                        '</div>';
+                    }
+
 
                     element.alternativas.forEach(resp => {
 
