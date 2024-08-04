@@ -225,6 +225,15 @@
         </div>
         {/if}
 
+        {if $button->tipo == 'encuesta'}
+        <div class="col-12 button-sidebar">
+          
+          <div id="box_icon_not_check_{$i}" class="icon-check"><i class="fa-solid fa-clipboard-list"></i></div>
+        
+          <div><p id="link_encuesta_{$i}" class="text-sidebar" onclick="showClass({$i}, 'show_encuesta_{$i++}')">{$button->nombre}</p></div>
+        </div>
+        {/if}
+
 
       {/if}
       
@@ -257,9 +266,7 @@
             <p class="content-description">{$curso->descripcion}</p>
         </div>
         <div class="col-12">
-          <div class="ratio ratio-16x9">
-            <iframe allowfullscreen src="{$curso->link_video}" title="{$curso->nombre}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
+          {$curso->link_video}
         </div>
       </div>
 
@@ -307,9 +314,7 @@
         </div>
 
         <div class="col-12">
-          <div class="ratio ratio-16x9">
-            <iframe allowfullscreen src="{$content->link_video}" title="{$content->nombre}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
+          {$content->link_video}
         </div>
 
         {if $content->done == true }
@@ -869,7 +874,57 @@
 
    <!--//////////////////////////////////////// FORMULARIOS ////////////////////////////////////////////////-->
 
+   {if $content->tipo == 'encuesta'}
 
+    <div class="row justify-content-center">
+      <div class="col-12"></div>
+      <div class="col-12 col-md-8">
+
+        <div style="display: none" id="show_encuesta_{$c++}">
+          
+          <div><h2>{$content->nombre}</h2></div>
+
+          <div><p class="content-description">{$content->texto}</p></div>
+
+          <div class="breadcrumbs">
+            <div class="row">
+              <div class="col-8 col-md-10 align-self-center">
+                <p>{$curso->nombre} > {$content->nombre}</p>
+              </div>
+            </div>
+          </div>
+
+
+          {$i = 1}
+              {foreach $content->encuesta_pregunta as $question}
+              <div class="col-12 mt-5 mb-5 pregunta_{$c}">
+
+                <p>{$question->pregunta}</p>
+                
+                  {foreach $question->encuesta_alternativas as $alternative}
+
+                    <div class="form-check mt-4 box_response_cues_{$question->id}" id="label_alternative_{$alternative->id}">
+                        <input class="form-check-input" type="radio" name="encuesta_respuesta_{$question->id}" value="{$alternative->id}" id="encuesta_respuesta_{$question->id}">
+                        <label class="form-check-label">
+                          {$alternative->alternativa}
+                        </label> 
+                    </div>
+
+                  {/foreach}
+ 
+              </div>
+              {/foreach}
+
+
+
+        </div>  
+
+      </div>
+      </div>
+    </div>
+
+    
+   {/if}
 
 
   {/foreach}
