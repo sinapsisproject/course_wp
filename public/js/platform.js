@@ -1027,10 +1027,11 @@ function procesar_respuestas_formulario(c , id_formulario , id_curso, total_prog
     var p = 0;
     var i = 0;
 
-    jQuery(".formulario_textarea_"+id_formulario).each(function(index) {
+    jQuery(".formulario_textarea_"+id_formulario).find("textarea").map(function(){
+    // jQuery(".formulario_textarea_"+id_formulario).each(function(index) {
         p=p+1;
-        var respuesta   = jQuery(this).find("textarea").val();
-        var id_pregunta = jQuery(this).find("textarea").attr("id_pregunta");
+        var respuesta   = jQuery(this).val();
+        var id_pregunta = jQuery(this).attr("id_pregunta");
 
         if(respuesta == ""){
             jQuery("#error_textarea_"+id_pregunta).html("<p style='color: red;'>Debes contestar esta pegrunta.</p>")
@@ -1041,6 +1042,8 @@ function procesar_respuestas_formulario(c , id_formulario , id_curso, total_prog
                 "id_pregunta"   : parseInt(id_pregunta),
                 "respuesta"     : respuesta,
             }
+
+            console.log(data);
 
             all_data.push(data);
         }

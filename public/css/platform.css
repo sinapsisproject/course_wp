@@ -32,9 +32,10 @@ button{
 }
 
 .sidebar-row{
-  margin-bottom: 250px;
+  /* margin-bottom: 250px; */
   max-height: 100%;
   overflow-y: auto;
+  padding-bottom: 200px;
 }
 
 
@@ -52,7 +53,7 @@ button{
     border-right-color: #d9d1d1;
     border-right-width: 1px;
     border-right-style: solid;
-    padding-bottom: 144px;
+    /* padding-bottom: 144px; */
   }
   
   .sidebar a {
@@ -197,7 +198,7 @@ button{
     font-weight: bold;
     color: white;
     padding-left: 21px;
-    padding-top: 74px;
+    /* padding-top: 74px; */
   }
 
   .content-description{
