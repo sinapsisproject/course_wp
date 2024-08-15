@@ -898,7 +898,7 @@
 
           {$i = 1}
               {foreach $content->encuesta_pregunta as $question}
-              <div class="col-12 mt-5 mb-5 pregunta_{$c}">
+              <div class="col-12 mt-5 mb-5 pregunta_formulario{$c}">
 
                 <p>{$question->pregunta}</p>
                 
@@ -915,6 +915,15 @@
  
               </div>
               {/foreach}
+
+              <div class="col-12">
+                <button style="display: inline-flex;" onclick="procesar_respuestas_encuesta({$c} , {$content->id} , {$id_curso} , {$progress->total_items})" type="button">
+                  <div id="loading_encuesta_button_{$content->id}" style="margin-top: 5px; margin-right: 10px;width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  Enviar
+                </button>
+              </div>
 
 
 

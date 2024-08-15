@@ -137,7 +137,8 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
                 'ajax_url_assessment'           => plugins_url( '/public/assessment.php' , __FILE__ ),
                 'ajax_url_profile_data'         => plugins_url( '/public/profile_data.php', __FILE__),
                 'ajax_url_progress_bar'         => plugins_url( '/public/progress_bar.php', __FILE__),
-                'ajax_save_data_formulario'     => plugins_url( '/public/save_data_formulario.php', __FILE__)
+                'ajax_save_data_formulario'     => plugins_url( '/public/save_data_formulario.php', __FILE__),
+                'ajax_save_data_encuesta'       => plugins_url( '/public/save_data_encuesta.php', __FILE__)
             )
         );
 
