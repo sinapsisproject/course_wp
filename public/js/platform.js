@@ -206,7 +206,7 @@ jQuery(document).ready( function(){
                               '<h3>No aprobado</h3>'+
                               '<p>Obtuviste un total de '+response.response.notas_finales.suma_puntos_ponderados+' pts.</p>'+
                               '<p>No lograste obtener el mínimo de '+response.response.notas_finales.nota_aprobacion+' puntos ponderados.</p>'+
-                              recu_string+
+                              //recu_string+
                             '</blockquote>'+
                           '</div>'+
                         '</div>'+  
