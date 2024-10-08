@@ -6,7 +6,9 @@
 
 
   <div class="col-2 border-end d-none d-md-block">
-    <img src="{$logo}" alt="" >
+    <a href="https://sinapsisclinica.com/mi-perfil/">
+      <img src="{$logo}" alt="Logo del sitio">
+    </a>
   </div>
 
 
