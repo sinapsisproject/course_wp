@@ -13,6 +13,75 @@
 //require dirname(__FILE__) . '/public/assets/smarty/libs/Smarty.class.php';
 
 
+// Registrar endpoints para AJAX autenticado (usuarios logueados)
+add_action('wp_ajax_get_user_answers', 'get_user_answers');
+add_action('wp_ajax_save_user_answers', 'save_user_answers');
+
+/**
+ * Endpoint para recuperar las respuestas del usuario.
+ */
+function get_user_answers() {
+    global $wpdb;
+
+    $id_encuesta = intval($_POST['id_encuesta']);
+    $id_usuario = get_current_user_id();  // Obtener el ID del usuario actual
+
+    if (!$id_usuario) {
+        wp_send_json_error('Usuario no autenticado', 401);
+    }
+
+    // Consultar las respuestas guardadas para el usuario y encuesta
+    $query = $wpdb->prepare(
+        "SELECT id_pregunta, id_alternativa 
+         FROM respuesta_cuestionarios 
+         WHERE id_usuario = %d AND id_cuestionario = %d",
+        $id_usuario, $id_encuesta
+    );
+
+    $respuestas = $wpdb->get_results($query);
+
+    if ($respuestas) {
+        wp_send_json_success(['respuestas' => $respuestas]);
+    } else {
+        wp_send_json_error('No hay respuestas guardadas');
+    }
+}
+
+/**
+ * Endpoint para guardar las respuestas del usuario.
+ */
+function save_user_answers() {
+    global $wpdb;
+
+    $id_encuesta = intval($_POST['id_encuesta']);
+    $id_usuario = get_current_user_id();  // Obtener el ID del usuario actual
+
+    if (!$id_usuario) {
+        wp_send_json_error('Usuario no autenticado', 401);
+    }
+
+    $respuestas = $_POST['respuestas'];  // Array con las respuestas
+
+    // Guardar cada respuesta en la tabla 'respuesta_cuestionarios'
+    foreach ($respuestas as $respuesta) {
+        if ($respuesta) {  // Ignorar respuestas nulas
+            $wpdb->insert(
+                'respuesta_cuestionarios',
+                [
+                    'id_usuario' => $id_usuario,
+                    'id_cuestionario' => $id_encuesta,
+                    'id_pregunta' => intval($respuesta['id_pregunta']),
+                    'id_alternativa' => intval($respuesta['id_alternativa'])
+                ],
+                ['%d', '%d', '%d', '%d']
+            );
+        }
+    }
+
+    wp_send_json_success('Respuestas guardadas exitosamente');
+}
+//////////////////////////////////////////////////////////////////////////////////
+
 add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
 
     function ajax_enqueue_scripts_course() {
