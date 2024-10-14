@@ -1137,87 +1137,68 @@ function procesar_respuestas_formulario(c, id_formulario, id_curso, total_progre
     }
 }
 
-
-function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress){
-
+function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) {
     let array_data = [];
 
-    jQuery(".pregunta_formulario"+c).each(function(index) {
-
-        var id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
+    jQuery(`.pregunta_formulario${c}`).each(function () {
+        let id_respuesta = jQuery(this).find("input[type='radio']:checked").val() || null; // Permitir nulos
         array_data.push(id_respuesta);
-
     });
 
+    let data = { "respuestas": array_data };
 
-    let data = {
-        "respuestas" : array_data
-    }
-       
     jQuery.ajax({
-        type : "post",
-        url : wp_ajax_sinapsis_platform.ajax_save_data_encuesta,
-        data : data,
-        error: function(response){
-            console.log(response);
-        },
-        success: function(response) {
-
-            if(response.status == true){
-
+        type: "post",
+        url: wp_ajax_sinapsis_platform.ajax_save_data_encuesta,
+        data: data,
+        success: function (response) {
+            if (response.status === true) {
                 Swal.fire({
                     icon: "success",
                     title: "Respuestas enviadas",
                     confirmButtonText: "ok",
                     didClose: () => {
-
                         link_next();
-                        jQuery("#box_icon_not_check_"+(c-1)).replaceWith('<div id="box_icon_check_'+(c-1)+'" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>');
+                        jQuery("#box_icon_not_check_" + (c - 1)).replaceWith(`
+                            <div id="box_icon_check_${c - 1}" class="icon-check">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                        `);
 
                         let data_progres = {
-                            "id_curso" : id_curso,
-                            "id_item"  : id_encuesta,
-                            "nombre_item" : "encuesta"
-                           }
+                            "id_curso": id_curso,
+                            "id_item": id_encuesta,
+                            "nombre_item": "encuesta"
+                        };
 
-                           console.log("data progres");
-                           console.log(data_progres);
-        
-                           jQuery.ajax({
-                            type : "post",
-                            url : wp_ajax_sinapsis_platform.ajax_url_progress,
-                            data : data_progres,
-                            error: function(response){
-                                console.log("response2");
-                                console.log(response);
-                            },
-                            success: function(response) {
+                        jQuery.ajax({
+                            type: "post",
+                            url: wp_ajax_sinapsis_platform.ajax_url_progress,
+                            data: data_progres,
+                            success: function (response) {
                                 console.log(response);
                                 progress_line(id_curso, total_progress);
                             }
-                           })
-
-                    },
+                        });
+                    }
                 });
-
-            }else{
-
             }
-           
         },
-        beforeSend: function (qXHR, settings) {
-            jQuery('#loading_encuesta_button_'+id_encuesta).fadeIn();
+        beforeSend: function () {
+            jQuery('#loading_encuesta_button_' + id_encuesta).fadeIn();
         },
         complete: function () {
-            jQuery('#loading_encuesta_button_'+id_encuesta).fadeOut();
-        },
-    })
-    
-    
-
-
+            jQuery('#loading_encuesta_button_' + id_encuesta).fadeOut();
+        }
+    });
 }
 
+// Llamar a cargar_respuestas_encuesta() al mostrar la encuesta
+jQuery(document).ready(function () {
+    let id_encuesta = 15;  // ID de la encuesta actual (puede ser dinámico)
+    let c = 1;  // Número del formulario (ajustar según corresponda)
+    cargar_respuestas_encuesta(c, id_encuesta);
+});
 
 
 
