@@ -99,7 +99,7 @@ button{
   /* Estilos para el contenido */
   .contenido {
     margin-left: 300px;
-    padding: 16px;
+    padding-top: 80px;
     transition: margin-left 0.5s; /* Agregar transición al desplazamiento del contenido */
   }
 
@@ -120,11 +120,6 @@ button{
   .header-bar img{
     width: 123px;
     padding: 10px;
-  }
-
-  /* Main Content */
-  .content {
-    padding-top: 80px; /* Same height as the header to prevent overlap */
   }
 
   .link-leccion-direction{
