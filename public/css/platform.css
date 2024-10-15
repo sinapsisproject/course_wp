@@ -106,6 +106,10 @@ button{
 
 
   .header-bar{
+    position: fixed; /*Fijando la barra en la parte superior*/
+    top: 0; /* Se coloca en la parte superior */
+    left: 0;              /* Alineada al borde izquierdo */
+    width: 100%;          /* Ocupa todo el ancho de la pantalla */
     border-bottom-color: #d9d1d1;
     border-bottom-width: 1px;
     border-bottom-style: solid;
