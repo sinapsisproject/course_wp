@@ -115,10 +115,14 @@ button{
     border-bottom-style: solid;
     margin: 0px !important;
     z-index: 10 !important;
+    height: 80px; /* Ajusta según la altura del header */
   }
   .header-bar img{
     width: 123px;
     padding: 10px;
+  }
+  body {
+    margin-top: 80px; /* Debe coincidir con la altura del header */
   }
 
   .link-leccion-direction{
