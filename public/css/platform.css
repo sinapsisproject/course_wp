@@ -122,7 +122,7 @@ button{
     padding: 10px;
   }
   .main-content {
-    padding-top: 60px; /* Agrega espacio para evitar que el header lo cubra */
+    padding-top: 80px; /* Agrega espacio para evitar que el header lo cubra */
   }
 
   .link-leccion-direction{
