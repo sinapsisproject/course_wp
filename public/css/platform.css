@@ -114,7 +114,7 @@ button{
     border-bottom-width: 1px;
     border-bottom-style: solid;
     margin: 0px !important;
-    z-index: 10 !important;
+    z-index: 1000 !important;
     height: 80px; /* Ajusta según la altura del header */
   }
   .header-bar img{
