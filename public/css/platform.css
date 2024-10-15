@@ -106,7 +106,7 @@ button{
 
 
   .header-bar{
-    position: sticky; /*Fijando la barra en la parte superior*/
+    position: fixed; /*Fijando la barra en la parte superior*/
     top: 0; /* Se coloca en la parte superior */
     left: 0;              /* Alineada al borde izquierdo */
     width: 100%;          /* Ocupa todo el ancho de la pantalla */
