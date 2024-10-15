@@ -121,8 +121,10 @@ button{
     width: 123px;
     padding: 10px;
   }
-  .main-content {
-    padding-top: 80px; /* Agrega espacio para evitar que el header lo cubra */
+
+  /* Main Content */
+  .content {
+    padding-top: 80px; /* Same height as the header to prevent overlap */
   }
 
   .link-leccion-direction{
