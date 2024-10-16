@@ -122,6 +122,13 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
             array(),
             rand(0, 99)
             );
+        
+        //CODIGO PARA VER LOS CURSOS
+        wp_localize_script('nombre-script', 'encuestaData', [
+            'idEncuesta' => $id_encuesta,
+            'ajaxUrl'    => admin_url('admin-ajax.php')
+        ]);
+
 
 
         wp_localize_script(
