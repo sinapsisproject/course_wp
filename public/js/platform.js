@@ -1220,11 +1220,12 @@ function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress
 
 
 }
-// Función para cargar respuestas guardadas del usuario.
+
+// Función para cargar las respuestas guardadas del usuario.
 async function cargarRespuestas(idEncuesta) {
     try {
         const response = await fetch(
-            `${encuestaData.ajaxUrl}?encuesta=${idEncuesta}`, // Llamada GET.
+            `${wp_ajax_sinapsis_platform.ajax_save_data_encuesta}?encuesta=${idEncuesta}`, 
             { method: 'GET' }
         );
         const data = await response.json();
@@ -1249,5 +1250,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const idEncuesta = encuestaData.idEncuesta;  // ID dinámico pasado desde PHP.
     cargarRespuestas(idEncuesta);
 });
+
+
 
 
