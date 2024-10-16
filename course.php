@@ -324,6 +324,28 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
 
     add_shortcode("shortcodeplataformaview" , "shortcode_plataforma_view");
 
+    function obtener_respuestas_encuesta() {
+    global $wpdb;
+
+    $id_usuario = intval($_GET['usuario']);
+    $id_encuesta = intval($_GET['encuesta']);
+
+    // Consulta para obtener las alternativas seleccionadas por el usuario.
+    $result = $wpdb->get_results($wpdb->prepare(
+        "SELECT ep.id AS id_pregunta, ea.alternativa 
+        FROM encuesta_respuesta er
+        INNER JOIN encuesta_alternativas ea ON er.id_encuesta_alternativa = ea.id
+        INNER JOIN encuesta_pregunta ep ON ea.id_encuesta_pregunta = ep.id
+        WHERE er.id_usuario = %d AND ep.id_encuesta = %d",
+        $id_usuario, $id_encuesta
+    ));
+
+    // Devolver las respuestas en formato JSON.
+    wp_send_json(['respuestas' => $result]);
+}
+add_action('wp_ajax_obtener_respuestas', 'obtener_respuestas_encuesta');
+add_action('wp_ajax_nopriv_obtener_respuestas', 'obtener_respuestas_encuesta');
+
 
 
 ?>
