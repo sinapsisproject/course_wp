@@ -1153,7 +1153,9 @@ function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress
 
     // Crea un objeto de datos con las respuestas.
     let data = {
-        "respuestas" : array_data
+        "respuestas" : array_data,
+        "id_encuesta": id_encuesta,
+        "id_usuario": wp_ajax_sinapsis_platform.user_id
     }
        
     jQuery.ajax({
