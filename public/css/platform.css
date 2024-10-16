@@ -99,7 +99,7 @@ button{
   /* Estilos para el contenido */
   .contenido {
     margin-left: 300px;
-    padding-top: 80px;
+    padding-top: 60px;
     transition: margin-left 0.5s; /* Agregar transición al desplazamiento del contenido */
   }
 
@@ -115,7 +115,7 @@ button{
     border-bottom-style: solid;
     margin: 0px !important;
     z-index: 1000 !important;
-    height: 80px; /* Ajusta según la altura del header */
+    height: 60px; /* Ajusta según la altura del header */
   }
   .header-bar img{
     width: 123px;
