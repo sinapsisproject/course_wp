@@ -1220,4 +1220,34 @@ function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress
 
 
 }
+// Función para cargar respuestas guardadas del usuario.
+async function cargarRespuestas(idEncuesta) {
+    try {
+        const response = await fetch(
+            `${encuestaData.ajaxUrl}?encuesta=${idEncuesta}`, // Llamada GET.
+            { method: 'GET' }
+        );
+        const data = await response.json();
+
+        if (data.status && data.respuestas) {
+            data.respuestas.forEach(respuesta => {
+                const input = document.querySelector(
+                    `[name="pregunta_${respuesta.id_pregunta}"][value="${respuesta.alternativa}"]`
+                );
+                if (input) input.checked = true;  // Marca la opción seleccionada.
+            });
+        } else {
+            console.log("No se encontraron respuestas previas.");
+        }
+    } catch (error) {
+        console.error("Error al cargar las respuestas:", error);
+    }
+}
+
+// Llamar a la función al cargar la página.
+document.addEventListener("DOMContentLoaded", function () {
+    const idEncuesta = encuestaData.idEncuesta;  // ID dinámico pasado desde PHP.
+    cargarRespuestas(idEncuesta);
+});
+
 
