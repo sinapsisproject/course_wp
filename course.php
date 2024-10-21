@@ -326,58 +326,7 @@ add_action( 'wp_enqueue_scripts', 'ajax_enqueue_scripts_course' );
 
     add_shortcode("shortcodeplataformaview" , "shortcode_plataforma_view");
 
-    add_action('wp_ajax_guardar_respuestas_encuesta', 'guardar_respuestas_encuesta');
-    add_action('wp_ajax_nopriv_guardar_respuestas_encuesta', 'guardar_respuestas_encuesta');
 
-    function guardar_respuestas_encuesta() {
-        global $wpdb;
-
-        $respuestas = $_POST['respuestas'];
-        $id_encuesta = $_POST['id_encuesta'];
-        $id_usuario = $_POST['id_usuario'];
-
-        $correcciones = [];
-        $justificaciones = [];
-
-        foreach ($respuestas as $respuesta) {
-            $id_alternativa = $respuesta['id_respuesta'];
-
-            if ($id_alternativa) {
-            // Verifica si la alternativa es correcta
-                $alternativa = $wpdb->get_row(
-                $wpdb->prepare(
-                        "SELECT id, alternativa, es_correcta
-                         FROM encuesta_alternativas
-                         WHERE id = %d",
-                        $id_alternativa
-                    )
-                );
-
-            // Guarda la respuesta del usuario
-                $wpdb->insert('encuesta_respuesta', [
-                    'id_encuesta_alternativa' => $id_alternativa,
-                    'id_usuario' => $id_usuario
-                ]);
-
-                // Prepara la corrección para devolver al frontend
-                $correcciones[] = [
-                    'id' => $alternativa->id,
-                    'opcion' => $alternativa->es_correcta ? 'correcta' : 'incorrecta'
-                ];
-    
-                // Puedes agregar justificaciones si aplican
-                $justificaciones[] = [
-                    'id' => $alternativa->id,
-                    'justificacion' => $alternativa->es_correcta ? "Respuesta correcta" : "Respuesta incorrecta"
-                ];
-            }
-        }
-
-        wp_send_json_success([
-            'correccion' => $correcciones,
-            'justificacion' => $justificaciones
-    ]);
-}
 
 
 
