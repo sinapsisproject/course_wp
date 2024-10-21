@@ -1138,7 +1138,7 @@ function procesar_respuestas_formulario(c, id_formulario, id_curso, total_progre
 }
 
 
-function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress){
+/*function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress){
 
     let array_data = [];
     
@@ -1222,5 +1222,98 @@ function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress
 
 
 }
+*/
+function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) {
+    // Deshabilitar acciones durante el envío
+    jQuery("#button_send_response_cues_" + c).attr("disabled", true);
+    jQuery("#loading_response_cuestionary_" + c).css("display", "inline-block");
 
+    let respuestas = [];
 
+    // Recorrer cada pregunta para recoger las respuestas
+    jQuery(".pregunta_" + c).each(function (index) {
+        let id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
+        respuestas.push({
+            "id_respuesta": id_respuesta ? id_respuesta : null // Manejo de respuestas no seleccionadas
+        });
+    });
+
+    let data = {
+        "respuestas": respuestas,
+        "id_encuesta": id_encuesta,
+        "id_usuario": wp_ajax_sinapsis_platform.user_id
+    };
+
+    // Envío AJAX para guardar respuestas
+    jQuery.ajax({
+        type: "post",
+        url: wp_ajax_sinapsis_platform.ajax_url_response_encuesta,
+        data: data,
+        error: function (response) {
+            console.error(response);
+        },
+        success: function (res) {
+            console.log(res);
+
+            jQuery("#loading_response_cuestionary_" + c).css("display", "none");
+            jQuery("#button_send_response_cues_" + c).css("display", "none");
+
+            if (res.status === true) {
+                // Actualiza el progreso y muestra los resultados
+                jQuery("#box_icon_not_check_" + (c - 1))
+                    .replaceWith('<div id="box_icon_check_' + (c - 1) + '" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>');
+
+                guardarProgreso(id_curso, id_encuesta, "encuesta", total_progress);
+
+                if (res.response.correccion) {
+                    Object.values(res.response.correccion).forEach(element => {
+                        let color = element.opcion === "correcta" ? "#18db18" : "#ff3333";
+                        jQuery("#label_alternative_" + element['id']).css('border-color', color);
+                    });
+                }
+
+                Object.values(res.response.justificacion).forEach(element => {
+                    jQuery("#box-justified-question_" + element['id']).html(element['justificacion']);
+                    jQuery("#justificacion-block_" + element['id']).fadeIn();
+                });
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Respuestas enviadas",
+                    confirmButtonText: "Ver Corrección"
+                });
+
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    footer: 'Contacta a soporte'
+                });
+            }
+        }
+    });
+}
+
+// Función para guardar el progreso del curso
+function guardarProgreso(id_curso, id_item, nombre_item, total_progress) {
+    let data_progres = {
+        "id_curso": id_curso,
+        "id_item": id_item,
+        "nombre_item": nombre_item
+    };
+
+    jQuery.ajax({
+        type: "post",
+        url: wp_ajax_sinapsis_platform.ajax_url_progress,
+        data: data_progres,
+        success: function (response) {
+            console.log(response);
+            if (response.status === true) {
+                progress_line(id_curso, total_progress);
+            }
+        },
+        error: function (response) {
+            console.error(response);
+        }
+    });
+}
