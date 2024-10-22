@@ -1223,13 +1223,7 @@ function procesar_respuestas_formulario(c, id_formulario, id_curso, total_progre
 
 }
 */
-jQuery(document).ready(function () {
-    // Mostrar el formulario al hacer clic en "Iniciar Encuesta"
-    jQuery("#btn_iniciar_encuesta_{$content->id}").on("click", function () {
-        jQuery("#formulario_encuesta_{$content->id}").fadeIn();  // Mostrar formulario
-        jQuery(this).hide();  // Ocultar botón de inicio
-    });
-});
+
 
 function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) {
     let array_data = [];
@@ -1315,4 +1309,10 @@ function mostrarResultados(id_encuesta) {
         }
     });
 }
-
+jQuery(document).ready(function () {
+    // Mostrar el formulario al hacer clic en "Iniciar Encuesta"
+    jQuery("#btn_iniciar_encuesta_{$content->id}").on("click", function () {
+        jQuery("#formulario_encuesta_{$content->id}").fadeIn();  // Mostrar formulario
+        jQuery(this).hide();  // Ocultar botón de inicio
+    });
+});
