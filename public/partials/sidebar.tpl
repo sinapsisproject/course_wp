@@ -879,7 +879,12 @@
 
  <!--//////////////////////////////////////// ENCUESTA////////////////////////////////////////////////-->
 
+    <div style="display: none" id="show_encuesta_{$c++}">
+      <div><h2>{$content->nombre}</h2></div>
+      <div><p class="content-description">{$content->texto}</p></div>
+
     {if $content->tipo == 'encuesta'}
+  
 
     <div class="row justify-content-center">
       <div class="col-12"></div>
