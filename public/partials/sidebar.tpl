@@ -926,16 +926,16 @@
                style="margin-top: 5px; margin-right: 10px;width: 1rem; height: 1rem; display: none;" 
                class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
+            </div>
+            Enviar
+          </button>
           </div>
-          Enviar
-        </button>
+        </div>
+
       </div>
     </div>
 
-  </div>
-</div>
-
-{/if}
+    {/if}
  <!--//////////////////////////////////////// ENCUESTA////////////////////////////////////////////////-->
 
 
