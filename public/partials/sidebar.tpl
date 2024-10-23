@@ -884,11 +884,6 @@
       <div class="col-12"></div>
       <div class="col-12 col-md-8">
     
-        <!-- Botón para iniciar la encuesta -->
-        <button id="btn_iniciar_encuesta_{$content->id}" class="btn btn-primary" style="display: none;">
-          Iniciar Encuesta
-        </button>
-    
         <!-- Botón para ver resultados, inicialmente oculto -->
         <div style="display: none;" id="btn_ver_resultados_container_{$content->id}">
           <button id="btn_ver_resultados_{$content->id}" class="btn btn-info mt-3">
@@ -939,6 +934,7 @@
     </div>
     
     {/if}
+    
 
 
 <!--//////////////////////////////////////// ENCUESTA ////////////////////////////////////////////////-->
