@@ -1231,8 +1231,19 @@ function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) 
     // Recoger las respuestas seleccionadas
     jQuery(".pregunta_formulario" + c).each(function () {
         let id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
-        array_data.push(id_respuesta);  // Guarda cada respuesta seleccionada
+        if (id_respuesta) {
+            array_data.push(id_respuesta);  // Guarda cada respuesta seleccionada
+        }
     });
+
+    if (array_data.length === 0) {
+        Swal.fire({
+            icon: "warning",
+            title: "Selecciona al menos una respuesta",
+            confirmButtonText: "OK"
+        });
+        return; // No continuar si no se seleccionaron respuestas
+    }
 
     let data = {
         "respuestas": array_data,
@@ -1253,13 +1264,16 @@ function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) 
         },
         success: function (response) {
             if (response.status === true) {
+                // Ocultar el formulario después del envío exitoso
+                jQuery("#show_encuesta_" + id_encuesta).fadeOut();
+
                 Swal.fire({
                     icon: "success",
                     title: "Respuestas enviadas",
                     confirmButtonText: "OK",
                     didClose: () => {
-                        // Mostrar botón para ver resultados al finalizar
-                        jQuery("#formulario_encuesta_" + id_encuesta).after(`
+                        // Mostrar el botón de resultados después del envío
+                        jQuery("#show_encuesta_" + id_encuesta).after(`
                             <button id="btn_ver_resultados_${id_encuesta}" class="btn btn-info mt-3">
                               Ver Resultados
                             </button>
@@ -1271,13 +1285,27 @@ function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) 
                         });
                     }
                 });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "No se pudieron enviar las respuestas. Intenta de nuevo.",
+                    confirmButtonText: "OK"
+                });
             }
         },
         error: function (response) {
             console.log("Error al enviar respuestas:", response);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error de conexión. Intenta de nuevo.",
+                confirmButtonText: "OK"
+            });
         }
     });
 }
+
 function mostrarResultados(id_encuesta) {
     jQuery.ajax({
         type: "post",
@@ -1300,19 +1328,20 @@ function mostrarResultados(id_encuesta) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "No se pudieron recuperar los resultados"
+                    text: "No se pudieron recuperar los resultados.",
+                    confirmButtonText: "OK"
                 });
             }
         },
         error: function (response) {
-            console.log("Error al recuperar resultados:", response);
+            console.log("Error al recuperar los resultados:", response);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Error de conexión. Intenta de nuevo.",
+                confirmButtonText: "OK"
+            });
         }
     });
 }
-jQuery(document).ready(function () {
-    // Mostrar el formulario al hacer clic en "Iniciar Encuesta"
-    jQuery("#btn_iniciar_encuesta_{$content->id}").on("click", function () {
-        jQuery("#formulario_encuesta_{$content->id}").fadeIn();  // Mostrar formulario
-        jQuery(this).hide();  // Ocultar botón de inicio
-    });
-});
+
