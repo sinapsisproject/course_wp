@@ -876,25 +876,20 @@
     {/if}
 
    <!--//////////////////////////////////////// FORMULARIOS ////////////////////////////////////////////////-->
+    <!--//////////////////////////////////////// ENCUESTA ////////////////////////////////////////////////-->
 
-   <!--//////////////////////////////////////// ENCUESTA////////////////////////////////////////////////-->
+   {if $content->tipo == 'encuesta'}
 
-    {if $content->tipo == 'encuesta'}
-    
     <div class="row justify-content-center">
       <div class="col-12"></div>
       <div class="col-12 col-md-8">
-    
-        <!-- Botón para iniciar la encuesta -->
-        <button id="btn_iniciar_encuesta_{$content->id}" class="btn btn-primary">
-          Iniciar Encuesta
-        </button>
-    
-        <!-- Formulario de encuesta (oculto inicialmente) -->
-        <div style="display: none;" id="show_encuesta_{$content->id}">
+
+        <div style="display: none" id="show_encuesta_{$c++}">
+          
           <div><h2>{$content->nombre}</h2></div>
+
           <div><p class="content-description">{$content->texto}</p></div>
-    
+
           <div class="breadcrumbs">
             <div class="row">
               <div class="col-8 col-md-10 align-self-center">
@@ -902,56 +897,48 @@
               </div>
             </div>
           </div>
-    
-          <!-- Preguntas de la encuesta -->
+
+
           {$i = 1}
-          {foreach $content->encuesta_pregunta as $question}
-            <div class="col-12 mt-5 mb-5 pregunta_formulario{$c}">
-              <p>{$question->pregunta}</p>
-    
-              {foreach $question->encuesta_alternativas as $alternative}
-                <div class="form-check mt-4 box_response_cues_{$question->id}" id="label_alternative_{$alternative->id}">
-                  <input class="form-check-input" type="radio" 
-                         name="encuesta_respuesta_{$question->id}" 
-                         value="{$alternative->id}" 
-                         id="encuesta_respuesta_{$question->id}">
-                  <label class="form-check-label">
-                    {$alternative->alternativa}
-                  </label>
-                </div>
-              {/foreach}
-            </div>
-          {/foreach}
-    
-          <!-- Botón para enviar las respuestas -->
-          <div class="col-12">
-            <button style="display: inline-flex;" 
-                    onclick="procesar_respuestas_encuesta({$content->id}, {$id_curso}, {$progress->total_items})" 
-                    type="button">
-              <div id="loading_encuesta_button_{$content->id}" 
-                   style="margin-top: 5px; margin-right: 10px; width: 1rem; height: 1rem; display: none;" 
-                   class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+              {foreach $content->encuesta_pregunta as $question}
+              <div class="col-12 mt-5 mb-5 pregunta_formulario{$c}">
+
+                <p>{$question->pregunta}</p>
+                
+                  {foreach $question->encuesta_alternativas as $alternative}
+
+                    <div class="form-check mt-4 box_response_cues_{$question->id}" id="label_alternative_{$alternative->id}">
+                        <input class="form-check-input" type="radio" name="encuesta_respuesta_{$question->id}" value="{$alternative->id}" id="encuesta_respuesta_{$question->id}">
+                        <label class="form-check-label">
+                          {$alternative->alternativa}
+                        </label> 
+                    </div>
+
+                  {/foreach}
+ 
               </div>
-              Enviar
-            </button>
-          </div>
-        </div>
-    
-        <!-- Botón para ver los resultados (oculto inicialmente) -->
-        <div style="display: none;" id="btn_ver_resultados_container_{$content->id}">
-          <button id="btn_ver_resultados_{$content->id}" class="btn btn-info mt-3">
-            Ver Resultados
-          </button>
-        </div>
-    
+              {/foreach}
+
+              <div class="col-12">
+                <button style="display: inline-flex;" onclick="procesar_respuestas_encuesta({$c} , {$content->id} , {$id_curso} , {$progress->total_items})" type="button">
+                  <div id="loading_encuesta_button_{$content->id}" style="margin-top: 5px; margin-right: 10px;width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  Enviar
+                </button>
+              </div>
+
+
+
+        </div>  
+
       </div>
     </div>
+
     
-    {/if}
+   {/if}
 
-
- <!--//////////////////////////////////////// ENCUESTA////////////////////////////////////////////////-->
+<!--//////////////////////////////////////// ENCUESTA ////////////////////////////////////////////////-->
 
 
   {/foreach}
