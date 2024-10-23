@@ -1137,90 +1137,125 @@ function procesar_respuestas_formulario(c, id_formulario, id_curso, total_progre
     }
 }
 
-function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress){
+jQuery(document).ready(function () {
+    const id_encuesta = {$content->id};  // ID de la encuesta
 
-    let array_data = [];
-    
+    // Verificar si ya existen respuestas guardadas
+    verificarRespuestasGuardadas(id_encuesta);
 
-    // Recorre las preguntas de la encuesta y guarda las respuestas seleccionadas.
-    jQuery(".pregunta_formulario"+c).each(function(index) {
-
-        var id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
-        array_data.push(id_respuesta); // Guarda el ID de la respuesta seleccionada.
-
+    // Mostrar formulario al hacer clic en "Iniciar Encuesta"
+    jQuery("#btn_iniciar_encuesta_" + id_encuesta).on("click", function () {
+        jQuery("#show_encuesta_" + id_encuesta).fadeIn();
+        jQuery(this).hide();  // Ocultar botón de inicio
     });
 
-    // Crea un objeto de datos con las respuestas.
+    // Mostrar resultados al hacer clic en "Ver Resultados"
+    jQuery("#btn_ver_resultados_" + id_encuesta).on("click", function () {
+        mostrarResultados(id_encuesta);
+    });
+});
+
+// Verificar si hay respuestas guardadas para mostrar el botón de resultados
+function verificarRespuestasGuardadas(id_encuesta) {
+    jQuery.ajax({
+        type: "post",
+        url: wp_ajax_sinapsis_platform.ajax_check_respuestas_encuesta,
+        data: { "id_encuesta": id_encuesta },
+        success: function (response) {
+            if (response.status === true && response.data.length > 0) {
+                // Mostrar el botón "Ver Resultados"
+                jQuery("#btn_ver_resultados_container_" + id_encuesta).show();
+            } else {
+                // Mostrar el botón "Iniciar Encuesta"
+                jQuery("#btn_iniciar_encuesta_" + id_encuesta).show();
+            }
+        },
+        error: function (response) {
+            console.log("Error al verificar respuestas guardadas:", response);
+        }
+    });
+}
+
+// Procesar las respuestas enviadas
+function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) {
+    let array_data = [];
+
+    // Recoger las respuestas seleccionadas
+    jQuery(".pregunta_formulario" + c).each(function () {
+        let id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
+        if (id_respuesta) {
+            array_data.push(id_respuesta);
+        }
+    });
+
+    if (array_data.length === 0) {
+        Swal.fire({
+            icon: "warning",
+            title: "Selecciona al menos una respuesta",
+            confirmButtonText: "OK"
+        });
+        return;
+    }
+
     let data = {
-        "respuestas" : array_data,
+        "respuestas": array_data,
         "id_encuesta": id_encuesta,
         "id_usuario": wp_ajax_sinapsis_platform.user_id
-    }
-       
+    };
+
+    // Enviar respuestas mediante AJAX
     jQuery.ajax({
-        type : "post",
-        url : wp_ajax_sinapsis_platform.ajax_save_data_encuesta,
-        data : data, // Envía las respuestas al servidor.
-        error: function(response){
-            console.log(response);
+        type: "post",
+        url: wp_ajax_sinapsis_platform.ajax_save_data_encuesta,
+        data: data,
+        beforeSend: function () {
+            jQuery('#loading_encuesta_button_' + id_encuesta).fadeIn();
         },
-        success: function(response) {
-
-            if(response.status == true){
-
+        complete: function () {
+            jQuery('#loading_encuesta_button_' + id_encuesta).fadeOut();
+        },
+        success: function (response) {
+            if (response.status === true) {
                 Swal.fire({
                     icon: "success",
                     title: "Respuestas enviadas",
-                    confirmButtonText: "ok",
+                    confirmButtonText: "OK",
                     didClose: () => {
-
-                        link_next();
-                        jQuery("#box_icon_not_check_"+(c-1)).replaceWith('<div id="box_icon_check_'+(c-1)+'" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>');
-
-                        let data_progres = {
-                            "id_curso" : id_curso,
-                            "id_item"  : id_encuesta,
-                            "nombre_item" : "encuesta"
-                           }
-
-                           console.log("data progres");
-                           console.log(data_progres);
-                        
-                           // Envía datos de progreso al servidor mediante AJAX.
-                           jQuery.ajax({
-                            type : "post",
-                            url : wp_ajax_sinapsis_platform.ajax_url_progress,
-                            data : data_progres,
-                            error: function(response){
-                                console.log("response2");
-                                console.log(response);
-                            },
-                            success: function(response) {
-                                console.log(response);
-                                progress_line(id_curso, total_progress);
-                            }
-                           })
-
-                    },
+                        jQuery("#show_encuesta_" + id_encuesta).hide();
+                        jQuery("#btn_ver_resultados_container_" + id_encuesta).show();
+                    }
                 });
-
-            }else{
-
             }
-           
         },
-        beforeSend: function (qXHR, settings) {
-            jQuery('#loading_encuesta_button_'+id_encuesta).fadeIn();
-        },
-        complete: function () {
-            jQuery('#loading_encuesta_button_'+id_encuesta).fadeOut();
-        },
-    })
-    
-    
-
-
+        error: function (response) {
+            console.log("Error al enviar respuestas:", response);
+        }
+    });
 }
 
+// Mostrar los resultados guardados
+function mostrarResultados(id_encuesta) {
+    jQuery.ajax({
+        type: "post",
+        url: wp_ajax_sinapsis_platform.ajax_get_resultados_encuesta,
+        data: { "id_encuesta": id_encuesta },
+        success: function (response) {
+            if (response.status === true) {
+                let resultadosHTML = "<h3>Resultados de la Encuesta</h3><ul>";
+                response.data.forEach(function (respuesta) {
+                    resultadosHTML += `<li>${respuesta.pregunta}: ${respuesta.respuesta}</li>`;
+                });
+                resultadosHTML += "</ul>";
 
-
+                Swal.fire({
+                    title: "Resultados",
+                    html: resultadosHTML,
+                    confirmButtonText: "Cerrar"
+                });
+            }
+        },
+        error: function (response) {
+            console.log("Error al recuperar los resultados:", response);
+        }
+    });
+}
