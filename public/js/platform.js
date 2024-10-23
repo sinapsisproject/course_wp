@@ -1143,19 +1143,13 @@ jQuery(document).ready(function () {
     // Verificar si ya existen respuestas guardadas
     verificarRespuestasGuardadas(id_encuesta);
 
-    // Mostrar formulario al hacer clic en "Iniciar Encuesta"
-    jQuery("#btn_iniciar_encuesta_" + id_encuesta).on("click", function () {
-        jQuery("#show_encuesta_" + id_encuesta).fadeIn();
-        jQuery(this).hide();  // Ocultar botón de inicio
-    });
-
     // Mostrar resultados al hacer clic en "Ver Resultados"
     jQuery("#btn_ver_resultados_" + id_encuesta).on("click", function () {
         mostrarResultados(id_encuesta);
     });
 });
 
-// Verificar si hay respuestas guardadas para mostrar el botón de resultados
+// Verificar si hay respuestas guardadas para mostrar el botón de resultados o el formulario
 function verificarRespuestasGuardadas(id_encuesta) {
     jQuery.ajax({
         type: "post",
@@ -1166,8 +1160,8 @@ function verificarRespuestasGuardadas(id_encuesta) {
                 // Mostrar el botón "Ver Resultados"
                 jQuery("#btn_ver_resultados_container_" + id_encuesta).show();
             } else {
-                // Mostrar el botón "Iniciar Encuesta"
-                jQuery("#btn_iniciar_encuesta_" + id_encuesta).show();
+                // Mostrar el formulario de encuesta
+                jQuery("#show_encuesta_" + id_encuesta).fadeIn();
             }
         },
         error: function (response) {
@@ -1259,3 +1253,4 @@ function mostrarResultados(id_encuesta) {
         }
     });
 }
+
