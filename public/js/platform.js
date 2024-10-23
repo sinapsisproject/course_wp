@@ -1137,8 +1137,7 @@ function procesar_respuestas_formulario(c, id_formulario, id_curso, total_progre
     }
 }
 
-
-/*function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress){
+function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress){
 
     let array_data = [];
     
@@ -1222,126 +1221,6 @@ function procesar_respuestas_formulario(c, id_formulario, id_curso, total_progre
 
 
 }
-*/
 
 
-function procesar_respuestas_encuesta(c, id_encuesta, id_curso, total_progress) {
-    let array_data = [];
-
-    // Recoger las respuestas seleccionadas
-    jQuery(".pregunta_formulario" + c).each(function () {
-        let id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
-        if (id_respuesta) {
-            array_data.push(id_respuesta);  // Guarda cada respuesta seleccionada
-        }
-    });
-
-    if (array_data.length === 0) {
-        Swal.fire({
-            icon: "warning",
-            title: "Selecciona al menos una respuesta",
-            confirmButtonText: "OK"
-        });
-        return; // No continuar si no se seleccionaron respuestas
-    }
-
-    let data = {
-        "respuestas": array_data,
-        "id_encuesta": id_encuesta,
-        "id_usuario": wp_ajax_sinapsis_platform.user_id
-    };
-
-    // Enviar respuestas mediante AJAX
-    jQuery.ajax({
-        type: "post",
-        url: wp_ajax_sinapsis_platform.ajax_save_data_encuesta,
-        data: data,
-        beforeSend: function () {
-            jQuery('#loading_encuesta_button_' + id_encuesta).fadeIn();
-        },
-        complete: function () {
-            jQuery('#loading_encuesta_button_' + id_encuesta).fadeOut();
-        },
-        success: function (response) {
-            if (response.status === true) {
-                // Ocultar el formulario después del envío exitoso
-                jQuery("#show_encuesta_" + id_encuesta).fadeOut();
-
-                Swal.fire({
-                    icon: "success",
-                    title: "Respuestas enviadas",
-                    confirmButtonText: "OK",
-                    didClose: () => {
-                        // Mostrar el botón de resultados después del envío
-                        jQuery("#show_encuesta_" + id_encuesta).after(`
-                            <button id="btn_ver_resultados_${id_encuesta}" class="btn btn-info mt-3">
-                              Ver Resultados
-                            </button>
-                        `);
-
-                        // Evento para mostrar resultados
-                        jQuery("#btn_ver_resultados_" + id_encuesta).on("click", function () {
-                            mostrarResultados(id_encuesta);
-                        });
-                    }
-                });
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "No se pudieron enviar las respuestas. Intenta de nuevo.",
-                    confirmButtonText: "OK"
-                });
-            }
-        },
-        error: function (response) {
-            console.log("Error al enviar respuestas:", response);
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Error de conexión. Intenta de nuevo.",
-                confirmButtonText: "OK"
-            });
-        }
-    });
-}
-
-function mostrarResultados(id_encuesta) {
-    jQuery.ajax({
-        type: "post",
-        url: wp_ajax_sinapsis_platform.ajax_get_resultados_encuesta,
-        data: { "id_encuesta": id_encuesta },
-        success: function (response) {
-            if (response.status === true) {
-                let resultadosHTML = "<h3>Resultados de la Encuesta</h3><ul>";
-                response.data.forEach(function (respuesta) {
-                    resultadosHTML += `<li>${respuesta.pregunta}: ${respuesta.respuesta}</li>`;
-                });
-                resultadosHTML += "</ul>";
-
-                Swal.fire({
-                    title: "Resultados",
-                    html: resultadosHTML,
-                    confirmButtonText: "Cerrar"
-                });
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "No se pudieron recuperar los resultados.",
-                    confirmButtonText: "OK"
-                });
-            }
-        },
-        error: function (response) {
-            console.log("Error al recuperar los resultados:", response);
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Error de conexión. Intenta de nuevo.",
-                confirmButtonText: "OK"
-            });
-        }
-    });
-}
 
