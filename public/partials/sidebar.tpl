@@ -793,78 +793,158 @@
 
     <!--//////////////////////////////////////// FORMULARIOS ////////////////////////////////////////////////-->
 
-    {if $content->tipo == 'encuesta'}
+    {if $content->tipo == 'formulario'}
+
+    <div class="row justify-content-center">
+    <div class="col-12"></div>
+    <div class="col-12 col-md-8">
+
+      <div style="display: none" id="show_formulario_{$c++}">
     
-        <div class="row justify-content-center">
-          <div class="col-12"></div>
-          <div class="col-12 col-md-8">
-        
-            <div style="display: none" id="show_encuesta_{$c++}">
-              
-              <div><h2>{$content->nombre}</h2></div>
-        
-              <div><p class="content-description">{$content->texto}</p></div>
-    
-              <!-- Verificar si esta encuesta ha sido completada -->
-              {if $content->done == true}
-    
-                <!-- Mostrar un mensaje de que esta encuesta ya fue completada -->
-                <div class="alert alert-success">
-                  <p>Has completado esta encuesta. Gracias por tu participación.</p>
-                </div>
-    
-              {else}
-    
-                <!-- Mostrar las preguntas de esta encuesta si no ha sido completada -->
-                <div class="breadcrumbs">
-                  <div class="row">
-                    <div class="col-8 col-md-10 align-self-center">
-                      <p>{$curso->nombre} > {$content->nombre}</p>
-                    </div>
-                  </div>
-                </div>
-          
-                {$i = 1}
-                {foreach $content->encuesta_pregunta as $question}
-                  <div class="col-12 mt-5 mb-5 pregunta_formulario{$c}">
-            
-                    <p>{$question->pregunta}</p>
-                    
-                    {foreach $question->encuesta_alternativas as $alternative}
-              
-                      <div class="form-check mt-4 box_response_cues_{$question->id}" id="label_alternative_{$alternative->id}">
-                        <input class="form-check-input" type="radio" name="encuesta_respuesta_{$question->id}" value="{$alternative->id}" id="encuesta_respuesta_{$question->id}">
-                        <label class="form-check-label">
-                          {$alternative->alternativa}
-                        </label> 
-                      </div>
-              
-                    {/foreach}
-           
-                  </div>
-                {/foreach}
-          
-                <div class="col-12">
-                  <button style="display: inline-flex;" onclick="procesar_respuestas_encuesta({$c} , {$content->id} , {$id_curso} , {$progress->total_items})" type="button">
-                    <div id="loading_encuesta_button_{$content->id}" style="margin-top: 5px; margin-right: 10px;width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                    Enviar
-                  </button>
-                </div>
-    
-              {/if} <!-- Fin de la condición de encuesta completada -->
-    
+        <div><h2>{$content->nombre}</h2></div>
+
+        <div><p class="content-description">{$content->texto}</p></div>
+
+        <div class="breadcrumbs">
+          <div class="row">
+            <div class="col-8 col-md-10 align-self-center">
+              <p>{$curso->nombre} > {$content->nombre}</p>
             </div>
-        
+            <div class="col-4 col-md-2 align-self-center" id="progress_breadcrumbs_{$c}">
+                {if $content->done == true}
+                  <div class="etiqueta_estado_completado text-center"><p>COMPLETADO</p></div>
+                {else}
+                <div class="etiqueta_estado_progreso text-center"><p>EN PROGRESO</p></div>
+                {/if}
+            </div>
           </div>
         </div>
+
+        {if $content->done != true}
+        <div class="col-12 mt-2">
+          <!-- CONTENIDO -->
+
+            <div class="formulario_textarea_{$content->id}">
+              {foreach $content->pregunta_formularios as $pregunta}
+                  {if $pregunta->tipo == 'textarea'}
+                    <div class="mt-3">
+                      <p>{$pregunta->pregunta}</p>
+                      <textarea id_pregunta="{$pregunta->id}" id="respuesta_formulario_pregunta_{$pregunta->id}" rows="4" class="form-control"></textarea>
+                      <div id="error_textarea_{$pregunta->id}"></div>
+                    </div>
+                  {/if}
+              {/foreach}
+            </div>
+
+
+            <div class="formulario_input_text_{$content->id}">
+              {foreach $content->pregunta_formularios as $pregunta}
+                {if $pregunta->tipo == 'input'}
+                  <div class="mt-3">
+                    <p>{$pregunta->pregunta}</p>
+                    <input id_pregunta="{$pregunta->id}" id="respuesta_input_text_{$pregunta->id}" type="text" class="form-control">
+                    <div id="error_input_{$pregunta->id}"></div>
+                  </div>
+                {/if}
+              {/foreach}
+            </div>
+
+          <div class="col-12 text-end mt-4">
+            <button style="display: inline-flex;" onclick="procesar_respuestas_formulario({$c} , {$content->id} , {$id_curso} , {$progress->total_items})" type="button">
+                <div id="loading_formulario_button_{$content->id}" style="margin-top: 5px; margin-right: 10px;width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                Enviar
+            </button>
+          </div>
+
+        </div>
+        {else}
+        <div class="col-12 mt-2">
+          <p>Respuestas enviadas.</p>
+        </div>
+        {/if}
+       
+        
+      </div>
+        
+    </div>
+    <div class="class-12"></div>
+    </div>
+
+
+    {/if}
+
+   <!--//////////////////////////////////////// FORMULARIOS ////////////////////////////////////////////////-->
+
+    {if $content->tipo == 'encuesta'}
+
+      <div class="row justify-content-center">
+        <div class="col-12"></div>
+        <div class="col-12 col-md-8">
     
-      {/if}
+          <div style="display: none" id="show_encuesta_{$c++}">
+          
+            <div><h2>{$content->nombre}</h2></div>
+    
+            <div><p class="content-description">{$content->texto}</p></div>
 
+            <!-- Verificar si esta encuesta ha sido completada -->
+            {if $content->done == true}
 
+              <!-- Mostrar un mensaje de que esta encuesta ya fue completada -->
+              <div class="alert alert-success">
+                <p>Has completado esta encuesta. Gracias por tu participación.</p>
+              </div>
 
-<!--//////////////////////////////////////// ENCUESTA ////////////////////////////////////////////////-->
+            {else}
+
+              <!-- Mostrar las preguntas de esta encuesta si no ha sido completada -->
+              <div class="breadcrumbs">
+                <div class="row">
+                  <div class="col-8 col-md-10 align-self-center">
+                    <p>{$curso->nombre} > {$content->nombre}</p>
+                  </div>
+                </div>
+              </div>
+      
+              {$i = 1}
+              {foreach $content->encuesta_pregunta as $question}
+                <div class="col-12 mt-5 mb-5 pregunta_formulario{$c}">
+        
+                  <p>{$question->pregunta}</p>
+                
+                  {foreach $question->encuesta_alternativas as $alternative}
+          
+                    <div class="form-check mt-4 box_response_cues_{$question->id}" id="label_alternative_{$alternative->id}">
+                      <input class="form-check-input" type="radio" name="encuesta_respuesta_{$question->id}" value="{$alternative->id}" id="encuesta_respuesta_{$question->id}">
+                      <label class="form-check-label">
+                        {$alternative->alternativa}
+                      </label> 
+                    </div>
+          
+                  {/foreach}
+       
+                </div>
+              {/foreach}
+      
+              <div class="col-12">
+                <button style="display: inline-flex;" onclick="procesar_respuestas_encuesta({$c} , {$content->id} , {$id_curso} , {$progress->total_items})" type="button">
+                  <div id="loading_encuesta_button_{$content->id}" style="margin-top: 5px; margin-right: 10px;width: 1rem; height: 1rem; display: none;" class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  Enviar
+                </button>
+              </div>
+
+            {/if} <!-- Fin de la condición de encuesta completada -->
+
+          </div>
+    
+        </div>
+      </div>
+
+    {/if}
 
 
   {/foreach}
