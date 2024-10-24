@@ -1137,4 +1137,87 @@ function procesar_respuestas_formulario(c, id_formulario, id_curso, total_progre
     }
 }
 
+function procesar_respuestas_encuesta(c , id_encuesta , id_curso, total_progress){
 
+    let array_data = [];
+    
+
+    // Recorre las preguntas de la encuesta y guarda las respuestas seleccionadas.
+    jQuery(".pregunta_formulario"+c).each(function(index) {
+
+        var id_respuesta = jQuery(this).find("input[type='radio']:checked").val();
+        array_data.push(id_respuesta); // Guarda el ID de la respuesta seleccionada.
+
+    });
+
+    // Crea un objeto de datos con las respuestas.
+    let data = {
+        "respuestas" : array_data,
+        "id_encuesta": id_encuesta,
+        "id_usuario": wp_ajax_sinapsis_platform.user_id
+    }
+       
+    jQuery.ajax({
+        type : "post",
+        url : wp_ajax_sinapsis_platform.ajax_save_data_encuesta,
+        data : data, // Envía las respuestas al servidor.
+        error: function(response){
+            console.log(response);
+        },
+        success: function(response) {
+
+            if(response.status == true){
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Respuestas enviadas",
+                    confirmButtonText: "ok",
+                    didClose: () => {
+
+                        link_next();
+                        jQuery("#box_icon_not_check_"+(c-1)).replaceWith('<div id="box_icon_check_'+(c-1)+'" class="icon-check"><i class="fa-solid fa-circle-check"></i></div>');
+
+                        let data_progres = {
+                            "id_curso" : id_curso,
+                            "id_item"  : id_encuesta,
+                            "nombre_item" : "encuesta"
+                           }
+
+                           console.log("data progres");
+                           console.log(data_progres);
+                        
+                           // Envía datos de progreso al servidor mediante AJAX.
+                           jQuery.ajax({
+                            type : "post",
+                            url : wp_ajax_sinapsis_platform.ajax_url_progress,
+                            data : data_progres,
+                            error: function(response){
+                                console.log("response2");
+                                console.log(response);
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                progress_line(id_curso, total_progress);
+                            }
+                           })
+
+                    },
+                });
+
+            }else{
+
+            }
+           
+        },
+        beforeSend: function (qXHR, settings) {
+            jQuery('#loading_encuesta_button_'+id_encuesta).fadeIn();
+        },
+        complete: function () {
+            jQuery('#loading_encuesta_button_'+id_encuesta).fadeOut();
+        },
+    })
+    
+    
+
+
+}
